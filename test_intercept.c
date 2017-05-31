@@ -134,6 +134,19 @@ int main(int argc, char **argv) {
 	   Feel free to add more tests here for other system calls, 
 	   once you get everything to work; check Linux documentation
 	   for other syscall number definitions.  */
+	//Testing additional syscalls. All of these should pass.
+	test_syscall(SYS_exit);
+	test_syscall(SYS_fork);
+	test_syscall(SYS_read);
+	test_syscall(SYS_write);
+	test_syscall(SYS_close);
+	test_syscall(SYS_waitpid);
+	test_syscall(SYS_creat);
+	test_syscall(SYS_link);
+	test_syscall(SYS_unlink);
+	test_syscall(SYS_execve);
+	test_syscall(SYS_chdir);
+	test_syscall(SYS_chmod);
 
 	test("rmmod interceptor.ko %s", "", system("rmmod interceptor") == 0);
 	return 0;
