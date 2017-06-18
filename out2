@@ -1,0 +1,886 @@
+[    0.000000] Initializing cgroup subsys cpuset
+[    0.000000] Initializing cgroup subsys cpu
+[    0.000000] Linux version 2.6.32.63+drm33.26 (root@ubuntu) (gcc version 4.4.3 (Ubuntu 4.4.3-4ubuntu5.1) ) #1 SMP Sat Jun 27 19:44:35 PDT 2015 (Ubuntu 2.6.32-38.83-generic 2.6.32.52+drm33.21)
+[    0.000000] KERNEL supported cpus:
+[    0.000000]   Intel GenuineIntel
+[    0.000000]   AMD AuthenticAMD
+[    0.000000]   NSC Geode by NSC
+[    0.000000]   Cyrix CyrixInstead
+[    0.000000]   Centaur CentaurHauls
+[    0.000000]   Transmeta GenuineTMx86
+[    0.000000]   Transmeta TransmetaCPU
+[    0.000000]   UMC UMC UMC UMC
+[    0.000000] BIOS-provided physical RAM map:
+[    0.000000]  BIOS-e820: 0000000000000000 - 000000000009fc00 (usable)
+[    0.000000]  BIOS-e820: 000000000009fc00 - 00000000000a0000 (reserved)
+[    0.000000]  BIOS-e820: 00000000000f0000 - 0000000000100000 (reserved)
+[    0.000000]  BIOS-e820: 0000000000100000 - 000000001fff0000 (usable)
+[    0.000000]  BIOS-e820: 000000001fff0000 - 0000000020000000 (ACPI data)
+[    0.000000]  BIOS-e820: 00000000fffc0000 - 0000000100000000 (reserved)
+[    0.000000] DMI 2.5 present.
+[    0.000000] last_pfn = 0x1fff0 max_arch_pfn = 0x100000
+[    0.000000] MTRR default type: uncachable
+[    0.000000] MTRR variable ranges disabled:
+[    0.000000] x86 PAT enabled: cpu 0, old 0x7040600070406, new 0x7010600070106
+[    0.000000] CPU MTRRs all blank - virtualized system.
+[    0.000000] e820 update range: 0000000000002000 - 0000000000006000 (usable) ==> (reserved)
+[    0.000000] Scanning 1 areas for low memory corruption
+[    0.000000] modified physical RAM map:
+[    0.000000]  modified: 0000000000000000 - 0000000000002000 (usable)
+[    0.000000]  modified: 0000000000002000 - 0000000000006000 (reserved)
+[    0.000000]  modified: 0000000000006000 - 000000000009fc00 (usable)
+[    0.000000]  modified: 000000000009fc00 - 00000000000a0000 (reserved)
+[    0.000000]  modified: 00000000000f0000 - 0000000000100000 (reserved)
+[    0.000000]  modified: 0000000000100000 - 000000001fff0000 (usable)
+[    0.000000]  modified: 000000001fff0000 - 0000000020000000 (ACPI data)
+[    0.000000]  modified: 00000000fffc0000 - 0000000100000000 (reserved)
+[    0.000000] initial memory mapped : 0 - 00c00000
+[    0.000000] init_memory_mapping: 0000000000000000-000000001fff0000
+[    0.000000] Using x86 segment limits to approximate NX protection
+[    0.000000]  0000000000 - 0000400000 page 4k
+[    0.000000]  0000400000 - 001fc00000 page 2M
+[    0.000000]  001fc00000 - 001fff0000 page 4k
+[    0.000000] kernel direct mapping tables up to 1fff0000 @ 7000-c000
+[    0.000000] RAMDISK: 13de9000 - 18033112
+[    0.000000] ACPI: RSDP 000e0000 00024 (v02 VBOX  )
+[    0.000000] ACPI: XSDT 1fff0030 0003C (v01 VBOX   VBOXXSDT 00000001 ASL  00000061)
+[    0.000000] ACPI: FACP 1fff00f0 000F4 (v04 VBOX   VBOXFACP 00000001 ASL  00000061)
+[    0.000000] ACPI: DSDT 1fff0470 01BF1 (v01 VBOX   VBOXBIOS 00000002 INTL 20140214)
+[    0.000000] ACPI: FACS 1fff0200 00040
+[    0.000000] ACPI: APIC 1fff0240 00054 (v02 VBOX   VBOXAPIC 00000001 ASL  00000061)
+[    0.000000] ACPI: SSDT 1fff02a0 001CC (v01 VBOX   VBOXCPUT 00000002 INTL 20140214)
+[    0.000000] ACPI: Local APIC address 0xfee00000
+[    0.000000] 0MB HIGHMEM available.
+[    0.000000] 511MB LOWMEM available.
+[    0.000000]   mapped low ram: 0 - 1fff0000
+[    0.000000]   low ram: 0 - 1fff0000
+[    0.000000]   node 0 low ram: 00000000 - 1fff0000
+[    0.000000]   node 0 bootmap 00008000 - 0000c000
+[    0.000000] (9 early reservations) ==> bootmem [0000000000 - 001fff0000]
+[    0.000000]   #0 [0000000000 - 0000001000]   BIOS data page ==> [0000000000 - 0000001000]
+[    0.000000]   #1 [0000001000 - 0000002000]    EX TRAMPOLINE ==> [0000001000 - 0000002000]
+[    0.000000]   #2 [0000006000 - 0000007000]       TRAMPOLINE ==> [0000006000 - 0000007000]
+[    0.000000]   #3 [0000100000 - 00008d2ef8]    TEXT DATA BSS ==> [0000100000 - 00008d2ef8]
+[    0.000000]   #4 [0013de9000 - 0018033112]          RAMDISK ==> [0013de9000 - 0018033112]
+[    0.000000]   #5 [000009f800 - 0000100000]    BIOS reserved ==> [000009f800 - 0000100000]
+[    0.000000]   #6 [00008d3000 - 00008d610c]              BRK ==> [00008d3000 - 00008d610c]
+[    0.000000]   #7 [0000007000 - 0000008000]          PGTABLE ==> [0000007000 - 0000008000]
+[    0.000000]   #8 [0000008000 - 000000c000]          BOOTMAP ==> [0000008000 - 000000c000]
+[    0.000000] found SMP MP-table at [c009fff0] 9fff0
+[    0.000000] Zone PFN ranges:
+[    0.000000]   DMA      0x00000000 -> 0x00001000
+[    0.000000]   Normal   0x00001000 -> 0x0001fff0
+[    0.000000]   HighMem  0x0001fff0 -> 0x0001fff0
+[    0.000000] Movable zone start PFN for each node
+[    0.000000] early_node_map[3] active PFN ranges
+[    0.000000]     0: 0x00000000 -> 0x00000002
+[    0.000000]     0: 0x00000006 -> 0x0000009f
+[    0.000000]     0: 0x00000100 -> 0x0001fff0
+[    0.000000] On node 0 totalpages: 130955
+[    0.000000] free_area_init_node: node 0, pgdat c078e800, node_mem_map c1001000
+[    0.000000]   DMA zone: 32 pages used for memmap
+[    0.000000]   DMA zone: 0 pages reserved
+[    0.000000]   DMA zone: 3963 pages, LIFO batch:0
+[    0.000000]   Normal zone: 992 pages used for memmap
+[    0.000000]   Normal zone: 125968 pages, LIFO batch:31
+[    0.000000] Using APIC driver default
+[    0.000000] ACPI: PM-Timer IO Port: 0x4008
+[    0.000000] ACPI: Local APIC address 0xfee00000
+[    0.000000] ACPI: LAPIC (acpi_id[0x00] lapic_id[0x00] enabled)
+[    0.000000] ACPI: IOAPIC (id[0x01] address[0xfec00000] gsi_base[0])
+[    0.000000] IOAPIC[0]: apic_id 1, version 17, address 0xfec00000, GSI 0-23
+[    0.000000] ACPI: INT_SRC_OVR (bus 0 bus_irq 0 global_irq 2 dfl dfl)
+[    0.000000] ACPI: INT_SRC_OVR (bus 0 bus_irq 9 global_irq 9 high level)
+[    0.000000] ACPI: IRQ0 used by override.
+[    0.000000] ACPI: IRQ2 used by override.
+[    0.000000] ACPI: IRQ9 used by override.
+[    0.000000] Using ACPI (MADT) for SMP configuration information
+[    0.000000] SMP: Allowing 1 CPUs, 0 hotplug CPUs
+[    0.000000] nr_irqs_gsi: 24
+[    0.000000] PM: Registered nosave memory: 0000000000002000 - 0000000000006000
+[    0.000000] PM: Registered nosave memory: 000000000009f000 - 00000000000a0000
+[    0.000000] PM: Registered nosave memory: 00000000000a0000 - 00000000000f0000
+[    0.000000] PM: Registered nosave memory: 00000000000f0000 - 0000000000100000
+[    0.000000] Allocating PCI resources starting at 20000000 (gap: 20000000:dffc0000)
+[    0.000000] Booting paravirtualized kernel on bare hardware
+[    0.000000] NR_CPUS:8 nr_cpumask_bits:8 nr_cpu_ids:1 nr_node_ids:1
+[    0.000000] PERCPU: Embedded 14 pages/cpu @c1800000 s36056 r0 d21288 u4194304
+[    0.000000] pcpu-alloc: s36056 r0 d21288 u4194304 alloc=1*4194304
+[    0.000000] pcpu-alloc: [0] 0 
+[    0.000000] Built 1 zonelists in Zone order, mobility grouping on.  Total pages: 129931
+[    0.000000] Kernel command line: BOOT_IMAGE=/boot/vmlinuz-2.6.32.63+drm33.26 root=UUID=e947b11e-76ec-4daa-b78b-45be1179fdeb ro find_preseed=/preseed.cfg noprompt quiet
+[    0.000000] PID hash table entries: 2048 (order: 1, 8192 bytes)
+[    0.000000] Dentry cache hash table entries: 65536 (order: 6, 262144 bytes)
+[    0.000000] Inode-cache hash table entries: 32768 (order: 5, 131072 bytes)
+[    0.000000] Enabling fast FPU save and restore... done.
+[    0.000000] Enabling unmasked SIMD FPU exception support... done.
+[    0.000000] Initializing CPU#0
+[    0.000000] allocated 2621120 bytes of page_cgroup
+[    0.000000] please try 'cgroup_disable=memory' option if you don't want memory cgroups
+[    0.000000] Initializing HighMem for node 0 (00000000:00000000)
+[    0.000000] Memory: 440432k/524224k available (4660k kernel code, 83068k reserved, 2095k data, 660k init, 0k highmem)
+[    0.000000] virtual kernel memory layout:
+[    0.000000]     fixmap  : 0xfff1d000 - 0xfffff000   ( 904 kB)
+[    0.000000]     pkmap   : 0xff800000 - 0xffc00000   (4096 kB)
+[    0.000000]     vmalloc : 0xe07f0000 - 0xff7fe000   ( 496 MB)
+[    0.000000]     lowmem  : 0xc0000000 - 0xdfff0000   ( 511 MB)
+[    0.000000]       .init : 0xc0799000 - 0xc083e000   ( 660 kB)
+[    0.000000]       .data : 0xc058d0d3 - 0xc0798dc8   (2095 kB)
+[    0.000000]       .text : 0xc0100000 - 0xc058d0d3   (4660 kB)
+[    0.000000] Checking if this processor honours the WP bit even in supervisor mode...Ok.
+[    0.000000] SLUB: Genslabs=13, HWalign=64, Order=0-3, MinObjects=0, CPUs=1, Nodes=1
+[    0.000000] Hierarchical RCU implementation.
+[    0.000000] NR_IRQS:2304 nr_irqs:256
+[    0.000000] Console: colour VGA+ 80x25
+[    0.000000] console [tty0] enabled
+[    0.000000] Fast TSC calibration failed
+[    0.000000] TSC: PIT calibration matches PMTIMER. 1 loops
+[    0.000000] Detected 1826.096 MHz processor.
+[    0.004003] Calibrating delay loop (skipped), value calculated using timer frequency.. 3652.19 BogoMIPS (lpj=7304384)
+[    0.004015] Security Framework initialized
+[    0.004027] AppArmor: AppArmor initialized
+[    0.004031] Mount-cache hash table entries: 512
+[    0.004766] Initializing cgroup subsys ns
+[    0.004772] Initializing cgroup subsys cpuacct
+[    0.004775] Initializing cgroup subsys memory
+[    0.004780] Initializing cgroup subsys devices
+[    0.004782] Initializing cgroup subsys freezer
+[    0.004784] Initializing cgroup subsys net_cls
+[    0.004840] , L1 D cache: 32K
+[    0.004842] CPU: L2 cache: 6144K
+[    0.004848] mce: CPU supports 0 MCE banks
+[    0.004883] using mwait in idle threads.
+[    0.004886] Performance Events: unsupported p6 CPU model 58 no PMU driver, software events only.
+[    0.004898] Checking 'hlt' instruction... OK.
+[    0.024042] SMP alternatives: switching to UP code
+[    0.047482] Freeing SMP alternatives: 19k freed
+[    0.049899] ACPI: Core revision 20090903
+[    0.051207] ftrace: converting mcount calls to 0f 1f 44 00 00
+[    0.051348] ftrace: allocating 20595 entries in 41 pages
+[    0.064554] Enabling APIC mode:  Flat.  Using 1 I/O APICs
+[    0.068326] ..TIMER: vector=0x30 apic1=0 pin1=2 apic2=-1 pin2=-1
+[    0.110944] CPU0: Intel(R) Core(TM) i5-3337U CPU @ 1.80GHz stepping 09
+[    0.112007] Brought up 1 CPUs
+[    0.112007] Total of 1 processors activated (3652.19 BogoMIPS).
+[    0.112007] CPU0 attaching NULL sched-domain.
+[    0.112007] devtmpfs: initialized
+[    0.112007] regulator: core version 0.5
+[    0.112007] Time:  1:38:54  Date: 05/30/17
+[    0.112007] NET: Registered protocol family 16
+[    0.112007] EISA bus registered
+[    0.112007] ACPI: bus type pci registered
+[    0.112007] PCI: PCI BIOS revision 2.10 entry at 0xfda26, last bus=0
+[    0.112007] PCI: Using configuration type 1 for base access
+[    0.112007] bio: create slab <bio-0> at 0
+[    0.112007] ACPI: EC: Look up EC in DSDT
+[    0.112007] ACPI: Executed 1 blocks of module-level executable AML code
+[    0.112007] ACPI: Interpreter enabled
+[    0.112007] ACPI: (supports S0 S5)
+[    0.112007] ACPI: Using IOAPIC for interrupt routing
+[    0.113341] ACPI: No dock devices found.
+[    0.113388] ACPI: PCI Root Bridge [PCI0] (0000:00)
+[    0.114370] pci 0000:00:01.1: reg 20 io port: [0xd000-0xd00f]
+[    0.115511] pci 0000:00:02.0: reg 10 32bit mmio pref: [0xe0000000-0xe0ffffff]
+[    0.116514] pci 0000:00:03.0: reg 10 32bit mmio: [0xf0000000-0xf001ffff]
+[    0.116595] pci 0000:00:03.0: reg 18 io port: [0xd010-0xd017]
+[    0.117140] pci 0000:00:04.0: reg 10 io port: [0xd020-0xd03f]
+[    0.117427] pci 0000:00:04.0: reg 14 32bit mmio: [0xf0400000-0xf07fffff]
+[    0.117692] pci 0000:00:04.0: reg 18 32bit mmio pref: [0xf0800000-0xf0803fff]
+[    0.118047] pci 0000:00:05.0: reg 10 io port: [0xd100-0xd1ff]
+[    0.118086] pci 0000:00:05.0: reg 14 io port: [0xd200-0xd23f]
+[    0.118689] pci 0000:00:06.0: reg 10 32bit mmio: [0xf0804000-0xf0804fff]
+[    0.119758] pci 0000:00:0d.0: reg 10 io port: [0xd240-0xd247]
+[    0.119833] pci 0000:00:0d.0: reg 18 io port: [0xd250-0xd257]
+[    0.120036] pci 0000:00:0d.0: reg 20 io port: [0xd260-0xd26f]
+[    0.120314] pci 0000:00:0d.0: reg 24 32bit mmio: [0xf0806000-0xf0807fff]
+[    0.120741] pci_bus 0000:00: on NUMA node 0
+[    0.120768] ACPI: PCI Interrupt Routing Table [\_SB_.PCI0._PRT]
+[    0.124615] ACPI: PCI Interrupt Link [LNKA] (IRQs 5 9 10 *11)
+[    0.124811] ACPI: PCI Interrupt Link [LNKB] (IRQs 5 9 10 *11)
+[    0.124885] ACPI: PCI Interrupt Link [LNKC] (IRQs 5 9 *10 11)
+[    0.124959] ACPI: PCI Interrupt Link [LNKD] (IRQs 5 *9 10 11)
+[    0.125078] vgaarb: device added: PCI:0000:00:02.0,decodes=io+mem,owns=io+mem,locks=none
+[    0.125081] vgaarb: loaded
+[    0.125175] SCSI subsystem initialized
+[    0.125231] libata version 3.00 loaded.
+[    0.125286] usbcore: registered new interface driver usbfs
+[    0.125292] usbcore: registered new interface driver hub
+[    0.125306] usbcore: registered new device driver usb
+[    0.125378] ACPI: WMI: Mapper loaded
+[    0.125380] PCI: Using ACPI for IRQ routing
+[    0.125631] NetLabel: Initializing
+[    0.125632] NetLabel:  domain hash size = 128
+[    0.125633] NetLabel:  protocols = UNLABELED CIPSOv4
+[    0.125640] NetLabel:  unlabeled traffic allowed by default
+[    0.125666] Switching to clocksource tsc
+[    0.126823] AppArmor: AppArmor Filesystem Enabled
+[    0.126830] pnp: PnP ACPI init
+[    0.126840] ACPI: bus type pnp registered
+[    0.127690] pnp: PnP ACPI: found 5 devices
+[    0.127692] ACPI: ACPI bus type pnp unregistered
+[    0.127694] PnPBIOS: Disabled by ACPI PNP
+[    0.160190] pci_bus 0000:00: resource 0 io:  [0x00-0xffff]
+[    0.160192] pci_bus 0000:00: resource 1 mem: [0x000000-0xffffffff]
+[    0.160212] NET: Registered protocol family 2
+[    0.160265] IP route cache hash table entries: 4096 (order: 2, 16384 bytes)
+[    0.160399] TCP established hash table entries: 16384 (order: 5, 131072 bytes)
+[    0.160427] TCP bind hash table entries: 16384 (order: 5, 131072 bytes)
+[    0.160453] TCP: Hash tables configured (established 16384 bind 16384)
+[    0.160455] TCP reno registered
+[    0.160488] NET: Registered protocol family 1
+[    0.160496] pci 0000:00:00.0: Limiting direct PCI/PCI transfers
+[    0.160509] pci 0000:00:01.0: Activating ISA DMA hang workarounds
+[    0.160521] pci 0000:00:02.0: Boot video device
+[    0.160547]   alloc irq_desc for 22 on node -1
+[    0.160549]   alloc kstat_irqs on node -1
+[    0.160568] pci 0000:00:06.0: PCI INT A -> GSI 22 (level, low) -> IRQ 22
+[    0.160719] pci 0000:00:06.0: PCI INT A disabled
+[    0.160769] platform rtc_cmos: registered platform RTC device (no PNP device found)
+[    0.160819] cpufreq-nforce2: No nForce2 chipset.
+[    0.160834] Scanning for low memory corruption every 60 seconds
+[    0.160896] audit: initializing netlink socket (disabled)
+[    0.160903] type=2000 audit(1496108334.157:1): initialized
+[    0.167444] Trying to unpack rootfs image as initramfs...
+[    0.177162] HugeTLB registered 4 MB page size, pre-allocated 0 pages
+[    0.177880] VFS: Disk quotas dquot_6.5.2
+[    0.177911] Dquot-cache hash table entries: 1024 (order 0, 4096 bytes)
+[    0.181077] fuse init (API version 7.13)
+[    0.181131] msgmni has been set to 860
+[    0.188751] alg: No test for stdrng (krng)
+[    0.188807] Block layer SCSI generic (bsg) driver version 0.4 loaded (major 253)
+[    0.188809] io scheduler noop registered
+[    0.188811] io scheduler anticipatory registered
+[    0.188812] io scheduler deadline registered
+[    0.188836] io scheduler cfq registered (default)
+[    0.188882] pci_hotplug: PCI Hot Plug PCI Core version: 0.5
+[    0.188895] pciehp: PCI Express Hot Plug Controller Driver version: 0.4
+[    0.188978] ACPI: AC Adapter [AC] (on-line)
+[    0.189016] input: Power Button as /devices/LNXSYSTM:00/LNXPWRBN:00/input/input0
+[    0.189018] ACPI: Power Button [PWRF]
+[    0.189072] input: Sleep Button as /devices/LNXSYSTM:00/LNXSLPBN:00/input/input1
+[    0.189073] ACPI: Sleep Button [SLPF]
+[    0.189311] processor LNXCPU:00: registered as cooling_device0
+[    0.190813] Serial: 8250/16550 driver, 4 ports, IRQ sharing enabled
+[    0.191531] brd: module loaded
+[    0.191769] loop: module loaded
+[    0.191814] input: Macintosh mouse button emulation as /devices/virtual/input/input2
+[    0.191857] ata_piix 0000:00:01.1: version 2.13
+[    0.191911] ata_piix 0000:00:01.1: setting latency timer to 64
+[    0.192057] scsi0 : ata_piix
+[    0.192727] ACPI: Battery Slot [BAT0] (battery present)
+[    0.192733] isapnp: Scanning for PnP cards...
+[    0.198315] scsi1 : ata_piix
+[    0.198347] ata1: PATA max UDMA/33 cmd 0x1f0 ctl 0x3f6 bmdma 0xd000 irq 14
+[    0.198349] ata2: PATA max UDMA/33 cmd 0x170 ctl 0x376 bmdma 0xd008 irq 15
+[    0.198637] Fixed MDIO Bus: probed
+[    0.198666] PPP generic driver version 2.4.2
+[    0.198697] tun: Universal TUN/TAP device driver, 1.6
+[    0.198698] tun: (C) 1999-2004 Max Krasnyansky <maxk@qualcomm.com>
+[    0.198759] ehci_hcd: USB 2.0 'Enhanced' Host Controller (EHCI) Driver
+[    0.198772] ohci_hcd: USB 1.1 'Open' Host Controller (OHCI) Driver
+[    0.198784] ohci_hcd 0000:00:06.0: PCI INT A -> GSI 22 (level, low) -> IRQ 22
+[    0.198811] ohci_hcd 0000:00:06.0: setting latency timer to 64
+[    0.198837] ohci_hcd 0000:00:06.0: OHCI Host Controller
+[    0.198869] ohci_hcd 0000:00:06.0: new USB bus registered, assigned bus number 1
+[    0.198954] ohci_hcd 0000:00:06.0: irq 22, io mem 0xf0804000
+[    0.251581] usb usb1: configuration #1 chosen from 1 choice
+[    0.251608] hub 1-0:1.0: USB hub found
+[    0.251624] hub 1-0:1.0: 8 ports detected
+[    0.251824] uhci_hcd: USB Universal Host Controller Interface driver
+[    0.251882] PNP: PS/2 Controller [PNP0303:PS2K,PNP0f03:PS2M] at 0x60,0x64 irq 1,12
+[    0.252834] serio: i8042 KBD port at 0x60,0x64 irq 1
+[    0.252839] serio: i8042 AUX port at 0x60,0x64 irq 12
+[    0.252912] mice: PS/2 mouse device common for all mice
+[    0.253348] input: AT Translated Set 2 keyboard as /devices/platform/i8042/serio0/input/input3
+[    0.254152] rtc_cmos rtc_cmos: rtc core: registered rtc_cmos as rtc0
+[    0.254221] rtc0: alarms up to one day, 114 bytes nvram
+[    0.254289] device-mapper: uevent: version 1.0.3
+[    0.259056] device-mapper: ioctl: 4.15.0-ioctl (2009-04-01) initialised: dm-devel@redhat.com
+[    0.259089] device-mapper: multipath: version 1.1.0 loaded
+[    0.259091] device-mapper: multipath round-robin: version 1.0.0 loaded
+[    0.259157] EISA: Probing bus 0 at eisa.0
+[    0.259181] Cannot allocate resource for EISA slot 4
+[    0.259201] EISA: Detected 0 cards.
+[    0.264080] cpuidle: using governor ladder
+[    0.264082] cpuidle: using governor menu
+[    0.264281] TCP cubic registered
+[    0.264367] NET: Registered protocol family 10
+[    0.264736] NET: Registered protocol family 17
+[    0.264769] Using IPI No-Shortcut mode
+[    0.264816] PM: Resume from disk failed.
+[    0.264822] registered taskstats version 1
+[    0.265257]   Magic number: 1:931:610
+[    0.265318] rtc_cmos rtc_cmos: setting system clock to 2017-05-30 01:38:54 UTC (1496108334)
+[    0.265320] BIOS EDD facility v0.16 2004-Jun-25, 0 devices found
+[    0.265321] EDD information not available.
+[    0.350729] ata2.00: ATAPI: VBOX CD-ROM, 1.0, max UDMA/133
+[    0.351191] ata2.00: configured for UDMA/33
+[    0.792683] usb 1-1: new full speed USB device using ohci_hcd and address 2
+[    0.886707] isapnp: No Plug & Play device found
+[    0.887098] scsi 1:0:0:0: CD-ROM            VBOX     CD-ROM           1.0  PQ: 0 ANSI: 5
+[    0.889185] sr0: scsi3-mmc drive: 32x/32x xa/form2 tray
+[    0.889188] Uniform CD-ROM driver Revision: 3.20
+[    0.889260] sr 1:0:0:0: Attached scsi CD-ROM sr0
+[    0.889296] sr 1:0:0:0: Attached scsi generic sg0 type 5
+[    1.056681] usb 1-1: configuration #1 chosen from 1 choice
+[    1.707887] Freeing initrd memory: 67880k freed
+[    1.715612] Freeing unused kernel memory: 660k freed
+[    1.715809] Write protecting the kernel text: 4664k
+[    1.715831] Write protecting the kernel read-only data: 1812k
+[    1.726084] udev: starting version 151
+[    1.793293] Intel(R) PRO/1000 Network Driver - version 7.3.21-k5-NAPI
+[    1.793350] Copyright (c) 1999-2006 Intel Corporation.
+[    1.793519]   alloc irq_desc for 19 on node -1
+[    1.793544]   alloc kstat_irqs on node -1
+[    1.793583] e1000 0000:00:03.0: PCI INT A -> GSI 19 (level, low) -> IRQ 19
+[    1.793634] e1000 0000:00:03.0: setting latency timer to 64
+[    1.796965] VMware vmxnet3 virtual NIC driver - version 1.0.5.0-k-NAPI
+[    1.805943] VMware PVSCSI driver - version 1.0.1.0-k
+[    1.807592] usbcore: registered new interface driver hiddev
+[    2.116218] e1000: 0000:00:03.0: e1000_probe: (PCI:33MHz:32-bit) 08:00:27:ca:78:52
+[    2.116325] input: VirtualBox USB Tablet as /devices/pci0000:00/0000:00:06.0/usb1/1-1/1-1:1.0/input/input4
+[    2.116395] generic-usb 0003:80EE:0021.0001: input,hidraw0: USB HID v1.10 Mouse [VirtualBox USB Tablet] on usb-0000:00:06.0-1/input0
+[    2.116411] usbcore: registered new interface driver usbhid
+[    2.116413] usbhid: v2.6:USB HID core driver
+[    2.155964] e1000: eth0: e1000_probe: Intel(R) PRO/1000 Network Connection
+[    2.155984] ahci 0000:00:0d.0: version 3.0
+[    2.156000]   alloc irq_desc for 21 on node -1
+[    2.156000]   alloc kstat_irqs on node -1
+[    2.156000] ahci 0000:00:0d.0: PCI INT A -> GSI 21 (level, low) -> IRQ 21
+[    2.156098] ahci: SSS flag set, parallel bus scan disabled
+[    2.156234] ahci 0000:00:0d.0: AHCI 0001.0100 32 slots 1 ports 3 Gbps 0x1 impl SATA mode
+[    2.156237] ahci 0000:00:0d.0: flags: 64bit ncq stag only ccc 
+[    2.156256] ahci 0000:00:0d.0: setting latency timer to 64
+[    2.156685] scsi2 : ahci
+[    2.156727] ata3: SATA max UDMA/133 abar m8192@0xf0806000 port 0xf0806100 irq 21
+[    2.477073] ata3: SATA link up 3.0 Gbps (SStatus 123 SControl 300)
+[    2.477441] ata3.00: ATA-6: VBOX HARDDISK, 1.0, max UDMA/133
+[    2.477447] ata3.00: 20971520 sectors, multi 128: LBA48 NCQ (depth 31/32)
+[    2.478134] ata3.00: configured for UDMA/133
+[    2.478320] scsi 2:0:0:0: Direct-Access     ATA      VBOX HARDDISK    1.0  PQ: 0 ANSI: 5
+[    2.478562] sd 2:0:0:0: Attached scsi generic sg1 type 0
+[    2.478986] sd 2:0:0:0: [sda] 20971520 512-byte logical blocks: (10.7 GB/10.0 GiB)
+[    2.479066] sd 2:0:0:0: [sda] Write Protect is off
+[    2.479071] sd 2:0:0:0: [sda] Mode Sense: 00 3a 00 00
+[    2.479111] sd 2:0:0:0: [sda] Write cache: enabled, read cache: enabled, doesn't support DPO or FUA
+[    2.479344]  sda: sda1 sda2 < sda5 >
+[    2.521392] sd 2:0:0:0: [sda] Attached SCSI disk
+[    2.637007] EXT4-fs (sda1): mounted filesystem with ordered data mode
+[    6.172105] udev: starting version 151
+[    6.182398] Adding 492536k swap on /dev/sda5.  Priority:-1 extents:1 across:492536k 
+[    6.277409] piix4_smbus 0000:00:07.0: SMBus base address uninitialized - upgrade BIOS or use force_addr=0xaddr
+[    6.293213] udev: renamed network interface eth0 to eth1
+[    6.298959] psmouse serio1: ID: 10 00 64
+[    6.327569] lp: driver loaded but no devices found
+[    6.423790] vga16fb: initializing
+[    6.423792] vga16fb: mapped to 0xc00a0000
+[    6.423826] fb0: VGA16 VGA frame buffer device
+[    6.424025] input: Video Bus as /devices/LNXSYSTM:00/LNXSYBUS:00/PNP0A03:00/LNXVIDEO:00/input/input5
+[    6.424025] ACPI: Video Device [GFX0] (multi-head: yes  rom: no  post: no)
+[    6.434404] type=1505 audit(1496108340.667:2):  operation="profile_load" pid=388 name="/sbin/dhclient3"
+[    6.434879] type=1505 audit(1496108340.667:3):  operation="profile_load" pid=388 name="/usr/lib/NetworkManager/nm-dhcp-client.action"
+[    6.435185] type=1505 audit(1496108340.667:4):  operation="profile_load" pid=388 name="/usr/lib/connman/scripts/dhclient-script"
+[    6.436983] type=1505 audit(1496108340.671:5):  operation="profile_replace" pid=394 name="/sbin/dhclient3"
+[    6.437486] type=1505 audit(1496108340.671:6):  operation="profile_replace" pid=394 name="/usr/lib/NetworkManager/nm-dhcp-client.action"
+[    6.437771] type=1505 audit(1496108340.671:7):  operation="profile_replace" pid=394 name="/usr/lib/connman/scripts/dhclient-script"
+[    6.466468] parport_pc 00:04: reported by Plug and Play ACPI
+[    6.475712] input: ImExPS/2 Generic Explorer Mouse as /devices/platform/i8042/serio1/input/input6
+[    6.486328] Intel ICH 0000:00:05.0: PCI INT A -> GSI 21 (level, low) -> IRQ 21
+[    6.486361] Intel ICH 0000:00:05.0: setting latency timer to 64
+[    7.022218] ppdev: user-space parallel port driver
+[    7.086039] intel8x0_measure_ac97_clock: measured 77408 usecs (13670 samples)
+[    7.086059] intel8x0: measured clock 176596 rejected
+[    7.253798] Console: switching to colour frame buffer device 80x30
+[    7.523687] type=1505 audit(1496108341.754:8):  operation="profile_replace" pid=511 name="/sbin/dhclient3"
+[    7.524044] type=1505 audit(1496108341.754:9):  operation="profile_replace" pid=511 name="/usr/lib/NetworkManager/nm-dhcp-client.action"
+[    7.524044] type=1505 audit(1496108341.754:10):  operation="profile_replace" pid=511 name="/usr/lib/connman/scripts/dhclient-script"
+[    7.524044] type=1505 audit(1496108341.754:11):  operation="profile_load" pid=512 name="/usr/sbin/tcpdump"
+[    7.648354] intel8x0_measure_ac97_clock: measured 157380 usecs (18268 samples)
+[    7.648356] intel8x0: measured clock 116075 rejected
+[    8.011676] intel8x0_measure_ac97_clock: measured 59210 usecs (12721 samples)
+[    8.011692] intel8x0: measured clock 214845 rejected
+[    8.011705] intel8x0: clocking to 48000
+[  235.902543] e1000: eth1 NIC Link is Up 1000 Mbps Full Duplex, Flow Control: RX
+[  235.903160] ADDRCONF(NETDEV_UP): eth1: link is not ready
+[  235.904275] ADDRCONF(NETDEV_CHANGE): eth1: link becomes ready
+[  246.716030] eth1: no IPv6 routers present
+[  299.162459] monitor all
+[  299.221532] final stop monitor
+[  299.267315] final stop monitor
+[  299.327761] final stop monitor
+[  299.375488] final stop monitor
+[  299.423954] monitor all
+[  299.463248] final stop monitor
+[  299.516694] 1
+[  299.516694] [392]5(3d580c52,1974f9c9,449f7ac5,6450f673,1170ac,59bc3f2a)
+[  299.516694] 1
+[  299.516694] [395]5(9a8af5,0,0,9ab87c,8048ba0,bff56f60)
+[  299.516694] 1
+[  299.516694] [395]5(b7752e39,0,0,b7752e39,8048ba0,bff56fbc)
+[  299.516694] 1
+[  299.516694] [396]5(943af5,0,0,94687c,80483c0,bff24df0)
+[  299.516694] 1
+[  299.516694] [396]5(b77a2e39,0,0,b77a2e39,80483c0,bff24e4c)
+[  299.516694] 1
+[  299.516694] [396]5(480a94,8000,1,bff25040,bff25040,bff25234)
+[  299.516694] 1
+[  299.516694] [396]5(bff25000,0,1b6,8ee1018,0,bff24f58)
+[  299.516694] 1
+[  299.516694] [396]5(8ee10a8,0,0,8ee10e0,0,bff25218)
+[  299.516694] 1
+[  299.516694] [396]5(8ee1f20,0,0,8ee1f98,1,bff25218)
+[  299.516694] 1
+[  299.516694] [396]5(4806bc,0,0,bff25240,bff25220,bff2515c)
+[  299.516694] 1
+[  299.516694] [396]5(8ee1ff8,0,0,8ee23e0,0,bff25218)
+[  299.516694] 1
+[  299.516694] [396]5(8ee2700,0,0,8ee2688,1,bff25218)
+[  299.516694] 1
+[  299.516694] [396]5(8ee2ac0,0,0,8ee2af0,0,bff25218)
+[  299.516694] 1
+[  299.516694] [396]5(8ee2d00,0,0,8ee2dc8,1,bff25218)
+[  299.516694] 1
+[  299.516694] [396]5(8ee3180,0,0,8ee2ff8,0,bff25218)
+[  299.516694] 1
+[  299.516694] [396]5(8ee32c8,0,0,8ee3440,1,bff25218)
+[  299.516694] 1
+[  299.516694] [396]5(8ee3568,0,0,8ee3670,0,bff25218)
+[  299.516694] 1
+[  299.516694] [396]5(8ee3b60,0,0,8ee3b28,1,bff25218)
+[  299.516694] 1
+[  299.516694] [396]5(8ee3ee0,0,0,8ee3e30,0,bff25218)
+[  299.516694] 1
+[  299.516694] [396]5(8ee41a8,0,0,8ee4170,1,bff25218)
+[  299.516694] 1
+[  299.516694] [396]5(8ee43f0,0,0,8ee4568,0,bff25218)
+[  299.516694] 1
+[  299.516694] [396]5(8ee4758,0,0,8ee4820,1,bff25218)
+[  299.516694] 1
+[  299.516694] [396]5(bff25150,0,c,8ee4820,bff25150,bff25218)
+[  299.516694] 1
+[  299.516694] [396]5(8ee49e0,0,0,8ee4bd0,0,bff25218)
+[  299.516694] 1
+[  299.516694] [396]5(8ee4de0,0,0,8ee4ea8,1,bff25218)
+[  299.516694] 1
+[  299.516694] [396]5(8ee5378,0,0,8ee5110,0,bff25218)
+[  299.516694] 1
+[  299.516694] [396]5(8ee54c0,0,0,8ee5638,1,bff25218)
+[  299.516694] 1
+[  299.516694] [396]5(8ee5760,0,0,8ee5868,0,bff25218)
+[  299.516694] 1
+[  299.516694] [396]5(8ee5d30,0,0,8ee5cf8,1,bff25218)
+[  299.516694] 1
+[  299.516694] [396]5(8ee6298,0,0,8ee6000,0,bff25218)
+[  299.516694] 1
+[  299.516694] [396]5(8ee63c0,0,0,8ee6538,1,bff25218)
+[  299.516694] 1
+[  299.516694] [396]5(8ee68e0,0,0,8ee6768,0,bff25218)
+[  299.516694] 1
+[  299.516694] [396]5(8ee6bc8,0,0,8ee6b90,1,bff25218)
+[  299.516694] 1
+[  299.516694] [397]5(8059886,98800,946f2e8,946f2df,0,bff57178)
+[  299.516694] 1
+[  299.516694] [397]5(6a4af5,0,0,6a787c,8048bb5,bfca8010)
+[  299.516694] 1
+[  299.516694] [397]5(b77bfad4,0,0,b77bfad4,8048bb5,bfca806c)
+[  299.516694] 1
+[  299.516694] [397]5(b77bfe39,0,0,b77bfe39,8048bf0,bfca8050)
+[  299.516694] 1
+[  299.516694] [397]5(24da94,8000,1,bfca81a0,bfca81a0,bfca8394)
+[  299.516694] 1
+[  299.516694] [397]5(bfca8160,0,1b6,9104018,0,bfca80b8)
+[  299.516694] 1
+[  299.516694] [397]5(91040a8,0,0,91040e0,0,bfca8378)
+[  299.516694] 1
+[  299.516694] [397]5(9104f20,0,0,9104f98,1,bfca8378)
+[  299.516694] 1
+[  299.516694] [397]5(24d6bc,0,0,bfca83a0,bfca8380,bfca82bc)
+[  299.516694] 1
+[  299.516694] [397]5(9104ff8,0,0,91053e0,0,bfca8378)
+[  299.516694] 1
+[  299.516694] [397]5(9105700,0,0,9105688,1,bfca8378)
+[  299.516694] 1
+[  299.516694] [397]5(9105ac0,0,0,9105af0,0,bfca8378)
+[  299.516694] 1
+[  299.516694] [397]5(9105d00,0,0,9105dc8,1,bfca8378)
+[  299.516694] 1
+[  299.516694] [397]5(9106180,0,0,9105ff8,0,bfca8378)
+[  299.516694] 1
+[  299.516694] [397]5(91062c8,0,0,9106440,1,bfca8378)
+[  299.516694] 1
+[  299.516694] [397]5(9106568,0,0,9106670,0,bfca8378)
+[  299.516694] 1
+[  299.516694] [397]5(9106b60,0,0,9106b28,1,bfca8378)
+[  299.516694] 1
+[  299.516694] [397]5(9106ee0,0,0,9106e30,0,bfca8378)
+[  299.516694] 1
+[  299.516694] [397]5(91071a8,0,0,9107170,1,bfca8378)
+[  299.516694] 1
+[  299.516694] [397]5(91073f0,0,0,9107568,0,bfca8378)
+[  299.516694] 1
+[  299.516694] [397]5(9107758,0,0,9107820,1,bfca8378)
+[  299.516694] 1
+[  299.516694] [397]5(bfca82b0,0,c,9107820,bfca82b0,bfca8378)
+[  299.516694] 1
+[  299.516694] [397]5(91079e0,0,0,9107bd0,0,bfca8378)
+[  299.516694] 1
+[  299.516694] [397]5(9107de0,0,0,9107ea8,1,bfca8378)
+[  299.516694] 1
+[  299.516694] [397]5(9108378,0,0,9108110,0,bfca8378)
+[  299.516694] 1
+[  299.516694] [397]5(91084c0,0,0,9108638,1,bfca8378)
+[  299.516694] 1
+[  299.516694] [397]5(9108760,0,0,9108868,0,bfca8378)
+[  299.516694] 1
+[  299.516694] [397]5(9108d30,0,0,9108cf8,1,bfca8378)
+[  299.516694] 1
+[  299.516694] [397]5(9109298,0,0,9109000,0,bfca8378)
+[  299.516694] 1
+[  299.516694] [397]5(91093c0,0,0,9109538,1,bfca8378)
+[  299.516694] 1
+[  299.516694] [397]5(91098e0,0,0,9109768,0,bfca8378)
+[  299.516694] 1
+[  299.516694] [397]5(9109bc8,0,0,9109b90,1,bfca8378)
+[  299.516694] 1
+[  299.516694] [397]5(910b438,0,910d568,910d478,910d420,bfca82d4)
+[  299.516694] 1
+[  299.516694] [397]5(910d7a0,0,910d568,910d7d8,910d420,bfca82d4)
+[  299.516694] 1
+[  299.516694] [397]5(910d4b0,0,910d568,910b470,910d420,bfca82d4)
+[  299.516694] 1
+[  299.516694] [397]5(910d588,0,910d568,910d668,910d420,bfca82d4)
+[  299.516694] 1
+[  299.516694] [397]5(910d810,0,910d568,910d848,910d420,bfca82d4)
+[  299.516694] 1
+[  299.516694] [397]5(910d4e0,0,910d568,910d510,910d420,bfca82d4)
+[  299.516694] 1
+[  299.516694] [397]5(910d720,0,910d568,910d6e8,910d420,bfca82d4)
+[  299.516694] 1
+[  299.516694] [397]5(910d8d0,0,910d568,910d898,910d420,bfca82d4)
+[  299.516694] 1
+[  299.516694] [397]5(910d5c0,0,910d568,910d600,910d420,bfca82d4)
+[  299.516694] 1
+[  299.516694] [397]5(910d628,0,910d568,910d6c0,910d420,bfca82d4)
+[  299.516694] 1
+[  299.516694] [397]5(910d760,0,910d568,910d870,910d420,bfca82d4)
+[  299.516694] 1
+[  299.516694] [397]5(910d530,0,910d568,910d568,910d420,bfca82d4)
+[  348.504147] __ratelimit: 3 callbacks suppressed
+[  348.504154] atkbd.c: Spurious NAK on isa0060/serio0. Some program might be trying access hardware directly.
+[  913.162221] monitor all
+[  913.253666] final stop monitor
+[  913.312690] final stop monitor
+[  913.367518] final stop monitor
+[  913.421016] final stop monitor
+[  913.470210] monitor all
+[  913.515413] final stop monitor
+[  913.555444] 1
+[  913.560797] [3ab]5(437ad3b4,2a5da63d,6ecff95d,2aae98a3,7fcdefc8,255f234a)
+[  913.561291] 1
+[  913.561293] [3af]5(2b8af5,0,0,2bb87c,8048ba0,bfaf0690)
+[  913.561307] 1
+[  913.561308] [3af]5(b77ade39,0,0,b77ade39,8048ba0,bfaf06ec)
+[  913.561670] 1
+[  913.561672] [3b1]5(8059886,98800,87dc2e8,87dc2e1,0,bfaf08a8)
+[  913.561809] 1
+[  913.561810] [3b1]5(462af5,0,0,46587c,8048bb5,bf856100)
+[  913.561820] 1
+[  913.561822] [3b1]5(b7737ad4,0,0,b7737ad4,8048bb5,bf85615c)
+[  913.561844] 1
+[  913.561845] [3b1]5(b7737e39,0,0,b7737e39,8048bf0,bf856140)
+[  913.562018] 1
+[  913.562019] [3b1]5(74fa94,8000,1,bf856290,bf856290,bf856484)
+[  913.562029] 1
+[  913.562030] [3b1]5(bf856250,0,1b6,9a35018,0,bf8561a8)
+[  913.562122] 1
+[  913.562124] [3b1]5(9a350a8,0,0,9a350e0,0,bf856468)
+[  913.562127] 1
+[  913.562128] [3b1]5(9a35f20,0,0,9a35f98,1,bf856468)
+[  913.562138] 1
+[  913.562140] [3b1]5(74f6bc,0,0,bf856490,bf856470,bf8563ac)
+[  913.562188] 1
+[  913.562189] [3b1]5(9a35ff8,0,0,9a363e0,0,bf856468)
+[  913.562192] 1
+[  913.562193] [3b1]5(9a36700,0,0,9a36688,1,bf856468)
+[  913.562262] 1
+[  913.562264] [3b1]5(9a36ac0,0,0,9a36af0,0,bf856468)
+[  913.562269] 1
+[  913.562271] [3b1]5(9a36d00,0,0,9a36dc8,1,bf856468)
+[  913.562329] 1
+[  913.562330] [3b1]5(9a37180,0,0,9a36ff8,0,bf856468)
+[  913.562334] 1
+[  913.562336] [3b1]5(9a372c8,0,0,9a37440,1,bf856468)
+[  913.562392] 1
+[  913.562393] [3b1]5(9a37568,0,0,9a37670,0,bf856468)
+[  913.562396] 1
+[  913.562397] [3b1]5(9a37b60,0,0,9a37b28,1,bf856468)
+[  913.562440] 1
+[  913.562441] [3b1]5(9a37ee0,0,0,9a37e30,0,bf856468)
+[  913.562444] 1
+[  913.562445] [3b1]5(9a381a8,0,0,9a38170,1,bf856468)
+[  913.562487] 1
+[  913.562489] [3b1]5(9a383f0,0,0,9a38568,0,bf856468)
+[  913.562491] 1
+[  913.562493] [3b1]5(9a38758,0,0,9a38820,1,bf856468)
+[  913.562497] 1
+[  913.562498] [3b1]5(bf8563a0,0,c,9a38820,bf8563a0,bf856468)
+[  913.562540] 1
+[  913.562541] [3b1]5(9a389e0,0,0,9a38bd0,0,bf856468)
+[  913.562544] 1
+[  913.562545] [3b1]5(9a38de0,0,0,9a38ea8,1,bf856468)
+[  913.562585] 1
+[  913.562587] [3b1]5(9a39378,0,0,9a39110,0,bf856468)
+[  913.562589] 1
+[  913.562591] [3b1]5(9a394c0,0,0,9a39638,1,bf856468)
+[  913.562634] 1
+[  913.562635] [3b1]5(9a39760,0,0,9a39868,0,bf856468)
+[  913.562638] 1
+[  913.562639] [3b1]5(9a39d30,0,0,9a39cf8,1,bf856468)
+[  913.562678] 1
+[  913.562679] [3b1]5(9a3a298,0,0,9a3a000,0,bf856468)
+[  913.562682] 1
+[  913.562683] [3b1]5(9a3a3c0,0,0,9a3a538,1,bf856468)
+[  913.562723] 1
+[  913.562724] [3b1]5(9a3a8e0,0,0,9a3a768,0,bf856468)
+[  913.562727] 1
+[  913.562728] [3b1]5(9a3abc8,0,0,9a3ab90,1,bf856468)
+[  913.563006] 1
+[  913.563007] [3b1]5(9a3c450,0,9a3c670,9a3c558,9a3c500,bf8563c4)
+[  913.563011] 1
+[  913.563013] [3b1]5(9a3f220,0,9a3c670,9a3f258,9a3c500,bf8563c4)
+[  913.563015] 1
+[  913.563017] [3b1]5(9a3c590,0,9a3c670,9a3c5c0,9a3c500,bf8563c4)
+[  913.563019] 1
+[  913.563020] [3b1]5(9a3c690,0,9a3c670,9a3c770,9a3c500,bf8563c4)
+[  913.563023] 1
+[  913.563024] [3b1]5(9a3f290,0,9a3c670,9a3f2c8,9a3c500,bf8563c4)
+[  913.563027] 1
+[  913.563028] [3b1]5(9a3c5e8,0,9a3c670,9a3c618,9a3c500,bf8563c4)
+[  913.563032] 1
+[  913.563033] [3b1]5(9a3c828,0,9a3c670,9a3c7f0,9a3c500,bf8563c4)
+[  913.563035] 1
+[  913.563037] [3b1]5(9a3f350,0,9a3c670,9a3f318,9a3c500,bf8563c4)
+[  913.563039] 1
+[  913.563040] [3b1]5(9a3c6c8,0,9a3c670,9a3c708,9a3c500,bf8563c4)
+[  913.563043] 1
+[  913.563045] [3b1]5(9a3c730,0,9a3c670,9a3c7c8,9a3c500,bf8563c4)
+[  913.563047] 1
+[  913.563048] [3b1]5(9a3f1e0,0,9a3c670,9a3f2f0,9a3c500,bf8563c4)
+[  913.563051] 1
+[  913.563052] [3b1]5(9a3c638,0,9a3c670,9a3c670,9a3c500,bf8563c4)
+[  913.563198] 1
+[  913.563200] [3b0]5(387af5,0,0,38a87c,80483c0,bfb30a30)
+[  913.563210] 1
+[  913.563211] [3b0]5(b77a7e39,0,0,b77a7e39,80483c0,bfb30a8c)
+[  913.563366] 1
+[  913.563367] [3b0]5(804a94,8000,1,bfb30c80,bfb30c80,bfb30e74)
+[  913.563375] 1
+[  913.563376] [3b0]5(bfb30c40,0,1b6,81c3018,0,bfb30b98)
+[  913.563463] 1
+[  913.563465] [3b0]5(81c30a8,0,0,81c30e0,0,bfb30e58)
+[  913.563468] 1
+[  913.563469] [3b0]5(81c3f20,0,0,81c3f98,1,bfb30e58)
+[  913.563478] 1
+[  913.563479] [3b0]5(8046bc,0,0,bfb30e80,bfb30e60,bfb30d9c)
+[  913.563524] 1
+[  913.563525] [3b0]5(81c3ff8,0,0,81c43e0,0,bfb30e58)
+[  913.563528] 1
+[  913.563529] [3b0]5(81c4700,0,0,81c4688,1,bfb30e58)
+[  913.563572] 1
+[  913.563573] [3b0]5(81c4ac0,0,0,81c4af0,0,bfb30e58)
+[  913.563576] 1
+[  913.563577] [3b0]5(81c4d00,0,0,81c4dc8,1,bfb30e58)
+[  913.563618] 1
+[  913.563619] [3b0]5(81c5180,0,0,81c4ff8,0,bfb30e58)
+[  913.563622] 1
+[  913.563623] [3b0]5(81c52c8,0,0,81c5440,1,bfb30e58)
+[  913.563663] 1
+[  913.563664] [3b0]5(81c5568,0,0,81c5670,0,bfb30e58)
+[  913.563667] 1
+[  913.563668] [3b0]5(81c5b60,0,0,81c5b28,1,bfb30e58)
+[  913.563709] 1
+[  913.563721] [3b0]5(81c5ee0,0,0,81c5e30,0,bfb30e58)
+[  913.563725] 1
+[  913.563726] [3b0]5(81c61a8,0,0,81c6170,1,bfb30e58)
+[  913.563769] 1
+[  913.563770] [3b0]5(81c63f0,0,0,81c6568,0,bfb30e58)
+[  913.563773] 1
+[  913.563774] [3b0]5(81c6758,0,0,81c6820,1,bfb30e58)
+[  913.563778] 1
+[  913.563779] [3b0]5(bfb30d90,0,c,81c6820,bfb30d90,bfb30e58)
+[  913.563820] 1
+[  913.563821] [3b0]5(81c69e0,0,0,81c6bd0,0,bfb30e58)
+[  913.563824] 1
+[  913.563825] [3b0]5(81c6de0,0,0,81c6ea8,1,bfb30e58)
+[  913.563865] 1
+[  913.563866] [3b0]5(81c7378,0,0,81c7110,0,bfb30e58)
+[  913.563869] 1
+[  913.563870] [3b0]5(81c74c0,0,0,81c7638,1,bfb30e58)
+[  913.563911] 1
+[  913.563913] [3b0]5(81c7760,0,0,81c7868,0,bfb30e58)
+[  913.563915] 1
+[  913.563916] [3b0]5(81c7d30,0,0,81c7cf8,1,bfb30e58)
+[  913.563955] 1
+[  913.563956] [3b0]5(81c8298,0,0,81c8000,0,bfb30e58)
+[  913.563959] 1
+[  913.563960] [3b0]5(81c83c0,0,0,81c8538,1,bfb30e58)
+[  913.567099] 1
+[  913.567101] [3b0]5(81c88e0,0,0,81c8768,0,bfb30e58)
+[  913.567106] 1
+[  913.567107] [3b0]5(81c8bc8,0,0,81c8b90,1,bfb30e58)
+[  913.694519] monitor all
+[  913.731636] final monitor part
+[  913.771343] 0
+[  913.772311] [3ab]5(598a1c28,9f6a827,71a5d550,61f26a6b,3e1d36be,641301d0)
+[  913.774086] 0
+[  913.774089] [3b2]5(719af5,0,0,71c87c,8048ba0,bfffc540)
+[  913.774102] 0
+[  913.774104] [3b2]5(b775fe39,0,0,b775fe39,8048ba0,bfffc59c)
+[  913.774507] 0
+[  913.774509] [3b4]5(8059886,98800,89082e8,89082e0,0,bfffc758)
+[  913.774640] 0
+[  913.774642] [3b4]5(d97af5,0,0,d9a87c,8048bb5,bfeda6d0)
+[  913.774652] 0
+[  913.774653] [3b4]5(b77d6ad4,0,0,b77d6ad4,8048bb5,bfeda72c)
+[  913.774674] 0
+[  913.774676] [3b4]5(b77d6e39,0,0,b77d6e39,8048bf0,bfeda710)
+[  913.774877] 0
+[  913.774879] [3b4]5(6b4a94,8000,1,bfeda860,bfeda860,bfedaa54)
+[  913.774888] 0
+[  913.774889] [3b4]5(bfeda820,0,1b6,9fab018,0,bfeda778)
+[  913.774980] 0
+[  913.774981] [3b4]5(9fab0a8,0,0,9fab0e0,0,bfedaa38)
+[  913.774985] 0
+[  913.774986] [3b4]5(9fabf20,0,0,9fabf98,1,bfedaa38)
+[  913.774996] 0
+[  913.774998] [3b4]5(6b46bc,0,0,bfedaa60,bfedaa40,bfeda97c)
+[  913.775046] 0
+[  913.775047] [3b4]5(9fabff8,0,0,9fac3e0,0,bfedaa38)
+[  913.775050] 0
+[  913.775051] [3b4]5(9fac700,0,0,9fac688,1,bfedaa38)
+[  913.775095] 0
+[  913.775097] [3b4]5(9facac0,0,0,9facaf0,0,bfedaa38)
+[  913.775099] 0
+[  913.775101] [3b4]5(9facd00,0,0,9facdc8,1,bfedaa38)
+[  913.775142] 0
+[  913.775143] [3b4]5(9fad180,0,0,9facff8,0,bfedaa38)
+[  913.775146] 0
+[  913.775147] [3b4]5(9fad2c8,0,0,9fad440,1,bfedaa38)
+[  913.775187] 0
+[  913.775188] [3b4]5(9fad568,0,0,9fad670,0,bfedaa38)
+[  913.775191] 0
+[  913.775192] [3b4]5(9fadb60,0,0,9fadb28,1,bfedaa38)
+[  913.775233] 0
+[  913.775234] [3b4]5(9fadee0,0,0,9fade30,0,bfedaa38)
+[  913.775237] 0
+[  913.775238] [3b4]5(9fae1a8,0,0,9fae170,1,bfedaa38)
+[  913.775280] 0
+[  913.775281] [3b4]5(9fae3f0,0,0,9fae568,0,bfedaa38)
+[  913.775284] 0
+[  913.775285] [3b4]5(9fae758,0,0,9fae820,1,bfedaa38)
+[  913.775289] 0
+[  913.775290] [3b4]5(bfeda970,0,c,9fae820,bfeda970,bfedaa38)
+[  913.775331] 0
+[  913.775332] [3b4]5(9fae9e0,0,0,9faebd0,0,bfedaa38)
+[  913.775336] 0
+[  913.775337] [3b4]5(9faede0,0,0,9faeea8,1,bfedaa38)
+[  913.775376] 0
+[  913.775378] [3b4]5(9faf378,0,0,9faf110,0,bfedaa38)
+[  913.775380] 0
+[  913.775381] [3b4]5(9faf4c0,0,0,9faf638,1,bfedaa38)
+[  913.775424] 0
+[  913.775425] [3b4]5(9faf760,0,0,9faf868,0,bfedaa38)
+[  913.775428] 0
+[  913.775429] [3b4]5(9fafd30,0,0,9fafcf8,1,bfedaa38)
+[  913.775468] 0
+[  913.775469] [3b4]5(9fb0298,0,0,9fb0000,0,bfedaa38)
+[  913.775472] 0
+[  913.775473] [3b4]5(9fb03c0,0,0,9fb0538,1,bfedaa38)
+[  913.775512] 0
+[  913.775513] [3b4]5(9fb08e0,0,0,9fb0768,0,bfedaa38)
+[  913.775516] 0
+[  913.775517] [3b4]5(9fb0bc8,0,0,9fb0b90,1,bfedaa38)
+[  913.775872] 0
+[  913.775873] [3b4]5(9fb2440,0,9fb2688,9fb25a0,9fb2548,bfeda994)
+[  913.775878] 0
+[  913.775880] [3b4]5(9fb5160,0,9fb2688,9fb5198,9fb2548,bfeda994)
+[  913.775882] 0
+[  913.775883] [3b4]5(9fb2488,0,9fb2688,9fb25d8,9fb2548,bfeda994)
+[  913.775886] 0
+[  913.775887] [3b4]5(9fb26a8,0,9fb2688,9fb2788,9fb2548,bfeda994)
+[  913.775890] 0
+[  913.775891] [3b4]5(9fb51d0,0,9fb2688,9fb5208,9fb2548,bfeda994)
+[  913.775893] 0
+[  913.775894] [3b4]5(9fb2600,0,9fb2688,9fb2630,9fb2548,bfeda994)
+[  913.775898] 0
+[  913.775899] [3b4]5(9fb50e0,0,9fb2688,9fb2808,9fb2548,bfeda994)
+[  913.775902] 0
+[  913.775903] [3b4]5(9fb5290,0,9fb2688,9fb5258,9fb2548,bfeda994)
+[  913.775905] 0
+[  913.775906] [3b4]5(9fb26e0,0,9fb2688,9fb2720,9fb2548,bfeda994)
+[  913.775909] 0
+[  913.775910] [3b4]5(9fb2748,0,9fb2688,9fb27e0,9fb2548,bfeda994)
+[  913.775913] 0
+[  913.775914] [3b4]5(9fb5120,0,9fb2688,9fb5230,9fb2548,bfeda994)
+[  913.775916] 0
+[  913.775917] [3b4]5(9fb2650,0,9fb2688,9fb2688,9fb2548,bfeda994)
+[  913.778111] 0
+[  913.778113] [3b3]5(484af5,0,0,48787c,80483c0,bfbc67d0)
+[  913.778124] 0
+[  913.778125] [3b3]5(b7732e39,0,0,b7732e39,80483c0,bfbc682c)
+[  913.778287] 0
+[  913.778288] [3b3]5(ca1a94,8000,1,bfbc6a20,bfbc6a20,bfbc6c14)
+[  913.778296] 0
+[  913.778297] [3b3]5(bfbc69e0,0,1b6,8470018,0,bfbc6938)
+[  913.778384] 0
+[  913.778386] [3b3]5(84700a8,0,0,84700e0,0,bfbc6bf8)
+[  913.778389] 0
+[  913.778391] [3b3]5(8470f20,0,0,8470f98,1,bfbc6bf8)
+[  913.778400] 0
+[  913.778401] [3b3]5(ca16bc,0,0,bfbc6c20,bfbc6c00,bfbc6b3c)
+[  913.778447] 0
+[  913.778449] [3b3]5(8470ff8,0,0,84713e0,0,bfbc6bf8)
+[  913.778451] 0
+[  913.778453] [3b3]5(8471700,0,0,8471688,1,bfbc6bf8)
+[  913.778497] 0
+[  913.778498] [3b3]5(8471ac0,0,0,8471af0,0,bfbc6bf8)
+[  913.778501] 0
+[  913.778502] [3b3]5(8471d00,0,0,8471dc8,1,bfbc6bf8)
+[  913.778544] 0
+[  913.778545] [3b3]5(8472180,0,0,8471ff8,0,bfbc6bf8)
+[  913.778548] 0
+[  913.778549] [3b3]5(84722c8,0,0,8472440,1,bfbc6bf8)
+[  913.778590] 0
+[  913.778591] [3b3]5(8472568,0,0,8472670,0,bfbc6bf8)
+[  913.778594] 0
+[  913.778595] [3b3]5(8472b60,0,0,8472b28,1,bfbc6bf8)
+[  913.778637] 0
+[  913.778638] [3b3]5(8472ee0,0,0,8472e30,0,bfbc6bf8)
+[  913.778640] 0
+[  913.778642] [3b3]5(84731a8,0,0,8473170,1,bfbc6bf8)
+[  913.778683] 0
+[  913.778685] [3b3]5(84733f0,0,0,8473568,0,bfbc6bf8)
+[  913.778687] 0
+[  913.778689] [3b3]5(8473758,0,0,8473820,1,bfbc6bf8)
+[  913.778693] 0
+[  913.778694] [3b3]5(bfbc6b30,0,c,8473820,bfbc6b30,bfbc6bf8)
+[  913.778735] 0
+[  913.778736] [3b3]5(84739e0,0,0,8473bd0,0,bfbc6bf8)
+[  913.778739] 0
+[  913.778740] [3b3]5(8473de0,0,0,8473ea8,1,bfbc6bf8)
+[  913.778781] 0
+[  913.778782] [3b3]5(8474378,0,0,8474110,0,bfbc6bf8)
+[  913.778785] 0
+[  913.778786] [3b3]5(84744c0,0,0,8474638,1,bfbc6bf8)
+[  913.778828] 0
+[  913.778830] [3b3]5(8474760,0,0,8474868,0,bfbc6bf8)
+[  913.778832] 0
+[  913.778834] [3b3]5(8474d30,0,0,8474cf8,1,bfbc6bf8)
+[  913.778873] 0
+[  913.778874] [3b3]5(8475298,0,0,8475000,0,bfbc6bf8)
+[  913.778877] 0
+[  913.778878] [3b3]5(84753c0,0,0,8475538,1,bfbc6bf8)
+[  913.778918] 0
+[  913.778919] [3b3]5(84758e0,0,0,8475768,0,bfbc6bf8)
+[  913.778922] 0
+[  913.778923] [3b3]5(8475bc8,0,0,8475b90,1,bfbc6bf8)
