@@ -39,7 +39,7 @@ int allocate_frame(pgtbl_entry_t *p) {
 		// Write victim page to swap, if needed, and update pagetable
 		// IMPLEMENTATION NEEDED
 		pgtbl_entry_t *victim = coremap[frame].pte;
-		if !(victim->frame & PG_DIRTY){
+		if (!(victim->frame & PG_DIRTY)){
 			evict_clean_count += 1;
 		} else {
 			evict_dirty_count += 1;
