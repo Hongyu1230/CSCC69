@@ -35,12 +35,25 @@ int allocate_frame(pgtbl_entry_t *p) {
 	if(frame == -1) { // Didn't find a free page.
 		// Call replacement algorithm's evict function to select victim
 		frame = evict_fcn();
-
 		// All frames were in use, so victim frame must hold some page
 		// Write victim page to swap, if needed, and update pagetable
 		// IMPLEMENTATION NEEDED
-
-
+		pgtbl_entry_t *victim = coremap[frame].pte;
+		if !(victim->frame & PG_DIRTY){
+			evict_clean_count += 1;
+		} else {
+			evict_dirty_count += 1;
+			int swap_offset = swap_pageout(victim->frame>>PAGE_SHIFT, victim->swap_off);
+			if (swap_offset != INVALID_SWAP){
+				victim->swap_off = swap_offset;
+				victim->frame &= (~PG_DIRTY);
+			} else {
+				exit(1);
+			}
+			
+		}
+		victim->frame &= (~PG_VALID);
+		victim->frame |= PG_ONSWAP;
 	}
 
 	// Record information for virtual page that will now be stored in frame
