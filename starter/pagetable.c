@@ -182,7 +182,7 @@ char *find_physpage(addr_t vaddr, char type) {
 	p->frame |= PG_VALID;
 	p->frame |= PG_REF;
 	ref_count += 1;
-	if (type == "M" || type == "S"){
+	if (type == 'M' || type == 'S'){
 		p->frame |= PG_DIRTY;
 	}
 
