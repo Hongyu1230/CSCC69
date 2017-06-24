@@ -149,9 +149,7 @@ char *find_physpage(addr_t vaddr, char type) {
 
 	// IMPLEMENTATION NEEDED
 	// Use top-level page directory to get pointer to 2nd-level page table
-	if (pgdir[idx].pde == 0) {
-		pgdir[idx] = init_second_level();
-	}
+	printf("%d", pgdir[idx].pde);
 	pgtbl_entry_t *pgtbl;
 	pgtbl = (pgtbl_entry_t *)(pgdir[idx].pde & PAGE_MASK);
 	
@@ -168,10 +166,12 @@ char *find_physpage(addr_t vaddr, char type) {
 		miss_count += 1;
 		int newframe = allocate_frame(p);
 		if (p->frame & PG_ONSWAP) {
-			swap_pagein(newframe, p->swap_off);
+			int success = swap_pagein(newframe, p->swap_off);
 			p->frame = newframe << PAGE_SHIFT;
-			p->frame &= ~PG_ONSWAP;
-			p->frame &= ~PG_DIRTY;
+			if (success == 0) {
+				p->frame &= ~PG_ONSWAP;
+				p->frame &= ~PG_DIRTY;
+			}
 		} else {
 			init_frame(newframe, vaddr);
 			p->frame = newframe << PAGE_SHIFT;
