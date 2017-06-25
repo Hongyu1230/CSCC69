@@ -22,12 +22,12 @@ int fifo_evict() {
 		
 	int idx;
 	
+	idx = counter;
+	
 	if (counter == memsize) {
 		counter = 0;
 	else {
 		counter += 1;
-
-	idx = counter;
 
 	return idx;
 
@@ -46,4 +46,5 @@ void fifo_ref(pgtbl_entry_t *p) {
  * replacement algorithm 
  */
 void fifo_init() {
+	counter = 0;
 }
