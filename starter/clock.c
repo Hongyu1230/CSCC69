@@ -50,7 +50,7 @@ int clock_evict() {
  * Input: The page table entry for the page that is being accessed.
  */
 void clock_ref(pgtbl_entry_t *p) {
-	coremap[i].pte->frame |= PG_REF;
+	p->frame |= PG_REF;
 	return;
 }
 
