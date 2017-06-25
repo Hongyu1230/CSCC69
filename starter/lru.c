@@ -12,7 +12,7 @@ extern int debug;
 
 extern struct frame *coremap;
 
-int time;
+static int time;
 
 /* Page to evict is chosen using the accurate LRU algorithm.
  * Returns the page frame number (which is also the index in the coremap)
@@ -23,7 +23,7 @@ int lru_evict() {
 	int starter = time;
 	int evicted;
 	int i;
-	for (i = 0; i < memsize; i+=1) {
+	for (i=0; i < memsize; i+=1) {
 		if (coremap[i].pte->counter <= starter){
 			starter = coremap[i].pte->counter;
 			evicted = i;
