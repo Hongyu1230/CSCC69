@@ -46,7 +46,6 @@ int allocate_frame(pgtbl_entry_t *p) {
 			int swap_offset = swap_pageout(frame, victim->swap_off);
 			if (swap_offset != INVALID_SWAP){
 				victim->swap_off = swap_offset;
-				victim->frame &= ~PG_DIRTY;
 			} else {
 				exit(1);
 			}
@@ -172,7 +171,6 @@ char *find_physpage(addr_t vaddr, char type) {
 			p->frame = newframe << PAGE_SHIFT;
 			if (success == 0) {
 				p->frame &= ~PG_ONSWAP;
-				p->frame &= ~PG_DIRTY;
 			}
 		} else {
 			init_frame(newframe, vaddr);
