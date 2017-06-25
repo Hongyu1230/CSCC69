@@ -20,16 +20,15 @@ static int counter;
  */
 int fifo_evict() {
 		
-	int idx;
-	
-	idx = counter;
+	int evicted;
+	evicted = counter;
 	
 	if (counter == memsize) {
 		counter = 0;
 	else {
 		counter += 1;
 
-	return idx;
+	return evicted;
 
 }
 
