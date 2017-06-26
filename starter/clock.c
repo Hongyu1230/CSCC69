@@ -36,7 +36,6 @@ int clock_evict() {
 				flag = 1;
 				evicted = i;
 				clock = i;
-				coremap[i].pte->frame |= PG_REF;
 				break;
 			}
 		}
