@@ -21,7 +21,7 @@ static int time;
 
 int lru_evict() {
 	int starter = time;
-	int evicted;
+	int evicted = 0;
 	int i;
 	for (i=0; i < memsize; i+=1) {
 		if (coremap[i].pte->counter <= starter){

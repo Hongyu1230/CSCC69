@@ -23,7 +23,7 @@ int clock_evict() {
 	int flag = 0;
 	int loop = 0;
 	int i;
-	int evicted;
+	int evicted = 0;
 	while (flag != 1) {
 		//we went through a cycle already without a victim, reset clock to 0 and try again
 		if (loop > 0) {
