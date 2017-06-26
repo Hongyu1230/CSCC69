@@ -23,10 +23,12 @@ int fifo_evict() {
 	int evicted;
 	evicted = counter;
 	
-	if (counter == memsize) {
+	if (counter == (memsize - 1)) {
 		counter = 0;
+	}
 	else {
 		counter += 1;
+	}
 
 	return evicted;
 
