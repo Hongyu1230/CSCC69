@@ -41,6 +41,8 @@ int clock_evict() {
 		}
 		loop+=1;
 	}
+	//move it to the next oldest one, since we got our evicted frame
+	clock+=1;
 	return evicted;
 }
 
