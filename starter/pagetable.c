@@ -168,8 +168,8 @@ char *find_physpage(addr_t vaddr, char type) {
 		int newframe = allocate_frame(p);
 		if (p->frame & PG_ONSWAP) {
 			int success = swap_pagein(newframe, p->swap_off);
-			p->frame = newframe << PAGE_SHIFT;
 			if (success == 0) {
+				p->frame = newframe << PAGE_SHIFT;
 				p->frame &= ~PG_ONSWAP;
 			}
 		} else {
