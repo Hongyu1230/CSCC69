@@ -46,7 +46,6 @@ int opt_evict() {
 			evicted = i;
 		}
 	}
-	printf("we found one so we exit");
 	
 	return evicted;
 }
