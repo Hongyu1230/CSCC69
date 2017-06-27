@@ -38,13 +38,7 @@ int opt_evict() {
 			} 
 		}
 	}
-	//we checked out the longest distance ones if there were any, however we need to consider the traces not checked
-	//basically it never comes back, so we don't need it ever again
-	for (i = 0; i < memsize; i += 1) {
-		if (coremap[i].pte->checked != 1) {
-			evicted = i;
-		}
-	}
+
 	
 	return evicted;
 }
