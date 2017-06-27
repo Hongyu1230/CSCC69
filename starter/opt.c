@@ -38,6 +38,11 @@ int opt_evict() {
 			}
 		}
 	}
+	for (i = 0; i < memsize; i += 1) {
+		if (coremap[i].pte->checked != 1) {
+			i = evicted;
+		}
+	}
 
 	
 	return evicted;
@@ -60,6 +65,7 @@ void opt_init() {
 	addr_t vaddr = 0;
 	char type;
 	FILE *tfp;
+	int i = 0;
 	if(tracefile != NULL) {
 		if((tfp = fopen(tracefile, "r")) == NULL) {
 			perror("Error opening tracefile:");
@@ -80,6 +86,8 @@ void opt_init() {
 	while(fgets(buf, MAXLINE, tfp) != NULL) {
 		if(buf[0] != '=') {
 			sscanf(buf, "%c %lx", &type, &vaddr);
+			addresslist[i] = vaddr;
+			i += 1;
 		} else {
 			continue;
 		}
