@@ -4,7 +4,7 @@
 #include <getopt.h>
 #include <stdlib.h>
 #include "pagetable.h"
-#define MAXLINE 256
+#include "sim.h"
 
 
 extern int memsize;
@@ -12,8 +12,6 @@ extern int memsize;
 extern int debug;
 
 extern struct frame *coremap;
-
-extern char *tracefile;
 
 static addr_t *addresslist;
 
