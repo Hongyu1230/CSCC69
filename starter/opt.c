@@ -61,6 +61,7 @@ void opt_init() {
 	char type;
 	FILE *tfp;
 	int i = 0;
+	printf("%c", tracefile);
 	if(tracefile != NULL) {
 		if((tfp = fopen(tracefile, "r")) == NULL) {
 			perror("Error opening tracefile:");
@@ -81,7 +82,6 @@ void opt_init() {
 	while(fgets(buf, MAXLINE, tfp) != NULL) {
 		if(buf[0] != '=') {
 			sscanf(buf, "%c %lx", &type, &vaddr);
-			printf("%p\n", (void *)vaddr);
 			addresslist[i] = vaddr;
 			i += 1;
 		} else {
