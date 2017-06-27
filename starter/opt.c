@@ -81,7 +81,7 @@ void opt_init() {
 		}
 	}
 	
-	addresslist = malloc(sizeof(*addr_t) * filesize);
+	addresslist = malloc(sizeof(addr_t) * filesize);
 	
 	while(fgets(buf, MAXLINE, tfp) != NULL) {
 		if(buf[0] != '=') {
