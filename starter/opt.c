@@ -17,6 +17,8 @@ extern char *tracefile;
 
 static addr_t *addresslist;
 
+static addr_t *inframe;
+
 static int line;
 
 static int filesize = 0;
@@ -31,7 +33,7 @@ int opt_evict() {
 	int longest = 0;
 	for (i = 0; i < memsize; i += 1) {
 		for (o = line + 1; o <= filesize; o += 1) {
-			if (coremap[i].pte->virtualaddress == addresslist[o] && o - line >= longest){
+			if (inframe[i] == addresslist[o] && o - line >= longest){
 				longest = o - line;
 				evicted = i;
 				coremap[i].pte->checked = 1;
@@ -55,7 +57,7 @@ int opt_evict() {
  * Input: The page table entry for the page that is being accessed.
  */
 void opt_ref(pgtbl_entry_t *p) {
-	p->virtualaddress = addresslist[line];
+	inframe = addresslist[line];
 	line +=1;
 }
 
@@ -96,6 +98,7 @@ void opt_init() {
 	
 	line = 0;
 	
+	inframe = malloc(sizeof(addr_t) * memsize);
 
 }
 
