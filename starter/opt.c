@@ -57,7 +57,7 @@ int opt_evict() {
  * Input: The page table entry for the page that is being accessed.
  */
 void opt_ref(pgtbl_entry_t *p) {
-	inframe = addresslist[line];
+	inframe[p->frame >> PAGE_SHIFT] = addresslist[line];
 	line +=1;
 }
 
