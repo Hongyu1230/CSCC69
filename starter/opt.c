@@ -71,6 +71,7 @@ void opt_init() {
 	while(fgets(buf, MAXLINE, tfp) != NULL) {
 		if(buf[0] != '=') {
 			filesize+=1;
+			printf("I am amazing");
 		} else {
 			continue;
 		}
@@ -81,7 +82,6 @@ void opt_init() {
 		if(buf[0] != '=') {
 			sscanf(buf, "%c %lx", &type, &vaddr);
 			addresslist[i] = vaddr;
-			printf("I am amazing");
 			printf("%lu", vaddr);
 			i += 1;
 		} else {
