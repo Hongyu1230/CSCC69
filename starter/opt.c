@@ -32,6 +32,7 @@ int opt_evict() {
 	for (i = 0; i < memsize; i += 1) {
 		for (o = line + 1; o <= filesize; o += 1) {
 			if (coremap[i].pte->virtualaddress == addresslist[o] && o - line >= longest){
+				printf("longest before change is %d \n", longest);
 				longest = o - line;
 				printf("%d \n", longest);
 				evicted = i;
