@@ -38,12 +38,14 @@ int opt_evict() {
 			}
 		}
 	}
+	printf("the original evicted frame is %d \n", evicted);
 	for (i = 0; i < memsize; i += 1) {
 		if (coremap[i].pte->checked != 1) {
 			evicted = i;
 			break;
 		}
 	}
+	printf("the decided evicted frame is %d \n", evicted);
 	
 	return evicted;
 }
