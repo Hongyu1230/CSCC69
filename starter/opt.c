@@ -30,7 +30,7 @@ int opt_evict() {
 	int i,o;
 	int longest = 0;
 	for (i = 0; i < memsize; i += 1) {
-		for (o = line + 1; o <= filesize; o += 1) {
+		for (o = line + 1; o < filesize; o += 1) {
 			if (coremap[i].pte->virtualaddress == addresslist[o] && o - line >= longest){
 				longest = o - line;
 				evicted = i;
