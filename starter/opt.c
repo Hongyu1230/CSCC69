@@ -35,7 +35,6 @@ int opt_evict() {
 				longest = o - line;
 				evicted = i;
 				coremap[i].pte->checked = 1;
-				printf("%p\n", (void *)coremap[i].pte->virtualaddress);
 			}
 		}
 	}
@@ -82,6 +81,7 @@ void opt_init() {
 	while(fgets(buf, MAXLINE, tfp) != NULL) {
 		if(buf[0] != '=') {
 			sscanf(buf, "%c %lx", &type, &vaddr);
+			printf("%p\n", (void *)vaddr);
 			addresslist[i] = vaddr;
 			i += 1;
 		} else {
