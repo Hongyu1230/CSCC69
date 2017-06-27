@@ -33,7 +33,7 @@ int opt_evict() {
 		for (o = line + 1; o <= filesize; o += 1) {
 			if (coremap[i].pte->checked == addresslist[o] && o - line >= longest){
 				longest = o - line;
-				printf("%d/n", longest);
+				printf("%d \n", longest);
 				evicted = i;
 				coremap[i].pte->checked = 1;
 			}
