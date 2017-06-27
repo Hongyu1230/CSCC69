@@ -61,7 +61,6 @@ void opt_init() {
 	char type;
 	FILE *tfp;
 	int i = 0;
-	printf("%c", tracefile);
 	if(tracefile != NULL) {
 		if((tfp = fopen(tracefile, "r")) == NULL) {
 			perror("Error opening tracefile:");
@@ -76,7 +75,7 @@ void opt_init() {
 			continue;
 		}
 	}
-	
+	printf("%d", filesize);
 	addresslist = malloc(sizeof(addr_t) * filesize);
 	
 	while(fgets(buf, MAXLINE, tfp) != NULL) {
