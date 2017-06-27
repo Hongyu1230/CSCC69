@@ -19,7 +19,7 @@ static addr_t *addresslist;
 
 static int line;
 
-static int filesize = 0;
+static int filesize;
 
 /* Page to evict is chosen using the optimal (aka MIN) algorithm. 
  * Returns the page frame number (which is also the index in the coremap)
@@ -31,7 +31,7 @@ int opt_evict() {
 	int longest = 0;
 	for (i = 0; i < memsize; i += 1) {
 		for (o = line + 1; o <= filesize; o += 1) {
-			if (coremap[i].pte->virtualaddress == addresslist[o] && o - line >= longest){
+			if (coremap[i].pte->virtualaddress == addresslist[o] && o - line >= longest && coremap[i].pte->checked != 1){
 				longest = o - line;
 				evicted = i;
 				coremap[i].pte->checked = 1;
@@ -41,7 +41,6 @@ int opt_evict() {
 	for (i = 0; i < memsize; i += 1) {
 		if (coremap[i].pte->checked != 1) {
 			evicted = i;
-			printf("%d \n", coremap[i].pte->checked);
 		}
 	}
 	
