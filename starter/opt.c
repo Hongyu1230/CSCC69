@@ -13,6 +13,8 @@ extern int debug;
 
 extern struct frame *coremap;
 
+extern char *tracefile;
+
 static addr_t *addresslist;
 
 static int line;
