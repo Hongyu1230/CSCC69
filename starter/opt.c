@@ -7,7 +7,7 @@
 #include "sim.h"
 
 
-extern int memsize;
+
 
 extern int debug;
 
