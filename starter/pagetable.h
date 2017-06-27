@@ -54,7 +54,9 @@ typedef struct {
 typedef struct { 
 	unsigned int frame; // if valid bit == 1, physical frame holding vpage
 	off_t swap_off;       // offset in swap file of vpage, if any
-	int counter;            //counter for lru
+	int counter;            //counter for LRU
+	addr_t virtualaddress;    //virtualaddress for OPT
+	int checked;                //check if it has found the next trace that matches itself
 } pgtbl_entry_t;    
 
 extern void init_pagetable();

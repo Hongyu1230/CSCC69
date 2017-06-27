@@ -13,13 +13,38 @@ extern int debug;
 
 extern struct frame *coremap;
 
+static addr_t *addresslist;
+
+static int line;
+
+static int filesize = 0;
+
 /* Page to evict is chosen using the optimal (aka MIN) algorithm. 
  * Returns the page frame number (which is also the index in the coremap)
  * for the page that is to be evicted.
  */
 int opt_evict() {
+	int evicted = 0;
+	int i,o;
+	int longest = 0;
+	for (i = 0; i < memsize; i += 1) {
+		for (o = line; o <= filesize; o += 1) {
+			if ((coremap[i].pte->virtualaddress == addresslist[o]) && (o - line >= longest)){
+				longest = o - line;
+				evicted = i;
+				coremap[i].pte->checked = 1;
+			} 
+		}
+	}
+	//we checked out the longest distance ones if there were any, however we need to consider the traces not checked
+	//basically it never comes back, so we don't need it ever again
+	for (i = 0; i < memsize; i += 1) {
+		if (coremap[i].pte->checked != 1) {
+			evicted = i;
+		}
+	}
 	
-	return 0;
+	return evicted;
 }
 
 /* This function is called on each access to a page to update any information
@@ -27,8 +52,8 @@ int opt_evict() {
  * Input: The page table entry for the page that is being accessed.
  */
 void opt_ref(pgtbl_entry_t *p) {
-
-	return;
+	p->virtualaddress = addresslist[line];
+	line +=1;
 }
 
 /* Initializes any data structures needed for this
@@ -45,7 +70,17 @@ void opt_init() {
 			exit(1);
 		}
 	}
-
+	
+	while(fgets(buf, MAXLINE, tfp) != NULL) {
+		if(buf[0] != '=') {
+			filesize+=1;
+		} else {
+			continue;
+		}
+	}
+	
+	addresslist = malloc(sizeof(*addr_t) * filesize);
+	
 	while(fgets(buf, MAXLINE, tfp) != NULL) {
 		if(buf[0] != '=') {
 			sscanf(buf, "%c %lx", &type, &vaddr);
@@ -53,6 +88,8 @@ void opt_init() {
 			continue;
 		}
 	}
+	
+	line = 0;
 	
 
 }
