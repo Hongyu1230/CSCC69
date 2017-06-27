@@ -35,7 +35,7 @@ int opt_evict() {
 				longest = o - line;
 				evicted = i;
 				coremap[i].pte->checked = 1;
-				printf("%p", coremap[i].pte->virtualaddress);
+				printf("%p\n", (void *)coremap[i].pte->virtualaddress);
 			}
 		}
 	}
