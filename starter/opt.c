@@ -4,14 +4,15 @@
 #include <getopt.h>
 #include <stdlib.h>
 #include "pagetable.h"
-#include "sim.h"
 
 
-
+extern int memsize;
 
 extern int debug;
 
 extern struct frame *coremap;
+
+extern char *tracefile;
 
 static addr_t *addresslist;
 
@@ -31,8 +32,9 @@ int opt_evict() {
 	int longest = 0;
 	for (i = 0; i < memsize; i += 1) {
 		for (o = line + 1; o <= filesize; o += 1) {
-			if (inframe[i] == addresslist[o] && o - line >= longest){
+			if (coremap[i].pte->checked == addresslist[o] && o - line >= longest){
 				longest = o - line;
+				printf("%d", longest);
 				evicted = i;
 				coremap[i].pte->checked = 1;
 			}
@@ -55,7 +57,7 @@ int opt_evict() {
  * Input: The page table entry for the page that is being accessed.
  */
 void opt_ref(pgtbl_entry_t *p) {
-	inframe[p->frame >> PAGE_SHIFT] = addresslist[line];
+	p.pte->virtualaddress = addresslist[line];
 	line +=1;
 }
 
@@ -95,8 +97,5 @@ void opt_init() {
 	}
 	
 	line = 0;
-	
-	inframe = malloc(sizeof(addr_t) * memsize);
-
 }
 
