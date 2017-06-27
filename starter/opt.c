@@ -75,13 +75,13 @@ void opt_init() {
 			continue;
 		}
 	}
-	printf("%d", filesize);
 	addresslist = malloc(sizeof(addr_t) * filesize);
 	
 	while(fgets(buf, MAXLINE, tfp) != NULL) {
 		if(buf[0] != '=') {
 			sscanf(buf, "%c %lx", &type, &vaddr);
 			addresslist[i] = vaddr;
+			printf(vaddr);
 			i += 1;
 		} else {
 			continue;
