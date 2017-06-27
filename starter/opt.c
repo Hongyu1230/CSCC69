@@ -38,7 +38,7 @@ int opt_evict() {
 			}
 		}
 	}
-	printf("%d \n", evicted)
+	printf("%d \n", evicted);
 	
 	return evicted;
 }
