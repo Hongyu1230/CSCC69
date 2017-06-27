@@ -38,6 +38,12 @@ int opt_evict() {
 			}
 		}
 	}
+	
+	for (i = 0; i < memsize; i += 1) {
+		if (coremap[i].pte->checked != 1) {
+			evicted = i;
+		}
+	}
 
 	
 	return evicted;
@@ -77,12 +83,11 @@ void opt_init() {
 		}
 	}
 	addresslist = malloc(sizeof(addr_t) * filesize);
-	
+	rewind(tfp);
 	while(fgets(buf, MAXLINE, tfp) != NULL) {
 		if(buf[0] != '=') {
 			sscanf(buf, "%c %lx", &type, &vaddr);
 			addresslist[i] = vaddr;
-			printf("%lu", vaddr);
 			i += 1;
 		} else {
 			continue;
