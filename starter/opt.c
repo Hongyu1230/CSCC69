@@ -81,7 +81,7 @@ void opt_init() {
 		if(buf[0] != '=') {
 			sscanf(buf, "%c %lx", &type, &vaddr);
 			addresslist[i] = vaddr;
-			printf(vaddr);
+			printf("%lu", vaddr);
 			i += 1;
 		} else {
 			continue;
