@@ -4,6 +4,7 @@
 #include <getopt.h>
 #include <stdlib.h>
 #include "pagetable.h"
+#define MAXLINE 256
 
 
 extern int memsize;
@@ -15,8 +16,6 @@ extern struct frame *coremap;
 extern char *tracefile;
 
 static addr_t *addresslist;
-
-static addr_t *inframe;
 
 static int line;
 
@@ -57,7 +56,7 @@ int opt_evict() {
  * Input: The page table entry for the page that is being accessed.
  */
 void opt_ref(pgtbl_entry_t *p) {
-	p.pte->virtualaddress = addresslist[line];
+	p->virtualaddress = addresslist[line];
 	line +=1;
 }
 
