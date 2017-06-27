@@ -40,7 +40,7 @@ int opt_evict() {
 	}
 	
 	for (i = 0; i < memsize; i += 1) {
-		printf("%d", coremap[i].pte->checked)
+		printf("%d", coremap[i].pte->checked);
 		if (coremap[i].pte->checked != 1) {
 			evicted = i;
 		}
