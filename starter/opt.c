@@ -38,6 +38,12 @@ int opt_evict() {
 			}
 		}
 	}
+	
+	for (i = 0; i < memsize; i += 1) {
+		if (coremap[i].pte->checked != 1) {
+			evicted = i;
+		}
+	}
 
 	
 	return evicted;
