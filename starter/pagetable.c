@@ -53,6 +53,7 @@ int allocate_frame(pgtbl_entry_t *p) {
 		}
 		victim->frame &= ~PG_VALID;
 		victim->frame |= PG_ONSWAP;
+		victim->frame &= ~PG_DIRTY;
 	}
 
 	// Record information for virtual page that will now be stored in frame
@@ -175,7 +176,6 @@ char *find_physpage(addr_t vaddr, char type) {
 		} else {
 			init_frame(newframe, vaddr);
 			p->frame = newframe << PAGE_SHIFT;
-			p->frame |= PG_DIRTY;
 		}
 	}
 
