@@ -29,8 +29,10 @@ int opt_evict() {
 	int evicted = 0;
 	int i,o;
 	int longest = 0;
+	int sight = 0;
 	for (i = 0; i < memsize; i += 1) {
-		for (o = line + 1; o <= filesize; o += 1) {
+		for (o = line + 1; o <= filesize && sight <= 30; o += 1) {
+			sight += 1;
 			if (coremap[i].pte->virtualaddress == addresslist[o] && o - line >= longest && coremap[i].pte->checked != 1){
 				longest = o - line;
 				evicted = i;
