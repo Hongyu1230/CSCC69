@@ -146,6 +146,7 @@ void init_frame(int frame, addr_t vaddr) {
 char *find_physpage(addr_t vaddr, char type) {
 	pgtbl_entry_t *p=NULL; // pointer to the full page table entry for vaddr
 	unsigned idx = PGDIR_INDEX(vaddr); // get index into page directory
+	unsigned index;
 
 	// IMPLEMENTATION NEEDED
 	// Use top-level page directory to get pointer to 2nd-level page table
@@ -176,7 +177,11 @@ char *find_physpage(addr_t vaddr, char type) {
 		} else {
 			init_frame(newframe, vaddr);
 			p->frame = newframe << PAGE_SHIFT;
-			p->frame |= PG_DIRTY;
+			if (bitmap_alloc(swapmap, &index) != 0) {
+				fprintf(stderr,"swap_pageout: Could not allocate space in swapfile. Try running again with a larger swapsize.\n");
+				exit(1);
+			}
+			p->swap_off = index*SIMPAGESIZE;
 		}
 	}
 
