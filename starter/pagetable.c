@@ -176,6 +176,7 @@ char *find_physpage(addr_t vaddr, char type) {
 		} else {
 			init_frame(newframe, vaddr);
 			p->frame = newframe << PAGE_SHIFT;
+			p->frame |= PG_DIRTY;
 		}
 	}
 
