@@ -43,9 +43,9 @@ int opt_evict() {
 	}
 	//we pick one that has the longest nextreference
 	for (i = 0; i < memsize; i += 1) {
-		if (coremap[i]->nextreference > line && coremap[i]->nextreference >= longest){
+		if (coremap[i].pte->nextreference > line && coremap[i].pte->nextreference >= longest){
 			evicted = i;
-			longest = coremap[i]->nextreference;
+			longest = coremap[i].pte->nextreference;
 		}
 	}
 	//we pick one that never has a check(so it never comes back)
