@@ -174,7 +174,7 @@ char *find_physpage(addr_t vaddr, char type) {
 				p->frame = newframe << PAGE_SHIFT;
 				p->frame &= ~PG_ONSWAP;
 			} else {
-				perror("swap in wasn't successful")
+				perror("swap in wasn't successful");
 				exit(success);
 			}
 		} else {
