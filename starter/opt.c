@@ -37,6 +37,7 @@ int opt_evict() {
 				if (coremap[i].pte->virtualaddress == addresslist[o]){
 					coremap[i].pte->checked = 1;
 					coremap[i].pte->nextreference = o;
+					break;
 				}
 			}
 		}
