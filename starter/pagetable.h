@@ -57,7 +57,7 @@ typedef struct {
 	int counter;            //counter for LRU
 	addr_t virtualaddress;    //virtualaddress for OPT
 	int checked;                //check if it has found the next trace that matches itself
-	int nextreference             //the next time this is referenced in our traces;
+	int nextreference;            //the next time this is referenced in our traces;
 } pgtbl_entry_t;    
 
 extern void init_pagetable();
