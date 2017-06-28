@@ -41,7 +41,7 @@ int clock_evict() {
 		}
 		loop+=1;
 	}
-	//move it to the next oldest one, since we got our evicted frame
+	//move by one since we just got our evicted frame
 	if (clock == (memsize - 1)) {
 		clock = 0;
 	}
