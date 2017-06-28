@@ -177,11 +177,7 @@ char *find_physpage(addr_t vaddr, char type) {
 		} else {
 			init_frame(newframe, vaddr);
 			p->frame = newframe << PAGE_SHIFT;
-			if (bitmap_alloc(swapmap, &index) != 0) {
-				fprintf(stderr,"swap_pageout: Could not allocate space in swapfile. Try running again with a larger swapsize.\n");
-				exit(1);
-			}
-			p->swap_off = index*SIMPAGESIZE;
+			p->frame |= PG_DIRTY;
 		}
 	}
 
