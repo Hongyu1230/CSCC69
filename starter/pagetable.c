@@ -46,6 +46,7 @@ int allocate_frame(pgtbl_entry_t *p) {
 			int swap_offset = swap_pageout(frame, victim->swap_off);
 			if (swap_offset != INVALID_SWAP){
 				victim->swap_off = swap_offset;
+				victim->frame |= PG_ONSWAP;
 			} else {
 				perror("swap out wasn't successful");
 				exit(1);
@@ -53,7 +54,6 @@ int allocate_frame(pgtbl_entry_t *p) {
 			
 		}
 		victim->frame &= ~PG_VALID;
-		victim->frame |= PG_ONSWAP;
 		victim->frame &= ~PG_DIRTY;
 	}
 
@@ -180,7 +180,6 @@ char *find_physpage(addr_t vaddr, char type) {
 		} else {
 			init_frame(newframe, vaddr);
 			p->frame = newframe << PAGE_SHIFT;
-			p->frame |= PG_DIRTY;
 		}
 	}
 
