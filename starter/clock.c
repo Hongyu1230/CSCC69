@@ -20,35 +20,35 @@ static int clock;
  */
 
 int clock_evict() {
-	int flag = 0;
-	int loop = 0;
-	int i;
-	int evicted = 0;
-	while (flag != 1) {
-		//we went through a cycle already without a victim, reset clock to 0 and try again
-		if (loop > 0) {
-			clock = 0;
-		}
-		for (i=clock; i < memsize; i+=1) {
-			if (coremap[i].pte->frame & PG_REF) {
-				coremap[i].pte->frame &= ~PG_REF;
-			} else {
-				flag = 1;
-				evicted = i;
-				clock = i;
-				break;
-			}
-		}
-		loop+=1;
-	}
-	//move by one since we just got our evicted frame
-	if (clock == (memsize - 1)) {
-		clock = 0;
-	}
-	else {
-		clock += 1;
-	}
-	return evicted;
+    int flag = 0;
+    int loop = 0;
+    int i;
+    int evicted = 0;
+    while (flag != 1) {
+        //we went through a cycle already without a victim, reset clock to 0 and try again
+        if (loop > 0) {
+            clock = 0;
+        }
+        for (i=clock; i < memsize; i+=1) {
+            if (coremap[i].pte->frame & PG_REF) {
+                coremap[i].pte->frame &= ~PG_REF;
+            } else {
+                flag = 1;
+                evicted = i;
+                clock = i;
+                break;
+            }
+        }
+        loop+=1;
+    }
+    //move by one since we just got our evicted frame
+    if (clock == (memsize - 1)) {
+        clock = 0;
+    }
+    else {
+        clock += 1;
+    }
+    return evicted;
 }
 
 /* This function is called on each access to a page to update any information
@@ -56,13 +56,13 @@ int clock_evict() {
  * Input: The page table entry for the page that is being accessed.
  */
 void clock_ref(pgtbl_entry_t *p) {
-	p->frame |= PG_REF;
-	return;
+    p->frame |= PG_REF;
+    return;
 }
 
 /* Initialize any data structures needed for this replacement
  * algorithm. 
  */
 void clock_init() {
-	clock = 0;
+    clock = 0;
 }
