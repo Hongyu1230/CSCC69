@@ -23,7 +23,7 @@ int lru_evict() {
     int starter = time;
     int evicted = 0;
     int i;
-	//find one with the lowest counter, which should be our oldest frame
+    //find one with the lowest counter, which should be our oldest frame
     for (i=0; i < memsize; i+=1) {
         if (coremap[i].pte->counter <= starter){
             starter = coremap[i].pte->counter;
