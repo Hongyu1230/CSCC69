@@ -64,7 +64,7 @@ int opt_evict() {
  * Input: The page table entry for the page that is being accessed.
  */
 void opt_ref(pgtbl_entry_t *p) {
-	//store the virtual address of the current trace we are executing
+    //store the virtual address of the current trace we are executing
     p->virtualaddress = addresslist[line];
     line +=1;
 }

@@ -23,7 +23,7 @@ int lru_evict() {
     int starter = time;
     int evicted = 0;
     int i;
-	//find one with the lowest counter, which should be our oldest frame
+    //find one with the lowest counter, which should be our oldest frame
     for (i=0; i < memsize; i+=1) {
         if (coremap[i].pte->counter <= starter){
             starter = coremap[i].pte->counter;
@@ -38,7 +38,7 @@ int lru_evict() {
  * Input: The page table entry for the page that is being accessed.
  */
 void lru_ref(pgtbl_entry_t *p) {
-	//increment the time by 1 and set that as the counter for the frame we just referenced
+    //increment the time by 1 and set that as the counter for the frame we just referenced
     time+=1;
     p->counter = time;
     return;
