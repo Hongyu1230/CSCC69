@@ -49,7 +49,7 @@ int opt_evict() {
             longest = coremap[i].pte->nextreference;
         }
     }
-    //we pick one that never has a check(so it never comes back)
+    //we pick one that never has a check(so it never comes back), this overrides the previous if any is found
     for (i = 0; i < memsize; i += 1) {
         if (coremap[i].pte->checked != 1) {
             evicted = i;
@@ -64,6 +64,7 @@ int opt_evict() {
  * Input: The page table entry for the page that is being accessed.
  */
 void opt_ref(pgtbl_entry_t *p) {
+	//store the virtual address of the current trace we are executing
     p->virtualaddress = addresslist[line];
     line +=1;
 }
@@ -77,6 +78,7 @@ void opt_init() {
     char type;
     FILE *tfp;
     int i = 0;
+	//try to read the file, code from sim.c
     if(tracefile != NULL) {
         if((tfp = fopen(tracefile, "r")) == NULL) {
             perror("Error opening tracefile:");
@@ -84,6 +86,7 @@ void opt_init() {
         }
     }
     
+	//we get the amount of trace, so we know how many to look until
     while(fgets(buf, MAXLINE, tfp) != NULL) {
         if(buf[0] != '=') {
             filesize+=1;
@@ -93,6 +96,8 @@ void opt_init() {
     }
     addresslist = malloc(sizeof(addr_t) * filesize);
     rewind(tfp);
+	
+	//we store our virtual address into a array so we can assign it to pte on reference
     while(fgets(buf, MAXLINE, tfp) != NULL) {
         if(buf[0] != '=') {
             sscanf(buf, "%c %lx", &type, &vaddr);

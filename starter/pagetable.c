@@ -42,6 +42,7 @@ int allocate_frame(pgtbl_entry_t *p) {
 		if (!(victim->frame & PG_DIRTY)){
 			evict_clean_count += 1;
 		} else {
+			//swap page out if it's dirty and make it onswap
 			evict_dirty_count += 1;
 			int swap_offset = swap_pageout(frame, victim->swap_off);
 			if (swap_offset != INVALID_SWAP){
@@ -53,6 +54,7 @@ int allocate_frame(pgtbl_entry_t *p) {
 			}
 			
 		}
+		//page no longer in memory and no longer dirty
 		victim->frame &= ~PG_VALID;
 		victim->frame &= ~PG_DIRTY;
 	}
@@ -150,6 +152,7 @@ char *find_physpage(addr_t vaddr, char type) {
 
 	// IMPLEMENTATION NEEDED
 	// Use top-level page directory to get pointer to 2nd-level page table
+	// if second lvl is not initialized
 	if (!(pgdir[idx].pde & PG_VALID)) {
 		pgdir[idx] = init_second_level();
 	}
@@ -166,9 +169,11 @@ char *find_physpage(addr_t vaddr, char type) {
 	if (p->frame & PG_VALID) {
 		hit_count += 1;
 	} else {
+		//the frame we got was not in memory, allocate a frame for it
 		miss_count += 1;
 		int newframe = allocate_frame(p);
 		if (p->frame & PG_ONSWAP) {
+			//the frame is on swap, so we swap back in
 			int success = swap_pagein(newframe, p->swap_off);
 			if (success == 0) {
 				p->frame = newframe << PAGE_SHIFT;
@@ -178,6 +183,7 @@ char *find_physpage(addr_t vaddr, char type) {
 				exit(success);
 			}
 		} else {
+			//not on swap so we init the frame
 			init_frame(newframe, vaddr);
 			p->frame = newframe << PAGE_SHIFT;
 		}

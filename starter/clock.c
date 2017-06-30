@@ -24,11 +24,13 @@ int clock_evict() {
     int loop = 0;
     int i;
     int evicted = 0;
+	//we run until flag is 1, that is we found a frame in memory without the ref bit on
     while (flag != 1) {
         //we went through a cycle already without a victim, reset clock to 0 and try again
         if (loop > 0) {
             clock = 0;
         }
+		//turn off the ref bit if the ref bit is on, else we find one without the ref bit and decides our evicted frame
         for (i=clock; i < memsize; i+=1) {
             if (coremap[i].pte->frame & PG_REF) {
                 coremap[i].pte->frame &= ~PG_REF;
@@ -56,7 +58,6 @@ int clock_evict() {
  * Input: The page table entry for the page that is being accessed.
  */
 void clock_ref(pgtbl_entry_t *p) {
-    p->frame |= PG_REF;
     return;
 }
 
