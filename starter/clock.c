@@ -30,8 +30,8 @@ int clock_evict() {
         if (loop > 0) {
             clock = 0;
         }
-		//turn off the ref bit if the ref bit is on, else we find one without the ref bit and decides our evicted frame
-		//we set the clock to the found frame too, because we just found the frame to evict
+        //turn off the ref bit if the ref bit is on, else we find one without the ref bit and decides our evicted frame
+        //we set the clock to the found frame too, because we just found the frame to evict
         for (i=clock; i < memsize; i+=1) {
             if (coremap[i].pte->frame & PG_REF) {
                 coremap[i].pte->frame &= ~PG_REF;
