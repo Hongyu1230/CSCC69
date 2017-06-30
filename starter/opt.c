@@ -33,7 +33,7 @@ int opt_evict() {
     for (i = 0; i < memsize; i += 1) {
         if (coremap[i].pte->nextreference < line){
             coremap[i].pte->checked = 0;
-            for (o = line + 1; o <= filesize; o += 1) {
+            for (o = line + 1; o < filesize; o += 1) {
                 if (coremap[i].pte->virtualaddress == addresslist[o]){
                     coremap[i].pte->checked = 1;
                     coremap[i].pte->nextreference = o;
