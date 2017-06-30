@@ -21,7 +21,7 @@ static int counter;
 int fifo_evict() {
 	//since we know how frames are assigned, which basically assigns it by the first unused frame
 	//we know that the frame will be inputted from 0,1,2 ... memsize - 1
-	//so we can just use a counter to choose our eviction considering this will only be called when it's full
+	//so we can just use a counter to choose our eviction considering this will only be called when the memory is full
 	int evicted = counter;
 	
 	//increment counter, if our counter is at the end we need to reset it back to 0
