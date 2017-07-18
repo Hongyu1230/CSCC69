@@ -28,7 +28,7 @@ int main(int argc, char **argv) {
     printf("Inodes: %d\n", sb->s_inodes_count);
     printf("Blocks: %d\n", sb->s_blocks_count);
 	
-	struct ext2_group_desc *bg = (struct ext2_ext2_group_desc *)(disk + 2048);
+	struct ext2_super_block *sb = (struct ext2_super_block *)(disk + 1024);
     printf("block bitmap: %d\n", bg->bg_block_bitmap);
     printf("inode bitmap: %d\n", bg-> bg_inode_bitmap);
     printf("inode table: %d\n", bg->bg_inode_table);
