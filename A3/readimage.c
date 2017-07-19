@@ -83,7 +83,6 @@ int main(int argc, char **argv) {
     }
     unsigned int blockloc;
     struct ext2_dir_entry_2 *directory;
-	int acc = 0;
     printf("Directory Blocks:\n");
     for (i = 1; i < 32; i+=1){
 		inode = (struct ext2_inode *) (inodeloc + sizeof(struct ext2_inode) * i);
@@ -108,8 +107,7 @@ int main(int argc, char **argv) {
 			}
 			printf("Inode: %d rec_len: %d name_len: %d type= %c name=%s\n", directory->inode, directory->rec_len, directory->name_len, type, directory->name);
 			j += directory->rec_len;
-			acc += directory->rec_len;
-			directory = (struct ext2_dir_entry_2 *)(disk + 1024 * blockloc + acc);
+			directory = (void *) directory + directory->rec_len;
 		}
         
     }
