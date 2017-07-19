@@ -97,7 +97,7 @@ int main(int argc, char **argv) {
             } else if (directory->file_type == EXT2_FT_DIR) {
                 type = 'd';
             }
-            printf("Inode: %d rec_len: %d name_len: %d type= %c name=%.*s\n", directory->inode, directory->rec_len, directory->name_len, type, directory->name);
+            printf("Inode: %d rec_len: %d name_len: %d type= %c name=%\n", directory->inode, directory->rec_len, directory->name_len, type, directory->name);
             directory = directory + directory->rec_len;
         }
     }
