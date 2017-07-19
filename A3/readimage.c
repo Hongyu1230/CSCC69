@@ -64,7 +64,7 @@ int main(int argc, char **argv) {
 	char* inodeloc = (char*)(disk + 1024 * bg->bg_inode_table);
 	struct ext2_inode *inode;
 	int* tbl = malloc(sizeof(int) * 32);
-	char type = 'not set';
+	char type = '0';
 	printf("Inodes:\n");
 	for (i = EXT2_ROOT_INO - 1; i < 32; i+=1){
 		inode = (struct ext2_inode *) (inodeloc + sizeof(struct ext2_inode) * i);
