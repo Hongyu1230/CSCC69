@@ -107,7 +107,7 @@ int main(int argc, char **argv) {
 			}
 			printf("Inode: %d rec_len: %d name_len: %d type= %c name=%s\n", directory->inode, directory->rec_len, directory->name_len, type, directory->name);
 			j += directory->rec_len;
-			directory += directory->rec_len;
+			directory += (void *) directory->rec_len;
 		}
         
     }
