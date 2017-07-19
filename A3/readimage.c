@@ -86,7 +86,7 @@ int main(int argc, char **argv) {
 	int length;
 	struct ext2_dir_entry_2 *dir_entry;
 	//struct ext2_dir_entry_2 *dir;
-	printf("Directory Blocks:\n");
+	printf("\nDirectory Blocks:\n");
 	for (i = 1; i < 32; i+=1){
 		inode = (struct ext2_inode *) (inodeloc + sizeof(struct ext2_inode) * i);
 		
