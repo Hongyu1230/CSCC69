@@ -72,6 +72,9 @@ int main(int argc, char **argv) {
 		} else if (inode->i_mode & EXT2_S_IFDIR) {
 			type = 'd';
 		}
+		if (inode->i_size == 0) {
+			continue;
+		}
 		printf("[%d] type: %c size: %d links: %d blocks: %d\n", i + 1, type, inode->i_size, inode->i_links_count, inode->i_blocks);
 	}
     return 0;
