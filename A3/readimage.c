@@ -40,12 +40,13 @@ int main(int argc, char **argv) {
 	printf("Block bitmap:");
 	int i, pos;
 	char temp;
+	char bitmapv[8];
 	for (i = 0; i < sb->s_blocks_count / 8; i+=1, bbmap +=1) {
 		temp = *bbmap;
 		for (i = 0; i < 8; i++) {
-			temp[i] = temp[i] & 1;
+			bitmapv[i] = (temp >> i) & 1;
 		}
-		printf("%c", temp);
+		printf("%c", bitmapv);
 		printf(" ");
 	}
 	printf("\n");
