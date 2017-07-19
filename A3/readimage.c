@@ -75,6 +75,9 @@ int main(int argc, char **argv) {
 		if (inode->i_size == 0) {
 			continue;
 		}
+		if (i < 11 && i != 1) {
+			continue;
+		}
 		printf("[%d] type: %c size: %d links: %d blocks: %d\n", i + 1, type, inode->i_size, inode->i_links_count, inode->i_blocks);
 	}
     return 0;
