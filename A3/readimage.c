@@ -80,6 +80,42 @@ int main(int argc, char **argv) {
 		}
 		printf("[%d] type: %c size: %d links: %d blocks: %d\n", i + 1, type, inode->i_size, inode->i_links_count, inode->i_blocks);
 		printf("[%d] Blocks: %d\n", i + 1, inode->i_block[0]);
+		
+	}
+	
+	int length;
+	struct ext2_dir_entry_2 *dir_entry;
+	//struct ext2_dir_entry_2 *dir;
+	printf("Directory Blocks:\n");
+	for (i = 1; i < 32; i+=1){
+		inode = (struct ext2_inode *) (inodeloc + sizeof(struct ext2_inode) * i);
+		
+		if (!(inode->i_mode & EXT2_S_IFDIR)){
+			continue;
+		}
+		if (inode->i_size == 0) {
+			continue;
+		}
+		if (i < 11 && i != 1) {
+			continue;
+		}
+
+		
+
+		printf("	DIR BLOCK NUM: %d (for inode %d)\n", inode->i_block[0], i + 1);
+
+		length = 0;
+		//printf(" INODE SIZE: %d \n", inode->i_size);
+		while (length < inode->i_size){
+
+			dir_entry = (struct ext2_dir_entry_2 *) (disk + ((1024 * (inode->i_block[0]))+length));
+
+			printf("Inode: %i rec_len: %d name_len: %i type= %i name=%s \n", dir_entry->inode, dir_entry->rec_len, dir_entry->name_len, dir_entry->file_type, dir_entry->name);
+			length += dir_entry->rec_len;
+			//printf("Length: %d", length);
+
+		}
+		
 	}
     return 0;
 }
