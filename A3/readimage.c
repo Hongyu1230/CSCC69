@@ -44,9 +44,8 @@ int main(int argc, char **argv) {
 	for (i = 0; i < sb->s_blocks_count / 8; i+=1, bbmap +=1) {
 		temp = *bbmap;
 		for (pos = 0; pos < 8; pos++) {
-			bitmapv[pos] = (temp >> pos) & 1;
+			printf("%d", (temp >> pos) & 1);
 		}
-		printf("%s", bitmapv);
 		printf(" ");
 	}
 	printf("\n");
