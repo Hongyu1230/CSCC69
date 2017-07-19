@@ -49,5 +49,18 @@ int main(int argc, char **argv) {
 	}
 	printf("\n");
 	
+	char* ibmap = (char *)(disk + 1024 * bg->bg_inode_bitmap);
+	printf("Inode bitmap:");
+	int j, pos2;
+	char temp2;
+	for (i = 0; i < 4; i+=1, ibmap +=1) {
+		temp2 = *ibmap;
+		for (pos = 0; pos < 8; pos++) {
+			printf("%d", (temp2 >> pos) & 1);
+		}
+		printf(" ");
+	}
+	printf("\n");
+	
     return 0;
 }
