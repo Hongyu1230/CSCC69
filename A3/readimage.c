@@ -90,6 +90,9 @@ int main(int argc, char **argv) {
         } else {
 			continue;
 		}
+		if (i < 11 && i != 1) {
+            continue;
+        }
         blockloc = inode->i_block[0];
         printf("DIR BLOCK NUM: %d (for inode %d)\n", blockloc, i + 1);
         
