@@ -28,7 +28,7 @@ int main(int argc, char **argv) {
     printf("Inodes: %d\n", sb->s_inodes_count);
     printf("Blocks: %d\n", sb->s_blocks_count);
 	
-	struct ext2_group_desc *bg = (struct ext2_group_desc *)(disk + EXT2_BLOCK_SIZE*2);
+	struct ext2_group_desc *bg = (struct ext2_group_desc *)(disk + 2048);
     printf("block bitmap: %d\n", bg->bg_block_bitmap);
     printf("inode bitmap: %d\n", bg-> bg_inode_bitmap);
     printf("inode table: %d\n", bg->bg_inode_table);
@@ -36,12 +36,11 @@ int main(int argc, char **argv) {
 	printf("free inodes: %d\n", bg->bg_free_inodes_count);
 	printf("used_dirs: %d\n", bg->bg_used_dirs_count);
 	
-	char* bbmap = (char *)(disk + EXT2_BLOCK_SIZE * bg->bg_block_bitmap);
+	char* bbmap = (char *)(disk + 1024 * bg->bg_block_bitmap);
 	printf("Block bitmap:");
 	int i, pos;
 	char temp;
-	char bitmapv[8];
-	for (i = 0; i < sb->s_blocks_count / 8; i+=1, bbmap +=1) {
+	for (i = 0; i < 16; i+=1, bbmap +=1) {
 		temp = *bbmap;
 		for (pos = 0; pos < 8; pos++) {
 			printf("%d", (temp >> pos) & 1);
