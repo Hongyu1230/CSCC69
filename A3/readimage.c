@@ -64,14 +64,14 @@ int main(int argc, char **argv) {
 	char* inodeloc = (char*)(disk + 1024 * bg->bg_inode_table);
 	struct ext2_inode *inode;
 	int* tbl = malloc(sizeof(int) * 32);
-	char type = "not set";
+	char type = 'not set';
 	printf("Inodes:\n");
 	for (i = EXT2_ROOT_INO - 1; i < 32; i+=1){
 		inode = (struct ext2_inode *) (inodeloc + sizeof(struct ext2_inode) * i);
 		if (inode->i_mode & EXT2_S_IFREG) {
-			type = "f";
+			type = 'f';
 		} else if (inode->i_mode & EXT2_S_IFDIR) {
-			type = "d";
+			type = 'd';
 		}
 		printf("[%d] type: %c size: %d links: %d blocks: %d\n", i, type, inode->i_size, inode->i_links_count, inode->i_blocks);
 	}
