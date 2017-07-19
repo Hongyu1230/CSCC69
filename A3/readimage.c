@@ -81,5 +81,25 @@ int main(int argc, char **argv) {
         printf("[%d] type: %c size: %d links: %d blocks: %d\n", i + 1, type, inode->i_size, inode->i_links_count, inode->i_blocks);
         printf("[%d] Blocks:  %d\n", i + 1, inode->i_block[0]);
     }
+    unsigned int blockloc;
+    struct ext2_dir_entry_2 *directory'
+    printf("Directory Blocks:\n");
+    for (i = 1; i < 32; i+=1){
+        if (inode->i_mode & EXT2_S_IFDIR) {
+            inode = (struct ext2_inode *) (inodeloc + sizeof(struct ext2_inode) * i);
+        }
+        blockloc = inode->i_block[0];
+        printf("DIR BLOCK NUM: %d (for inode %d)\n", blockloc, i + 1);
+        directory = (struct ext2_dir_entry_2 *)(disk + 1024 * blockloc);
+        for(i = 0; i < 1024; i+=directory->rec_len) {
+            if (directory->->file_type == EXT2_FT_REG_FILE) {
+                type = 'f';
+            } else if (directory->->file_type == EXT2_FT_DIR) {
+                type = 'd';
+            }
+            printf("Inode: %d rec_len: %d name_len: %d type= %c name=%.*s\n", directory->inode, directory->rec_len, directory->name_len, type, dir_entry->name);
+            directory = directory + directory->rec_len;
+        }
+    }
     return 0;
 }
