@@ -85,9 +85,11 @@ int main(int argc, char **argv) {
     struct ext2_dir_entry_2 *directory;
     printf("Directory Blocks:\n");
     for (i = 1; i < 32; i+=1){
+		inode = (struct ext2_inode *) (inodeloc + sizeof(struct ext2_inode) * i);
         if (inode->i_mode & EXT2_S_IFDIR) {
-            inode = (struct ext2_inode *) (inodeloc + sizeof(struct ext2_inode) * i);
-        }
+        } else {
+			continue;
+		}
         blockloc = inode->i_block[0];
         printf("DIR BLOCK NUM: %d (for inode %d)\n", blockloc, i + 1);
         directory = (struct ext2_dir_entry_2 *)(disk + 1024 * blockloc);
