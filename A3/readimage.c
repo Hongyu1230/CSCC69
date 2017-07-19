@@ -41,7 +41,10 @@ int main(int argc, char **argv) {
 	int i, pos;
 	char temp;
 	for (i = 0; i < sb->s_blocks_count / 8; i+=1, bbmap +=1) {
-		temp = *bbmap; 
+		temp = *bbmap;
+		for (i = 0; i < 8; i++) {
+			temp[i] = temp[i] & 1;
+		}
 		printf("%c", temp);
 		printf(" ");
 	}
