@@ -38,13 +38,12 @@ int main(int argc, char **argv) {
 	
 	char* bbmap = (char *)(disk + EXT2_BLOCK_SIZE * bg->bg_block_bitmap);
 	printf("Block bitmap:");
-	printf("used_dirs: %c\n", bbmap);
 	int i, pos;
 	char temp;
 	for (i = 0; i < sb->s_blocks_count / 8; i+=1, bbmap +=1) {
 		temp = *bbmap; 
 		for (pos = 0; pos < 8; pos+=1) {
-			printf("%d", (temp >> pos) & 1);
+			printf("%c", temp);
 		}
 		printf(" ");
 	}
