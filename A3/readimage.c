@@ -106,8 +106,8 @@ int main(int argc, char **argv) {
 				type = 'd';
 			}
 			printf("Inode: %d rec_len: %d name_len: %d type= %c name=%s\n", directory->inode, directory->rec_len, directory->name_len, type, directory->name);
-			i += directory->rec_len;
-			directory = directory += directory->rec_len
+			j += directory->rec_len;
+			directory = directory += directory->rec_len;
 		}
         
     }
