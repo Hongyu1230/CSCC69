@@ -66,7 +66,7 @@ int main(int argc, char **argv) {
 	int* tbl = malloc(sizeof(int) * 32);
 	char type = '0';
 	printf("Inodes:\n");
-	for (i = EXT2_ROOT_INO; i < 32; i+=1){
+	for (i = EXT2_ROOT_INO - 1; i < 32; i+=1){
 		inode = (struct ext2_inode *) (inodeloc + sizeof(struct ext2_inode) * i);
 		if (inode->i_mode & EXT2_S_IFREG) {
 			type = 'f';
