@@ -95,6 +95,20 @@ int main(int argc, char **argv) {
         }
         blockloc = inode->i_block[0];
         printf("DIR BLOCK NUM: %d (for inode %d)\n", blockloc, i + 1);
+		directory = (struct ext2_dir_entry_2 *)(disk + 1024 * blockloc);
+		j = 0;
+		type = '0';
+		while (j < 1024) {
+			if (directory->file_type == EXT2_FT_REG_FILE) {
+				type = 'f';
+			} 
+			else if(directory->file_type == EXT2_FT_DIR) {
+				type = 'd';
+			}
+			printf("Inode: %d rec_len: %d name_len: %d type= %c name=%s\n", dir_entry->inode, dir_entry->rec_len, dir_entry->name_len, type, dir_entry->name);
+			i += directory->rec_len;
+			directory = directory += directory->rec_len
+		}
         
     }
     return 0;
