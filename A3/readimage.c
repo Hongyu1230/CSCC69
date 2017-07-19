@@ -42,9 +42,7 @@ int main(int argc, char **argv) {
 	char temp;
 	for (i = 0; i < sb->s_blocks_count / 8; i+=1, bbmap +=1) {
 		temp = *bbmap; 
-		for (pos = 0; pos < 8; pos+=1) {
-			printf("%c", temp);
-		}
+		printf("%c", temp);
 		printf(" ");
 	}
 	printf("\n");
