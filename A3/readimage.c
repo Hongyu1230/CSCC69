@@ -82,7 +82,7 @@ int main(int argc, char **argv) {
         printf("[%d] Blocks:  %d\n", i + 1, inode->i_block[0]);
     }
     unsigned int blockloc;
-    struct ext2_dir_entry_2 *directory'
+    struct ext2_dir_entry_2 *directory;
     printf("Directory Blocks:\n");
     for (i = 1; i < 32; i+=1){
         if (inode->i_mode & EXT2_S_IFDIR) {
@@ -97,7 +97,7 @@ int main(int argc, char **argv) {
             } else if (directory->->file_type == EXT2_FT_DIR) {
                 type = 'd';
             }
-            printf("Inode: %d rec_len: %d name_len: %d type= %c name=%.*s\n", directory->inode, directory->rec_len, directory->name_len, type, dir_entry->name);
+            printf("Inode: %d rec_len: %d name_len: %d type= %c name=%.*s\n", directory->inode, directory->rec_len, directory->name_len, type, directory->name);
             directory = directory + directory->rec_len;
         }
     }
