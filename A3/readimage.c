@@ -46,7 +46,7 @@ int main(int argc, char **argv) {
 		for (i = 0; i < 8; i++) {
 			bitmapv[i] = (temp >> i) & 1;
 		}
-		printf("%c", bitmapv);
+		printf("%s", bitmapv);
 		printf(" ");
 	}
 	printf("\n");
