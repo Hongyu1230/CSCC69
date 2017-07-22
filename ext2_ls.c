@@ -8,6 +8,7 @@
 #include "ext2.h"
 
 #include <string.h>
+#include <errno.h>
 
 unsigned char *disk;
 
@@ -15,13 +16,36 @@ unsigned char *disk;
 int main(int argc, char **argv) {
 
 
-	if(argc != 3) {
-		fprintf(stderr, "Usage: ext2_ls <image file name> <path on file disk>\n");
-		exit(1);
+
+
+	//flag raiser
+	int a = 0;
+	int option;
+	while ((option = getopt (argc, argv, ":a")) != EOF) {
+		switch (option)	{
+		
+		case 'a':
+			printf("-a option\n");
+			a++;
+			break;
+		
+		default:
+			break;
+
+		}
 	}
 
+	if(argc != 3 + a) {
+		fprintf(stderr, "Usage: ext2_ls <image file name> [a] <path on file disk>\n");
+		exit(1);
+	}
 	
-	int fd = open(argv[1], O_RDWR);
+
+	//!!! argv[1] becomes "-a" after getopt for some reason
+	
+	int fd = open(argv[1+a], O_RDWR);
+	printf("arg1 is %s\n", argv[1+a]);
+	printf("arg2 is %s\n", argv[2+a]);
 	disk = mmap(NULL, 128 * 1024, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
 	if(disk == MAP_FAILED) {
 		perror("mmap");
@@ -29,29 +53,25 @@ int main(int argc, char **argv) {
 
 	}
 
-    struct ext2_super_block *sb = (struct ext2_super_block *)(disk + 1024);
+	struct ext2_super_block *sb = (struct ext2_super_block *)(disk + 1024);
 
-    printf("Inodes: %d\n", sb->s_inodes_count);
-    printf("Blocks: %d\n", sb->s_blocks_count);
-    printf("Block group:\n");
+	printf("Inodes: %d\n", sb->s_inodes_count);
+	printf("Blocks: %d\n", sb->s_blocks_count);
+	printf("Block group:\n");
 
-	printf("path is %s has length %lu\n", argv[2], strlen(argv[2]));
-	//char path[] = argv[2];
-	
 
 	int i, test;
 	int depth = 0;
 	
-	char path[strlen(argv[2])];
-	strcpy(path, argv[2]);
+	char path[strlen(argv[2+a])];
+	strcpy(path, argv[2+a]);
 
-	char *list[strlen(argv[2])]; 
+	char *list[strlen(argv[2+a])]; 
 
 	char *segment = strtok(path, "/");
 
-	
+	printf("path is %s has length %lu\n", argv[2+a], strlen(argv[2+a]));
 	for (i = 0; segment != NULL  ; i++) {
-
 		list[i] = segment;
 		segment = strtok (NULL, "/");
 		depth ++;
@@ -70,15 +90,18 @@ int main(int argc, char **argv) {
 	struct ext2_inode *inode;
 
 	
-	int match = 1;
-	int length;
+	int level = 1; //the depth level of branching inodes we're at
+	int length; //keeps track cumulative directory length from start
+	int invalid = 0; // 1 if any segment of path wrong,
 	int discovered = 0;
-	char name[100]; //make sizeof
+	char name[100]; 
 	
 	struct ext2_dir_entry_2 *dir_entry;
 	//struct ext2_dir_entry_2 *dir;
 	printf("\nDirectory Blocks:\n");
-	for (i = 1; i < 32 && match <= depth; i+=1){
+	for (i = 1; i < 32 && level <= depth && invalid == 0; i+=1){
+		
+		discovered = 0; // set or reset for new inode
 		inode = (struct ext2_inode *) (inodeloc + sizeof(struct ext2_inode) * i); 
 		if (!(inode->i_mode & EXT2_S_IFDIR)){
 			continue;
@@ -90,93 +113,79 @@ int main(int argc, char **argv) {
 			continue;
 		}
 
-		
-		
 		printf("	DIR BLOCK NUM: %d (for inode %d)\n", inode->i_block[0], i + 1);
-		
 		length = 0;
+		invalid = 1; //won't switch off unless we find a matching level entry in enode
 
-		
-		//printf(" INODE SIZE: %d \n", inode->i_size);
 		while (length < inode->i_size){
-
-
 			dir_entry = (struct ext2_dir_entry_2 *) (disk + ((1024 * (inode->i_block[0]))+length));
-			//printf("Inode: %i rec_len: %d name_len: %i type= %i name=%s \n", dir_entry->inode, dir_entry->rec_len, dir_entry->name_len, dir_entry->file_type, dir_entry->name);
+			//printf("Inode: %i rec_len: %d name_len: %i type= %i name=%s \n", dir_entry->inode, 
+			//dir_entry->rec_len, dir_entry->name_len, dir_entry->file_type, dir_entry->name);
+
 			length += dir_entry->rec_len;
-			//printf("Length: %d", length);
-			
-			
-			
-			//if (match <= depth) {
-				strncpy(name, dir_entry->name, dir_entry->name_len);
-				printf("name shortened %s level %i and depth %i compare %s\n", name, match, depth, list[match-1]);
+
+			strncpy(name, dir_entry->name, dir_entry->name_len);
+			printf("Inode %s at level %i. In depth %i of our arg, is this %s\n", name, level, depth, list[level-1]);
 				
-
-				if (strcmp(list[match-1], name) == 0) {
-					printf("DING FOR %s\n", name);
+			//compares path segment at same level to entry name
+			if (strcmp(list[level-1], name) == 0) {
+				printf("  DING FOR %s\n", name);
+				invalid = 0;
+				if(level == depth){
 					discovered = dir_entry->inode;
+					printf("  discovered: %i\n", discovered);
+					if (dir_entry->file_type == EXT2_FT_REG_FILE || dir_entry->file_type == EXT2_FT_SYMLINK){
+						printf("DISCOVERED: \n");						
+						printf("\nInode: %i rec_len: %d name_len: %i type= %i name=%.*s \n", 
+						dir_entry->inode, dir_entry->rec_len, dir_entry->name_len, 
+						dir_entry->file_type, dir_entry->name_len, dir_entry->name);
+					}
 				}
-				//wipeout name for use
-				memset(name, 0, sizeof(name));
-			//}
-
-						
-			;
+			}	
+			//wipeout name for use in other entries
+			memset(name, 0, sizeof(name));
 		}
-		match++;
 		
-
-		
+		level++;
 	}
 
 	if (discovered != 0) {
 
 		inode = (struct ext2_inode *) (inodeloc + sizeof(struct ext2_inode) * (discovered-1)); 
 		if (!(inode->i_mode & EXT2_S_IFDIR)){
-			printf("NOT VALID\n");
+			//printf("Inode: %i rec_len: %d name_len: %i type= %i name=%s \n", dir_entry->inode, 
+			//dir_entry->rec_len, dir_entry->name_len, dir_entry->file_type, dir_entry->name);
 		}
 		else if (inode->i_size == 0) {
-			printf("NOT VALID\n");
+			//printf("size zero\n"); Idk if needed
 		}
-		else if (i < 11 && i != 1) {
-			printf("NOT VALID\n");
-		}
-
-		
 		else {
 			length = 0;
-
-			printf("DISCOVERED:\n");
+			printf("\nDISCOVERED:\n");
 			//printf(" INODE SIZE: %d \n", inode->i_size);
 			while (length < inode->i_size){
 				dir_entry = (struct ext2_dir_entry_2 *) (disk + ((1024 * (inode->i_block[0]))+length));
-				printf("In directoryInode: %i rec_len: %d name_len: %i type= %i name=%.*s \n", dir_entry->inode, 
-				dir_entry->rec_len, dir_entry->name_len, dir_entry->file_type, dir_entry->name_len, dir_entry->name);
+				if (a == 1) {
+					printf("Directory entry Inode: %i rec_len: %d name_len: %i type= %i name=%.*s \n", 
+					dir_entry->inode, dir_entry->rec_len, dir_entry->name_len, dir_entry->file_type, 
+					dir_entry->name_len, dir_entry->name);
+				}
+				
+				else if (strcmp(dir_entry->name, ".") != 0 && strcmp(dir_entry->name, "..") != 0) {
+					printf("Directory entry Inode: %i rec_len: %d name_len: %i type= %i name=%.*s \n", 
+					dir_entry->inode, dir_entry->rec_len, dir_entry->name_len, dir_entry->file_type, 
+					dir_entry->name_len, dir_entry->name);
+				
+				} 
 				length += dir_entry->rec_len;
 			}
 		}
 	}
-	
-	/**
-	int a = 0;
-	int option;
-	//flag raiser
-	while ((option = getopt (argc, argv, "a")) != EOF)
-		switch (option)	{
-		
-		case 'a':
-			a++;
 
-		}
+	else {
+		printf("\nNo such file or directory\n");
+		return ENOENT;
 	}
-
-
-	**/
-	
-
-
-	//fd = open(argv[2], O_RDONLY);
 	
 	return 0;
 	
