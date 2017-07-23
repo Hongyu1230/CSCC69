@@ -31,9 +31,6 @@ int main(int argc, char **argv) {
 	}
 	int sourcelen = strlen(source);
 	printf("%d",sourcelen);
-	int i = sourcelen - 1;
-	char sourcename[sourcelen];
-	strncpy(sourcename, source + i, sourcelen - 1);
 	
     disk = mmap(NULL, 128 * 1024, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
     if(disk == MAP_FAILED) {
