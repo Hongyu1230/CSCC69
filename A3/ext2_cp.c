@@ -23,14 +23,15 @@ int main(int argc, char **argv) {
 	if (source < 0) {
 		return ENOENT;
 	}
-	char* dest;
+	char* dest, source;
 	dest = argv[3];
+	source = argv[2];
 	if(dest[0] != '/') {
 		return ENOENT;
 	}
-	int destlen = strlen(dest);
-	int i = destlen - 1;
-	while (dest[i] != '/') {
+	int sourcelen = strlen(source);
+	int i = sourcelen - 1;
+	while (source[i] != '/' || i != 0) {
 		i-=1;
 	}
 	char sourcename[destlen];
