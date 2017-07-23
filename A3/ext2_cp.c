@@ -25,12 +25,18 @@ int main(int argc, char **argv) {
 	}
 	char* dest, source;
 	dest = argv[3];
-	source = argv[2];
+	sourcen = argv[2];
 	if(dest[0] != '/') {
 		return ENOENT;
 	}
-	int sourcelen = strlen(source);
-	printf("%d",sourcelen);
+	int sourcelen = strlen(sourcen);
+	int i = sourcelen - 1;
+	while (sourcen[i] != '/' || i != 0) {
+		i-=1;
+	}
+	char sourcename[sourcelen];
+	strncpy(sourcename, sourcen + i, sourcelen - 1);
+	printf("%s",sourcename);
 	
     disk = mmap(NULL, 128 * 1024, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
     if(disk == MAP_FAILED) {
