@@ -36,6 +36,7 @@ int main(int argc, char **argv) {
 	i = strlen(sourcepath) - 1;
 	while (sourcepath[i] != '/' || i > 0) {
 		i -= 1;
+		printf("%c", sourcepath[i]);
 		printf("%d", i);
 	}
     disk = mmap(NULL, 128 * 1024, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
