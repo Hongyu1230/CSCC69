@@ -33,6 +33,7 @@ int main(int argc, char **argv) {
 		return ENOENT;
 	}
 	int i;
+	i = strlen(sourcepath) - 1;
 	while (destpath[i] != '/' || i != 0) {
 		i -= 1;
 	}
