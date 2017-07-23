@@ -31,9 +31,7 @@ int main(int argc, char **argv) {
 	}
 	int sourcelen = strlen(sourcen);
 	int i = sourcelen - 1;
-	while (sourcen[i] != '/' || i != 0) {
-		i-=1;
-	}
+
 	char sourcename[sourcelen];
 	printf("%s", sourcen);
 	
