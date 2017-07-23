@@ -37,7 +37,7 @@ int main(int argc, char **argv) {
 	while (destpath[i] != '/' || i != 0) {
 		i -= 1;
 	}
-	strncpy(sourcename, sourcepath + i, strlen(argv[2]) - 1);
+	strncpy(sourcename, &sourcepath[i], 5);
 	printf("%s", sourcename);
     disk = mmap(NULL, 128 * 1024, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
     if(disk == MAP_FAILED) {
