@@ -25,7 +25,6 @@ int main(int argc, char **argv) {
 	}
 	
 	char sourcepath[strlen(argv[2])];
-	char sourcename[strlen(argv[2])];
 	char destpath[strlen(argv[3])];
 	strcpy(sourcepath, argv[2]);
 	strcpy(destpath, argv[3]);
@@ -38,8 +37,8 @@ int main(int argc, char **argv) {
 			break;
 		}
 	}
-	int totallen = strlen(sourcepath) - 1;
-	strncpy(sourcename, &sourcepath[i + 1], totallen - i);
+	char sourcename[strlen(argv[2]) - i];
+	strncpy(sourcename, &sourcepath[i + 1], strlen(sourcepath) - 1 - i);
 	printf("%s", sourcename);
     disk = mmap(NULL, 128 * 1024, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
     if(disk == MAP_FAILED) {
