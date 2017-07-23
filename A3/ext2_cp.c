@@ -34,8 +34,8 @@ int main(int argc, char **argv) {
 	while (source[i] != '/' || i != 0) {
 		i-=1;
 	}
-	char sourcename[destlen];
-	strncpy(sourcename, dest + i, destlen - 1);
+	char sourcename[sourcelen];
+	strncpy(sourcename, source + i, sourcelen - 1);
 	printf("%s",sourcename);
 	
     disk = mmap(NULL, 128 * 1024, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
