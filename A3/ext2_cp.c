@@ -38,8 +38,6 @@ int main(int argc, char **argv) {
 		i -= 1;
 	}
 	printf("%d", i);
-	strncpy(sourcename, &sourcepath[i], strlen(sourcepath) - i);
-	printf("%s", sourcename);
     disk = mmap(NULL, 128 * 1024, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
     if(disk == MAP_FAILED) {
 		perror("mmap");
