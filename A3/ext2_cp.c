@@ -19,8 +19,8 @@ int main(int argc, char **argv) {
         exit(1);
     }
     int fd = open(argv[1], O_RDWR);
-	int source = open(argv[2], O_RDONLY);
-	if (source < 0) {
+	FILE *source = fopen(argv[2], "r");
+	if (source== NULL) {
 		return ENOENT;
 	}
 	
@@ -37,11 +37,12 @@ int main(int argc, char **argv) {
 			break;
 		}
 	}
+	if (i == 0) {
+		i = -1;
+	}
 	int neededlen = strlen(argv[2]) -i;
-	printf("%d", neededlen);
 	char sourcename[neededlen];
 	strncpy(sourcename, &sourcepath[i + 1], neededlen);
-	printf("%s", sourcename);
     disk = mmap(NULL, 128 * 1024, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
     if(disk == MAP_FAILED) {
 		perror("mmap");
