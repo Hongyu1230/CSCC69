@@ -29,9 +29,6 @@ int main(int argc, char **argv) {
 	char destpath[strlen(argv[3])];
 	strcpy(sourcepath, argv[1]);
 	strcpy(destpath, argv[1]);
-	if (destpath[0] != '/') {
-		return ENOENT;
-	}
 	printf("%s", sourcepath);
 	int i;
 	while (destpath[i] != '/' || i != 0) {
