@@ -34,7 +34,7 @@ int main(int argc, char **argv) {
 	}
 	int i;
 	i = strlen(sourcepath) - 1;
-	while (sourcepath[i] != '/' || i != 0) {
+	while (sourcepath[i] != '/' || i >= 0) {
 		i -= 1;
 		printf("%d", i);
 	}
