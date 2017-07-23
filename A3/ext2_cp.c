@@ -37,7 +37,7 @@ int main(int argc, char **argv) {
 			break;
 		}
 	}
-	char sourcename[9];
+	char sourcename[11];
 	strncpy(sourcename, &sourcepath[i + 1], strlen(sourcepath) - 1 - i);
 	printf("%s", sourcename);
     disk = mmap(NULL, 128 * 1024, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
