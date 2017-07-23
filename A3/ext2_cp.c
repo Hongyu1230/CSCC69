@@ -29,7 +29,7 @@ int main(int argc, char **argv) {
 	char destpath[strlen(argv[3])];
 	strcpy(sourcepath, argv[1]);
 	strcpy(destpath, argv[1]);
-	printf("%s", sourcepath);;
+	printf("%s", destpath);;
     disk = mmap(NULL, 128 * 1024, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
     if(disk == MAP_FAILED) {
 		perror("mmap");
