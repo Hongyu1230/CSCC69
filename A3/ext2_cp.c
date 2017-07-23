@@ -27,7 +27,7 @@ int main(int argc, char **argv) {
 	if(dest[0] != '/') {
 		return ENOENT;
 	}
-	int destlen = strlen(dest)
+	int destlen = strlen(dest);
 	int i = destlen - 1;
 	while (dest[i] != '/') {
 		i-=1;
