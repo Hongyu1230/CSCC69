@@ -43,6 +43,7 @@ int main(int argc, char **argv) {
 	int neededlen = strlen(argv[2]) -i;
 	char sourcename[neededlen];
 	strncpy(sourcename, &sourcepath[i + 1], neededlen);
+	printf("%s", sourcename);
     disk = mmap(NULL, 128 * 1024, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
     if(disk == MAP_FAILED) {
 		perror("mmap");
