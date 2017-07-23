@@ -23,8 +23,9 @@ int main(int argc, char **argv) {
 	if (source < 0) {
 		return ENOENT;
 	}
-	char sourcepath[512];
-	char destpath[512];
+	
+	char sourcepath[strlen(argv[2]];
+	char destpath[strlen(argv[3]];
 	strcpy(sourcepath, argv[1]);
 	strcpy(destpath, argv[1]);
 	printf("%s", sourcepath);
