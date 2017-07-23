@@ -23,16 +23,13 @@ int main(int argc, char **argv) {
 	if (source < 0) {
 		return ENOENT;
 	}
-	char* dest, sourcen;
+	const char* dest, sourcen;
 	dest = argv[3];
 	sourcen = argv[2];
 	if(dest[0] != '/') {
 		return ENOENT;
 	}
-	int sourcelen = strlen(sourcen);
-	int i = sourcelen - 1;
 
-	char sourcename[sourcelen];
 	printf("%s", sourcen);
 	
     disk = mmap(NULL, 128 * 1024, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
