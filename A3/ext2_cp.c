@@ -37,7 +37,7 @@ int main(int argc, char **argv) {
 			break;
 		}
 	}
-	int neededlen = strlen(argv[2]) - i - 1;
+	int neededlen = strlen(argv[2]) - i;
 	char sourcename[neededlen];
 	strncpy(sourcename, &sourcepath[i + 1], neededlen);
 	printf("%s", sourcename);
