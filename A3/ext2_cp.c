@@ -34,6 +34,7 @@ int main(int argc, char **argv) {
 	}
 	int i;
 	i = strlen(argv[2]) - 1;
+	printf("%d", i);
 	while (destpath[i] != '/' || i != 0) {
 		i -= 1;
 	}
