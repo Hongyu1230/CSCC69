@@ -23,14 +23,11 @@ int main(int argc, char **argv) {
 	if (source < 0) {
 		return ENOENT;
 	}
-	const char* dest, sourcen;
-	dest = argv[3];
-	sourcen = argv[2];
-	if(dest[0] != '/') {
-		return ENOENT;
-	}
-
-	printf("%s", &sourcen);
+	char sourcepath[512];
+	char destpath[512];
+	strcpy(sourcepath, argv[1]);
+	strcpy(destpath, argv[1]);
+	printf("%s", sourcepath);
 	
     disk = mmap(NULL, 128 * 1024, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
     if(disk == MAP_FAILED) {
