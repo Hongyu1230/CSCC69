@@ -6,6 +6,7 @@
 #include <fcntl.h>
 #include <sys/mman.h>
 #include <errno.h>
+#include <string.h>
 #include "ext2.h"
 
 unsigned char *disk;
