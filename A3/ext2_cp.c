@@ -30,13 +30,10 @@ int main(int argc, char **argv) {
 		return ENOENT;
 	}
 	int sourcelen = strlen(source);
+	printf("%d",sourcelen);
 	int i = sourcelen - 1;
-	while (source[i] != '/' || i != 0) {
-		i-=1;
-	}
 	char sourcename[sourcelen];
 	strncpy(sourcename, source + i, sourcelen - 1);
-	printf("%s",sourcename);
 	
     disk = mmap(NULL, 128 * 1024, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
     if(disk == MAP_FAILED) {
