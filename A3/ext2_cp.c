@@ -32,7 +32,6 @@ int main(int argc, char **argv) {
 	if (destpath[0] != '/') {
 		return ENOENT;
 	}
-	printf("%s", sourcepath);
 	int i;
 	while (destpath[i] != '/' || i != 0) {
 		i -= 1;
