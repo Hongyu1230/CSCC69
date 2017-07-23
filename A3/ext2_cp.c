@@ -23,7 +23,7 @@ int main(int argc, char **argv) {
 	if (source < 0) {
 		return ENOENT;
 	}
-	char* dest, source;
+	char* dest, sourcen;
 	dest = argv[3];
 	sourcen = argv[2];
 	if(dest[0] != '/') {
