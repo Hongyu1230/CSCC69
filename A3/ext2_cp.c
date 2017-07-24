@@ -28,7 +28,9 @@ int main(int argc, char **argv) {
 	char destpath[strlen(argv[3])];
 	strcpy(sourcepath, argv[2]);
 	strcpy(destpath, argv[3]);
-
+	if (destpath[0] != '/') {
+		return ENOENT;
+	}
 	int i;
 	char* token;
 	char* token2;
@@ -39,6 +41,7 @@ int main(int argc, char **argv) {
 	token2 = strtok(sourcepath, delimiter);
 	while (token != NULL) {
 		strcpy(sourcename, token);
+		printf("%s\n", token);
 		token = strtok(NULL, delimiter);
 	}
     disk = mmap(NULL, 128 * 1024, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
