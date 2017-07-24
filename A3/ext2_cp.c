@@ -71,7 +71,7 @@ int main(int argc, char **argv) {
 				directory = (void *) directory + directory->rec_len;
 			}
 		}
-		if (pathnode->i_size = 0){
+		if (pathnode->i_size == 0){
 			blocktrack += 1;
 		}
 	}
