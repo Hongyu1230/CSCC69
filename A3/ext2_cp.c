@@ -139,12 +139,21 @@ int main(int argc, char **argv) {
     for (i = 0; i < 16; i+=1, bbmap +=1) {
         temp = *bbmap;
         for (pos = 0; pos < 8; pos++) {
-            inode_bitmap[(8 * i) + pos] = (temp >> pos) & 1;
+            block_bitmap[(8 * i) + pos] = (temp >> pos) & 1;
         }
     }
 	
+	int j, k, l;
+	char* mappos;
 	for (i = 0; i < 12 && i < blockneeded; i += 1){
-		
+		for (j = 0; j < 128; j +=1){
+			if (block_bitmap[j] == 0) {
+				k = floor(j/8);
+				l = 2^(j%8);
+				mappos = bbmap + k;
+				mappos = mappos | l;
+			}
+		}
 	}
 	
 	
