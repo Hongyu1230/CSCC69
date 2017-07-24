@@ -21,7 +21,7 @@ int main(int argc, char **argv) {
     }
     int fd = open(argv[1], O_RDWR);
 	FILE *source = fopen(argv[2], "r");
-	if (source != NULL) {
+	if (source == NULL) {
 		perror("could not find source file");
 		return ENOENT;
 	}
