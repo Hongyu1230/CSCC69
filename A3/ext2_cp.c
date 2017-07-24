@@ -19,8 +19,8 @@ int main(int argc, char **argv) {
         exit(1);
     }
     int fd = open(argv[1], O_RDWR);
-	FILE *source = fopen(argv[2], "r");
-	if (source== NULL) {
+	int source = open(argv[2], O_RDONLY);
+	if (source < 0) {
 		return ENOENT;
 	}
 	
@@ -52,12 +52,33 @@ int main(int argc, char **argv) {
     struct ext2_super_block *sb = (struct ext2_super_block *)(disk + 1024);
 	struct ext2_group_desc *bg = (struct ext2_group_desc *)(disk + 2048);
 	struct ext2_inode *itable = (struct ext2_inode *)(disk + 1024 * bg->bg_inode_table);
-	struct ext2_inode *inode = itable + 1;
+	struct ext2_inode *pathnode = itable + 1;
 	token2 = strtok(destpath, delimiter);
-	while (token2 != NULL) {
-		strcpy(destinationsplit, token2);
-		printf("%s\n", token2);
-		token2 = strtok(NULL, delimiter);
+	int blcoktrack = 0;
+	int sizecheck = 0;
+	struct ext2_dir_entry_2 *directory;
+	while (token2 != NULL && pathnode->i_mode & EXT2_S_IFDIR && blocktrack <= 11) {
+		directory = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode[blocktrack]);
+		while (sizecheck < pathnode->i_size) {
+			if(strcmp(token2, directory->name) {
+				pathnode = itable + directory->inode - 1;
+				blocktrack = 0;
+				sizecheck = 0;
+				token2 = strtok(NULL, delimiter);
+				break;
+			} else {
+				sizecheck += directory->rec_len;
+				directory = (void *) directory + directory->rec_len
+			}
+		}
+		if (inode->i_size = 0){
+			blocktrack += 1;
+		}
+	}
+	
+	if (token2 != NULL) {
+		//we couldn't reach the file destination, since we didn't go through all tokens
+		return ENOENT;
 	}
     return 0;
 }
