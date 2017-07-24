@@ -83,7 +83,7 @@ int main(int argc, char **argv) {
 		//we couldn't reach the file destination, since we didn't go through all tokens
 		return ENOENT;
 	}
-	
+	printf("hello");
 	int inode_bitmap[32];
 	char* ibmap = (char *)(disk + 1024 * bg->bg_inode_bitmap);
     printf("Inode bitmap:");
