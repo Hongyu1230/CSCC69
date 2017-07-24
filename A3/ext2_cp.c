@@ -32,7 +32,7 @@ int main(int argc, char **argv) {
 		return ENOENT;
 	}
 	int i;
-	char *token
+	char *token;
 	char delimiter = "/";
 	char test[strlen(argv[2])];
 	token = strtok(sourcepath, split);
