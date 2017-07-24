@@ -53,7 +53,7 @@ int main(int argc, char **argv) {
 	char destinationsplit[strlen(destpath)];
 	token2 = strtok(destpath, delimiter);
 	while (token != NULL) {
-		strcpy(desinationsplit, token);
+		strcpy(destinationsplit, token);
 		printf("%s", destinationsplit);
 		token = strtok(NULL, delimiter);
 	}
