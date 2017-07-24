@@ -32,6 +32,13 @@ int main(int argc, char **argv) {
 		return ENOENT;
 	}
 	int i;
+	char *token
+	char test[strlen(argv[2])];
+	token = strtok(argv[2], '/');
+	while (token != NULL) {
+		strcpy(test, token);
+	}
+	printf("%s",test);
 	for (i = strlen(sourcepath) - 1; i > 0; i-=1){
 		if (sourcepath[i] == '/') {
 			break;
@@ -43,7 +50,6 @@ int main(int argc, char **argv) {
 	int neededlen = strlen(argv[2]) -i;
 	char sourcename[neededlen];
 	strncpy(sourcename, &sourcepath[i + 1], neededlen);
-	printf("%s", sourcename);
     disk = mmap(NULL, 128 * 1024, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
     if(disk == MAP_FAILED) {
 		perror("mmap");
@@ -54,7 +60,6 @@ int main(int argc, char **argv) {
 	struct ext2_group_desc *bg = (struct ext2_group_desc *)(disk + 2048);
 	struct ext2_inode *itable = (struct ext2_inode *)(disk + 1024 * bg->bg_inode_table);
 	struct ext2_inode *inode = itable + 1;
-	printf("%d", inode->i_blocks);
 	
     return 0;
 }
