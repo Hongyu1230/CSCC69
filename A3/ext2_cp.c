@@ -38,6 +38,7 @@ int main(int argc, char **argv) {
 	char sourcename[strlen(sourcepath)];
 	char destinationsplit[strlen(destpath)];
 	token = strtok(sourcepath, delimiter);
+	token2 = strtok(destpath, delimiter);
 	while (token != NULL) {
 		strcpy(sourcename, token);
 		token = strtok(NULL, delimiter);
@@ -55,6 +56,7 @@ int main(int argc, char **argv) {
 	struct ext2_inode *inode = itable + 1;
 	while (token2 != NULL) {
 		strcpy(destinationsplit, token2);
+		printf("%s\n", token2);
 		token2 = strtok(NULL, delimiter);
 	}
     return 0;
