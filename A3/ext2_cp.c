@@ -117,7 +117,7 @@ int main(int argc, char **argv) {
     }
 	int free_inode = -1;
 	for (i = 0; i < 32; i++){
-		if (inode_bitmap[i] = 0){
+		if (inode_bitmap[i] == 0){
 			free_inode = i;
 			break;
 		}
