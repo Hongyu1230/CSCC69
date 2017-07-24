@@ -38,7 +38,6 @@ int main(int argc, char **argv) {
 	char sourcename[strlen(sourcepath)];
 	char destinationsplit[strlen(destpath)];
 	token = strtok(sourcepath, delimiter);
-	token2 = strtok(sourcepath, delimiter);
 	while (token != NULL) {
 		strcpy(sourcename, token);
 		token = strtok(NULL, delimiter);
