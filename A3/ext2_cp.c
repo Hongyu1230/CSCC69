@@ -35,9 +35,9 @@ int main(int argc, char **argv) {
 	char *token
 	char *split = '/';
 	char test[strlen(argv[2])];
-	token = strtok(argv[2], '/');
+	token = strtok(argv[2], split);
 	while (token != NULL) {
-		strcpy(test, split);
+		strcpy(test, token);
 	}
 	printf("%s",test);
 	for (i = strlen(sourcepath) - 1; i > 0; i-=1){
