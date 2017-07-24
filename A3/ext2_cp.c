@@ -28,9 +28,7 @@ int main(int argc, char **argv) {
 	char destpath[strlen(argv[3])];
 	strcpy(sourcepath, argv[2]);
 	strcpy(destpath, argv[3]);
-	if (destpath[0] != '/') {
-		return ENOENT;
-	}
+
 	int i;
 	char* token;
 	char* token2;
