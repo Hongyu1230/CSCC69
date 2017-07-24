@@ -32,8 +32,8 @@ int main(int argc, char **argv) {
 		return ENOENT;
 	}
 	int i;
-	char* token;
-	char* token2;
+	char *token;
+	char *token2;
 	const char delimiter[2] = "/";
 	char sourcename[strlen(sourcepath)];
 	char destinationsplit[strlen(destpath)];
@@ -56,7 +56,6 @@ int main(int argc, char **argv) {
 	struct ext2_inode *inode = itable + 1;
 	while (token2 != NULL) {
 		strcpy(destinationsplit, token2);
-		printf("%s\n", token2);
 		token2 = strtok(NULL, delimiter);
 	}
     return 0;
