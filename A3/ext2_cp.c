@@ -32,9 +32,10 @@ int main(int argc, char **argv) {
 		return ENOENT;
 	}
 	int i;
-	char* token,token2;
+	char* token, token2;
 	const char delimiter[2] = "/";
 	char sourcename[strlen(sourcepath)];
+	char destinationsplit[strlen(destpath)];
 	token = strtok(sourcepath, delimiter);
 	while (token != NULL) {
 		strcpy(sourcename, token);
@@ -50,10 +51,9 @@ int main(int argc, char **argv) {
 	struct ext2_group_desc *bg = (struct ext2_group_desc *)(disk + 2048);
 	struct ext2_inode *itable = (struct ext2_inode *)(disk + 1024 * bg->bg_inode_table);
 	struct ext2_inode *inode = itable + 1;
-	char destinationsplit[strlen(destpath)];
 	token2 = strtok(destpath, delimiter);
 	while (token2 != NULL) {
-		strcpy(destinationsplit, token);
+		strcpy(destinationsplit, token2);
 		printf("%s", destinationsplit);
 		token2 = strtok(NULL, delimiter);
 	}
