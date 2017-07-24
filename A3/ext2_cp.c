@@ -92,7 +92,7 @@ int main(int argc, char **argv) {
     for (i = 0; i < 4; i+=1, ibmap +=1) {
         temp = *ibmap;
         for (pos = 0; pos < 8; pos++) {
-            inode_bitmap[4 * i + pos] = (temp2 >> pos) & 1;
+            inode_bitmap[4 * i + pos] = (temp >> pos) & 1;
         }
     }
 	for (i = 0; i < 32; i++){
