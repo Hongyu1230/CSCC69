@@ -68,7 +68,7 @@ int main(int argc, char **argv) {
 				break;
 			} else {
 				sizecheck += directory->rec_len;
-				directory = (void *) directory + directory->rec_len
+				directory = (void *) directory + directory->rec_len;
 			}
 		}
 		if (pathnode->i_size = 0){
