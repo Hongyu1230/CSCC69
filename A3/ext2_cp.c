@@ -34,24 +34,12 @@ int main(int argc, char **argv) {
 	int i;
 	char *token;
 	const char delimiter[2] = "/";
-	char test[strlen(argv[2])];
+	char sourcename[strlen(sourcepath)];
 	token = strtok(sourcepath, delimiter);
 	while (token != NULL) {
-		strcpy(test, token);
+		strcpy(sourcename, token);
 		token = strtok(NULL, delimiter);
 	}
-	printf("%s",test);
-	for (i = strlen(sourcepath) - 1; i > 0; i-=1){
-		if (sourcepath[i] == '/') {
-			break;
-		}
-	}
-	if (i == 0) {
-		i = -1;
-	}
-	int neededlen = strlen(argv[2]) -i;
-	char sourcename[neededlen];
-	strncpy(sourcename, &sourcepath[i + 1], neededlen);
     disk = mmap(NULL, 128 * 1024, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
     if(disk == MAP_FAILED) {
 		perror("mmap");
@@ -62,6 +50,12 @@ int main(int argc, char **argv) {
 	struct ext2_group_desc *bg = (struct ext2_group_desc *)(disk + 2048);
 	struct ext2_inode *itable = (struct ext2_inode *)(disk + 1024 * bg->bg_inode_table);
 	struct ext2_inode *inode = itable + 1;
-	
+	char destinationsplit[strlen(destpath)];
+	token2 = strtok(destpath, delimiter);
+	while (token != NULL) {
+		strcpy(desinationsplit, token);
+		printf("%s", destinationsplit);
+		token = strtok(NULL, delimiter);
+	}
     return 0;
 }
