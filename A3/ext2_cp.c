@@ -41,9 +41,9 @@ int main(int argc, char **argv) {
 	token2 = strtok(sourcepath, delimiter);
 	while (token != NULL) {
 		strcpy(sourcename, token);
-		printf("%s\n", token);
 		token = strtok(NULL, delimiter);
 	}
+	printf("%s\n", sourcename);
     disk = mmap(NULL, 128 * 1024, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
     if(disk == MAP_FAILED) {
 		perror("mmap");
