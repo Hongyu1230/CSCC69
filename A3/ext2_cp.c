@@ -32,7 +32,6 @@ int main(int argc, char **argv) {
 	if (destpath[0] != '/') {
 		return ENOENT;
 	}
-	int i;
 	char *token;
 	char *token2;
 	const char delimiter[2] = "/";
