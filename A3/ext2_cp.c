@@ -25,7 +25,6 @@ int main(int argc, char **argv) {
 		perror("could not find source file");
 		return ENOENT;
 	}
-	printf("hello");
 	char sourcepath[strlen(argv[2])];
 	char destpath[strlen(argv[3])];
 	strcpy(sourcepath, argv[2]);
