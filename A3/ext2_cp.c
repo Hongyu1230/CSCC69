@@ -33,10 +33,11 @@ int main(int argc, char **argv) {
 	}
 	int i;
 	char *token
+	char *split = '/';
 	char test[strlen(argv[2])];
 	token = strtok(argv[2], '/');
 	while (token != NULL) {
-		strcpy(test, token);
+		strcpy(test, split);
 	}
 	printf("%s",test);
 	for (i = strlen(sourcepath) - 1; i > 0; i-=1){
