@@ -33,7 +33,7 @@ int main(int argc, char **argv) {
 	}
 	int i;
 	char *token
-	char *split = '/';
+	char split = '/';
 	char test[strlen(argv[2])];
 	token = strtok(argv[2], split);
 	while (token != NULL) {
