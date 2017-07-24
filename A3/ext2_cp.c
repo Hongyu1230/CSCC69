@@ -68,13 +68,13 @@ int main(int argc, char **argv) {
 			} else {
 				sizecheck += directory->rec_len;
 				directory = (void *) directory + directory->rec_len;
+				printf("%s\n", sourcename);
 			}
 		}
 		if (pathnode->i_size = 0){
 			blocktrack += 1;
 		}
 	}
-	printf("%s\n", sourcename);
 	if (token2 != NULL) {
 		//we couldn't reach the file destination, since we didn't go through all tokens
 		return ENOENT;
