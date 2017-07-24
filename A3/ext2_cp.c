@@ -58,7 +58,7 @@ int main(int argc, char **argv) {
 	struct ext2_dir_entry_2 *directory;
 	while (token2 != NULL && pathnode->i_mode & EXT2_S_IFDIR && blocktrack <= 11) {
 		directory = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blocktrack]);
-		printf("%s\n", sourcename);
+		printf("%d\n", blocktrack);
 		while (sizecheck < pathnode->i_size) {
 			if(strcmp(token2, directory->name)) {
 				pathnode = itable + directory->inode - 1;
