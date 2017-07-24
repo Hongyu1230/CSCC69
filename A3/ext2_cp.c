@@ -22,6 +22,7 @@ int main(int argc, char **argv) {
     int fd = open(argv[1], O_RDWR);
 	FILE *source = fopen(argv[2], "r");
 	if (source != NULL) {
+		perror("could not find source file");
 		return ENOENT;
 	}
 	printf("hello");
@@ -30,6 +31,7 @@ int main(int argc, char **argv) {
 	strcpy(sourcepath, argv[2]);
 	strcpy(destpath, argv[3]);
 	if (destpath[0] != '/') {
+		perror("the path needs to start from root, beginning with /");
 		return ENOENT;
 	}
 	char *token;
@@ -81,6 +83,7 @@ int main(int argc, char **argv) {
 	}
 	if (token2 != NULL) {
 		//we couldn't reach the file destination, since we didn't go through all tokens
+		perror("cannot find destination directory on disk");
 		return ENOENT;
 	}
 	int inode_bitmap[32];
