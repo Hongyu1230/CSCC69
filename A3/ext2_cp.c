@@ -55,7 +55,7 @@ int main(int argc, char **argv) {
 	struct ext2_inode *inode = itable + 1;
 	while (token2 != NULL) {
 		strcpy(destinationsplit, token2);
-		printf("%s\n", destinationsplit);
+		printf("%s\n", token2);
 		token2 = strtok(NULL, delimiter);
 	}
     return 0;
