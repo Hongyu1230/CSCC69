@@ -98,7 +98,7 @@ int main(int argc, char **argv) {
 	sizecheck = 0;
 	while (sizecheck < pathnode->i_size) {
 		if(strncmp(sourcename, directory->name, directory->name_len) && directory->file_type == 1) {
-			perror("the file at the location already exist")
+			perror("the file at the location already exist");
 			return EEXIST;
 		}
 		sizecheck += directory->rec_len;
