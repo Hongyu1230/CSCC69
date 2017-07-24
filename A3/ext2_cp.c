@@ -52,10 +52,10 @@ int main(int argc, char **argv) {
 	struct ext2_inode *inode = itable + 1;
 	char destinationsplit[strlen(destpath)];
 	token2 = strtok(destpath, delimiter);
-	while (token != NULL) {
+	while (token2 != NULL) {
 		strcpy(destinationsplit, token);
 		printf("%s", destinationsplit);
-		token = strtok(NULL, delimiter);
+		token2 = strtok(NULL, delimiter);
 	}
     return 0;
 }
