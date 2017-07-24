@@ -87,7 +87,6 @@ int main(int argc, char **argv) {
 	}
 	int inode_bitmap[32];
 	char* ibmap = (char *)(disk + 1024 * bg->bg_inode_bitmap);
-    printf("Inode bitmap:");
     int i, pos;
     char temp;
     for (i = 0; i < 4; i+=1, ibmap +=1) {
