@@ -19,8 +19,8 @@ int main(int argc, char **argv) {
         exit(1);
     }
     int fd = open(argv[1], O_RDWR);
-	int source = open(argv[2], O_RDONLY);
-	if (source < 0) {
+	FILE *source = fopen(argv[2], "r")
+	if (source != NULL) {
 		return ENOENT;
 	}
 	
@@ -47,7 +47,11 @@ int main(int argc, char **argv) {
 		perror("mmap");
 		exit(1);
     }
-
+	
+	fseek(source, 0L, SEEK_END);
+	int sz = ftell(source);
+	int blockneeded = ceil(sz/1024);
+	
     struct ext2_super_block *sb = (struct ext2_super_block *)(disk + 1024);
 	struct ext2_group_desc *bg = (struct ext2_group_desc *)(disk + 2048);
 	struct ext2_inode *itable = (struct ext2_inode *)(disk + 1024 * bg->bg_inode_table);
@@ -58,7 +62,7 @@ int main(int argc, char **argv) {
 	while (token2 != NULL && S_ISDIR(pathnode->i_mode)) {
 		directory = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[0]);
 		while (sizecheck < pathnode->i_size) {
-			if(strcmp(token2, directory->name)) {
+			if(strncmp(token2, directory->name, directory->name_len)) {
 				pathnode = itable + directory->inode - 1;
 				sizecheck = 0;
 				check = 1;
@@ -79,5 +83,21 @@ int main(int argc, char **argv) {
 		//we couldn't reach the file destination, since we didn't go through all tokens
 		return ENOENT;
 	}
+	
+	int inode_bitmap[32];
+	char* ibmap = (char *)(disk + 1024 * bg->bg_inode_bitmap);
+    printf("Inode bitmap:");
+    int i, pos;
+    char temp;
+    for (i = 0; i < 4; i+=1, ibmap +=1) {
+        temp = *ibmap;
+        for (pos = 0; pos < 8; pos++) {
+            inode_bitmap[4 * i + pos];
+        }
+    }
+	printf("%d", inode_bitmap);
+	
+	
+	
     return 0;
 }
