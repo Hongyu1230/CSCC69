@@ -52,6 +52,11 @@ int main(int argc, char **argv) {
 	fseek(source, 0L, SEEK_END);
 	int sz = ftell(source);
 	int blockneeded = ceil(sz/1024);
+	int indirection_needed = 0;
+	if (blockneeded > 12) {
+		blockneeded += 1;
+		indirection_needed = 1;
+	}
 	
     struct ext2_super_block *sb = (struct ext2_super_block *)(disk + 1024);
 	
@@ -125,6 +130,21 @@ int main(int argc, char **argv) {
 	if(free_inode == -1) {
 		perror("no free inodes");
 		return ENOSPC;
+	}
+	
+	struct ext2_inode *newnode = itable + free_inode;
+	
+	int block_bitmap[128];
+	char* bbmap = (char *)(disk + 1024 * bg->bg_block_bitmap);
+    for (i = 0; i < 16; i+=1, bbmap +=1) {
+        temp = *bbmap;
+        for (pos = 0; pos < 8; pos++) {
+            inode_bitmap[(8 * i) + pos] = (temp >> pos) & 1;
+        }
+    }
+	
+	for (i = 0; i < 12 && i < blockneeded; i += 1){
+		
 	}
 	
 	
