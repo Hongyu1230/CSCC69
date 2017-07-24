@@ -7,6 +7,7 @@
 #include <sys/mman.h>
 #include <errno.h>
 #include <string.h>
+#include <math.h>
 #include "ext2.h"
 
 unsigned char *disk;
@@ -19,7 +20,7 @@ int main(int argc, char **argv) {
         exit(1);
     }
     int fd = open(argv[1], O_RDWR);
-	FILE *source = fopen(argv[2], "r")
+	FILE *source = fopen(argv[2], "r");
 	if (source != NULL) {
 		return ENOENT;
 	}
@@ -95,7 +96,9 @@ int main(int argc, char **argv) {
             inode_bitmap[4 * i + pos];
         }
     }
-	printf("%d", inode_bitmap);
+	for (i = 0; i < 32; i++){
+		printf("%d", inode_bitmap[i]);
+	}
 	
 	
 	
