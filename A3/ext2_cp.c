@@ -32,7 +32,8 @@ int main(int argc, char **argv) {
 		return ENOENT;
 	}
 	int i;
-	char* token, token2;
+	char* token;
+	char* token2;
 	const char delimiter[2] = "/";
 	char sourcename[strlen(sourcepath)];
 	char destinationsplit[strlen(destpath)];
