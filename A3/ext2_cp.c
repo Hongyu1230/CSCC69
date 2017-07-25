@@ -174,7 +174,7 @@ int main(int argc, char **argv) {
                 ptr = (void *)(disk + 1024 * (j + 1));
                 memcpy(tester, source, sizeof(char)/1024);
 				printf("%s\n", tester);
-				printf("%well that did not work out", tester);
+				printf("%well that did not work out");
                 break;
             }
         }
