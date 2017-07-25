@@ -244,6 +244,10 @@ int main(int argc, char **argv) {
 		}
 	}
 	
+	if(check != 1) {
+		printf("we didn't get it");
+	}
+	
 	
     
     return 0;
