@@ -75,6 +75,7 @@ int main(int argc, char **argv) {
     while (token2 != NULL && S_ISDIR(pathnode->i_mode)) {
         for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
 			directory = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
+			sizecheck = 0;
             while (sizecheck < pathnode->i_size) {
                 if(strncmp(token2, directory->name, directory->name_len)) {
                     pathnode = itable + directory->inode;
