@@ -147,7 +147,7 @@ int main(int argc, char **argv) {
         return ENOSPC;
     }
     
-    struct ext2_inode *newnode = itable + free_inode - 1;
+    struct ext2_inode *newnode = itable + (free_inode - 1);
     
     int block_bitmap[128];
     char* bbmap = (char *)(disk + 1024 * bg->bg_block_bitmap);
