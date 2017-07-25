@@ -174,7 +174,6 @@ int main(int argc, char **argv) {
             }
         }
     }
-	printf("did I even reach here");
 
     
     return 0;
