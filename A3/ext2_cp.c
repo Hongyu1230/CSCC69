@@ -52,6 +52,7 @@ int main(int argc, char **argv) {
     fseek(source, 0L, SEEK_END);
     int sz = ftell(source);
     int blockneeded = ceil(sz/1024);
+	printf("%d", blockneeded);
     if (blockneeded > 12) {
         blockneeded += 1;
     }
@@ -161,7 +162,6 @@ int main(int argc, char **argv) {
     int m = 0;
     char *mappos;
     void *ptr;
-	printf("%d", blockneeded - 1);
     for (i = 0; i < 12 && i < blockneeded - 1; i += 1){
         for (j = 0; j < 128; j +=1){
             if (block_bitmap[j] == 0) {
