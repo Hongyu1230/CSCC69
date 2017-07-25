@@ -77,6 +77,7 @@ int main(int argc, char **argv) {
             while (sizecheck < pathnode->i_size) {
                 if(strncmp(token2, directory->name, directory->name_len) == 0 && lengthcomp == directory->name_len) {
                     pathnode = itable + directory->inode - 1;
+					printf("%d\n", directory->inode - 1);
                     sizecheck = 0;
                     check = 1;
                     found = 1;
