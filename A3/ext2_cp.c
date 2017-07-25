@@ -192,7 +192,8 @@ int main(int argc, char **argv) {
 		while (sizecheck < 1024) {
 			if (oldentry->rec_len >= sizeof(struct ext2_dir_entry_2*) * 2 + lengthcomp + paddingneeded){
 				check = 1;
-				paddingneeded2 = 4 - strlen(oldentry->name_len) % 4;
+				int lengthcomp2 = strlen(oldentry->name_len);
+				paddingneeded2 = 4 - lengthcomp2 % 4;
 				oldsize = oldentry->rec_len;
 				oldentry->rec_len = sizeof(struct ext2_dir_entry_2*) + oldentry->name_len + paddingneeded2;
 				newentry = oldentry = (void *) oldentry + oldentry->rec_len;
