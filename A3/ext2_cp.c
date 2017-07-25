@@ -88,7 +88,6 @@ int main(int argc, char **argv) {
 					}
                     sizecheck += directory->rec_len;
                     directory = (void *) directory + directory->rec_len;
-					printf("%s,%d,%d\n", directory->name, directory->name_len, lengthcomp);
                 }
             }
             if (check == 1) {
@@ -113,9 +112,13 @@ int main(int argc, char **argv) {
 			if(strncmp(sourcename, directory->name, directory->name_len) && directory->file_type == 1) {
 				perror("the file at the location already exist");
 				return EEXIST;
+			} else {
+				if (directory->rec_len == 0) {
+					break;
+				}
+				sizecheck += directory->rec_len;
+				directory = (void *) directory + directory->rec_len;
 			}
-			sizecheck += directory->rec_len;
-			directory = (void *) directory + directory->rec_len;
 		}
 	}
     
