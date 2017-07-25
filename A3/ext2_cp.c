@@ -157,8 +157,7 @@ int main(int argc, char **argv) {
     }
 
     
-    int j, l;
-	float k;
+    int j, l, k;
     int m = 0;
     char *mappos;
     void *ptr;
