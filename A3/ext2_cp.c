@@ -182,7 +182,7 @@ int main(int argc, char **argv) {
 	newnode->i_blocks = blockneeded * 2;
 	newnode->i_links_count = 1;
 	struct ext2_dir_entry_2 *oldentry;
-	struct ext2_dir_entry_2 *updatedirectory;
+	struct ext2_dir_entry_2 *newentry;
 	int paddingneeded = 4 - strlen(sourcename) % 4;
 	int paddingneeded2, oldsize;
 	check = 0;
