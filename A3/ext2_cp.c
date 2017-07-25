@@ -149,9 +149,9 @@ int main(int argc, char **argv) {
 		for (j = 0; j < 128; j +=1){
 			if (block_bitmap[j] == 0) {
 				k = floor(j/8);
-				l = 2^(j%8);
+				l = j%8;
 				mappos = bbmap + k;
-				mappos = mappos | l;
+				mappos >> j |= 1;
 			}
 		}
 	}
