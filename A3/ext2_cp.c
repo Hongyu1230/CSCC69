@@ -160,6 +160,7 @@ int main(int argc, char **argv) {
 				k = floor(j/8);
 				l = 2^(j%8);
 				printf("%d,%d\n", k, l);
+				break;
 			}
 		}
 	}
