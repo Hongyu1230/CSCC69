@@ -169,14 +169,46 @@ int main(int argc, char **argv) {
                 l = 2^(j%8);
                 mappos = bbmap + k;
                 *mappos |= l;
-				newnode->i_block[m] = j + 1;
-				m += 1;
+				newnode->i_block[i] = j + 1;
 				ptr = (void *)(disk + 1024 * (j + 1));
 				fread(ptr, sizeof(char), 1024 / sizeof(char), source);
                 break;
             }
         }
     }
+	int m,n,o;
+	int *indirectionblock;
+	if (blockneeded > 12) {
+		for (j = 0; j < 128; j +=1){
+			if (block_bitmap[j] == 0) {
+				block_bitmap[j] = 1;
+                k = floor(j/8);
+                l = 2^(j%8);
+                mappos = bbmap + k;
+                *mappos |= l;
+				newnode->i_block[12] = j + 1;
+				break;
+			}
+		}
+		indirectionblock = (void *) (disk + 1024 * newnode->i_block[12]);
+		for (i = 0; i < blockneeded; i+=1){
+			for (m = 0; m < 128; m +=1){
+				if (block_bitmap[m] == 0) {
+					block_bitmap[m] = 1;
+					k = floor(m/8);
+					l = 2^(m%8);
+					mappos = bbmap + k;
+					*mappos |= l;
+					indirectionblock[i] = m + 1;
+					break;
+				}
+			}
+		}
+		for (n = 0; n < blockneeded; n+=1) {
+			ptr = (void *)(disk + 1024 * indirectionblock[n]);
+			fread(ptr, sizeof(char), 1024 / sizeof(char), source);
+		}
+	}
     newnode->i_mode = EXT2_S_IFREG;
 	newnode->i_size = sz;
 	newnode->i_blocks = blockneeded * 2;
