@@ -187,7 +187,7 @@ int main(int argc, char **argv) {
 	for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
 		oldentry = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
 		sizecheck = 0;
-		printf("%llu", sizeof(struct ext2_dir_entry_2));
+		printf("%lu", sizeof(struct ext2_dir_entry_2));
 	}
 	
     
