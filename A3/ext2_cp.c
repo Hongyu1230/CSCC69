@@ -116,14 +116,14 @@ int main(int argc, char **argv) {
     char temp;
     for (i = 0; i < 4; i+=1, ibmap +=1) {
         temp = *ibmap;
-        for (pos = 0; pos < 8; pos++) {
+        for (pos = 0; pos < 8; pos+=1) {
             inode_bitmap[(8 * i) + pos] = (temp >> pos) & 1;
         }
     }
 	
 	
 	int free_inode = -1;
-	for (i = 0; i < 32; i++){
+	for (i = 0; i < 32; i+=1){
 		if (inode_bitmap[i] == 0){
 			free_inode = i;
 			break;
@@ -140,13 +140,16 @@ int main(int argc, char **argv) {
 	char* bbmap = (char *)(disk + 1024 * bg->bg_block_bitmap);
     for (i = 0; i < 16; i+=1, bbmap +=1) {
         temp = *bbmap;
-        for (pos = 0; pos < 8; pos++) {
+        for (pos = 0; pos < 8; pos+=1) {
             block_bitmap[(8 * i) + pos] = (temp >> pos) & 1;
         }
     }
-	
-	for (i = 0; i < 128; i+=1) {
-        printf("%d", block_bitmap[i]);
+	int o;
+	for (i = 0; i < 16; i+=1) {
+		for (o = 0; o <8; o +=1){
+            printf("%d", block_bitmap[i*8 + o]);
+		}
+		printf("\n");
     }
 	
 	int j, k, l;
