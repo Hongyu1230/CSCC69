@@ -199,7 +199,7 @@ int main(int argc, char **argv) {
                     l = 2^(m%8);
                     mappos = bbmap + k;
                     *mappos |= l;
-                    indirectionblock[i] = m;
+                    indirectionblock[i] = m + 1;
                     break;
                 }
             }
