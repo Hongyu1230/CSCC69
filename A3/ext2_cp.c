@@ -200,10 +200,10 @@ int main(int argc, char **argv) {
 				newentry->rec_len = oldsize - oldentry->rec_len;
 				newentry->name_len = lengthcomp;
 				newentry->file_type = 1;
-				newentry->name = sourcename;
+				strncpy(newentry->name, sourcename, lengthcomp);
 				break;
 			} else {
-				sizecheck += oldentry->rec_len
+				sizecheck += oldentry->rec_len;
 				oldentry = (void *) oldentry + oldentry->rec_len;
 			}
 		}
