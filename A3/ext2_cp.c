@@ -120,6 +120,8 @@ int main(int argc, char **argv) {
             inode_bitmap[(8 * i) + pos] = (temp >> pos) & 1;
         }
     }
+	
+	
 	int free_inode = -1;
 	for (i = 0; i < 32; i++){
 		if (inode_bitmap[i] == 0){
@@ -143,6 +145,10 @@ int main(int argc, char **argv) {
         }
     }
 	
+	for (i = 0; i < 128; i+=1) {
+        printf("%d", block_bitmap[i]);
+    }
+	
 	int j, k, l;
 	char *mappos;
 	for (i = 0; i < 12 && i < blockneeded; i += 1){
@@ -155,8 +161,6 @@ int main(int argc, char **argv) {
 			}
 		}
 	}
-	
-	
 	
     return 0;
 }
