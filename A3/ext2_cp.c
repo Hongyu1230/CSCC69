@@ -153,14 +153,13 @@ int main(int argc, char **argv) {
     }
 	
 	int j, k, l;
-	char origmap;
+	char *mappos;
 	for (i = 0; i < 12 && i < blockneeded; i += 1){
 		for (j = 0; j < 128; j +=1){
 			if (block_bitmap[j] == 0) {
 				k = floor(j/8);
 				l = 2^(j%8);
-				origmap = bbmap[k];
-				bbmap[k] = origmap | l;
+				printf("%d%d", k, l);
 			}
 		}
 	}
