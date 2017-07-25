@@ -69,9 +69,8 @@ int main(int argc, char **argv) {
     struct ext2_inode *itable = (struct ext2_inode *)(disk + 1024 * bg->bg_inode_table);
     struct ext2_inode *pathnode = itable + 1;
     token2 = strtok(destpath, delimiter);
-    int sizecheck, check = 0;
+    int sizecheck, check, blockpointer, found = 0;
     struct ext2_dir_entry_2 *directory;
-    int blockpointer = 0;
     while (token2 != NULL && S_ISDIR(pathnode->i_mode)) {
         for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
 			directory = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
@@ -81,6 +80,7 @@ int main(int argc, char **argv) {
                     pathnode = itable + directory->inode;
                     sizecheck = 0;
                     check = 1;
+					found = 1;
                     token2 = strtok(NULL, delimiter);
                     break;
                 } else {
@@ -91,26 +91,14 @@ int main(int argc, char **argv) {
             if (check == 1) {
                 check = 0;
                 break;
-            }
+            } 
         }
-    }
-    if (token2 != NULL) {
-        //we couldn't reach the file destination, since we didn't go through all tokens
-        perror("cannot find destination directory on disk");
-        return ENOENT;
-    }
-    
-    
-    directory = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[0]);
-    check = 0;
-    sizecheck = 0;
-    while (sizecheck < pathnode->i_size) {
-        if(strncmp(sourcename, directory->name, directory->name_len) && directory->file_type == 1) {
-            perror("the file at the location already exist");
-            return EEXIST;
-        }
-        sizecheck += directory->rec_len;
-        directory = (void *) directory + directory->rec_len;
+		if (found == 1) {
+			found = 0;
+		} else {
+			perror("cannot find destination directory on disk");
+			return ENOENT;
+		}
     }
     
     int inode_bitmap[32];
@@ -150,6 +138,7 @@ int main(int argc, char **argv) {
 
     
     int j, k, l;
+	int m = 0;
     char *mappos;
     for (i = 0; i < 12 && i < blockneeded; i += 1){
         for (j = 0; j < 128; j +=1){
@@ -159,6 +148,7 @@ int main(int argc, char **argv) {
                 l = 2^(j%8);
                 mappos = bbmap + k;
                 *mappos |= l;
+				newnode->i_block[m] = j;
                 break;
             }
         }
