@@ -115,6 +115,7 @@ int main(int argc, char **argv) {
                 if (directorycheck->rec_len == 0) {
                     break;
                 }
+				printf("%s,%c", directtorycheck->name, directorycheck->file_type);
                 sizecheck += directorycheck->rec_len;
                 directorycheck = (void *) directorycheck + directorycheck->rec_len;
             }
@@ -233,7 +234,7 @@ int main(int argc, char **argv) {
                 newentry->inode = free_inode;
                 newentry->rec_len = oldsize - oldentry->rec_len;
                 newentry->name_len = lengthcomp;
-                newentry->file_type = EXT2_FT_REG_FILE;
+                newentry->file_type = 1;
                 strncpy(newentry->name, sourcename, lengthcomp);
                 printf("caught one");
                 break;
