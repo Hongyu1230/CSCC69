@@ -89,10 +89,12 @@ int main(int argc, char **argv) {
             }
             if (check == 1) {
                 check = 0;
+				printf("we reached checkpoint");
                 break;
             } 
         }
 		if (found == 1) {
+			printf("we reached checkpoint2");
 			found = 0;
 		} else {
 			perror("cannot find destination directory on disk");
