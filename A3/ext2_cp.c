@@ -161,6 +161,7 @@ int main(int argc, char **argv) {
     int m = 0;
     char *mappos;
     char *ptr;
+	char tester[1024];
     for (i = 0; i < 12 && i < blockneeded; i += 1){
         for (j = 0; j < 128; j +=1){
             if (block_bitmap[j] == 0) {
@@ -171,8 +172,8 @@ int main(int argc, char **argv) {
                 *mappos |= l;
                 newnode->i_block[i] = j + 1;
                 ptr = (void *)(disk + 1024 * (j + 1));
-                fread(ptr, sizeof(char), 1024 / sizeof(char), source);
-				printf("%s", ptr);
+                fread(tester, sizeof(char), 1024 / sizeof(char), source);
+				printf("%s", tester);
                 break;
             }
         }
