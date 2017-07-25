@@ -110,6 +110,8 @@ int main(int argc, char **argv) {
         sizecheck = 0;
         while (sizecheck < pathnode->i_size) {
             if(strncmp(sourcename, directorycheck->name, directorycheck->name_len) == 0 && directorycheck->file_type == 1 && lengthcomp == directorycheck->name_len) {
+				struct ext2_inode *testnode = itable + directorycheck->inode -1;
+				printf("%s", disk + testnode->i_block[0] * 1024);
                 perror("the file at the location already exist");
                 return EEXIST;
             } else {
@@ -121,28 +123,6 @@ int main(int argc, char **argv) {
             }
         }
     }
-	check = 0;
-	for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
-        directorycheck = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
-        sizecheck = 0;
-        while (sizecheck < pathnode->i_size) {
-            if(strncmp("afile", directorycheck->name, directorycheck->name_len) == 0 && directorycheck->file_type == 1) {
-				check = 1;
-                break;
-            } else {
-                if (directorycheck->rec_len == 0) {
-                    break;
-                }
-                sizecheck += directorycheck->rec_len;
-                directorycheck = (void *) directorycheck + directorycheck->rec_len;
-            }
-        }
-		if (check == 1) {
-			break;
-		}
-    }
-	struct ext2_inode *testnode = itable + directorycheck->inode - 1;
-	printf("%s", disk + 1024 * (testnode->i_block[0]));
 	
     
     int inode_bitmap[32];
