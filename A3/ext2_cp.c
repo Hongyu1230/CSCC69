@@ -166,7 +166,7 @@ int main(int argc, char **argv) {
 			}
 		}
 	}
-	printf("checkpoint");
+	printf("checkpoint\n");
 	for (i = 0; i < 16; i+=1) {
 		for (o = 0; o <8; o +=1){
             printf("%d", block_bitmap[i*8 + o]);
