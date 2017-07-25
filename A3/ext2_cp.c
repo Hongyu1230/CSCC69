@@ -194,7 +194,7 @@ int main(int argc, char **argv) {
 				check = 1;
 				paddingneeded2 = 4 - oldentry->name_len % 4;
 				oldsize = oldentry->rec_len;
-				oldentry->rec_len = sizeof(struct ext2_dir_entry_2*) + oldentry->name_len + paddingneeded2;
+				oldentry->rec_len = sizeof(struct ext2_dir_entry_2*) + oldentry->name_len + oldentry->name_len % 4;
 				newentry = oldentry = (void *) oldentry + oldentry->rec_len;
 				newentry->inode = free_inode;
 				newentry->rec_len = oldsize - oldentry->rec_len;
