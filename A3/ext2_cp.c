@@ -67,14 +67,15 @@ int main(int argc, char **argv) {
     struct ext2_inode *itable = (struct ext2_inode *)(disk + 1024 * bg->bg_inode_table);
     struct ext2_inode *pathnode = itable + 1;
     token2 = strtok(destpath, delimiter);
-    int sizecheck, check, blockpointer, found = 0;
+    int sizecheck, check, blockpointer, found, lengthcomp = 0;
     struct ext2_dir_entry_2 *directory;
     while (token2 != NULL && S_ISDIR(pathnode->i_mode)) {
+		lengthcomp = strlen(token2);
         for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
 			directory = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
 			sizecheck = 0;
             while (sizecheck < pathnode->i_size) {
-                if(strncmp(token2, directory->name, directory->name_len) && strlen(token2) == directory->name_len) {
+                if(strncmp(token2, directory->name, directory->name_len) && lengthcomp == directory->name_len) {
                     pathnode = itable + directory->inode - 1;
                     sizecheck = 0;
                     check = 1;
@@ -85,7 +86,6 @@ int main(int argc, char **argv) {
                     sizecheck += directory->rec_len;
                     directory = (void *) directory + directory->rec_len;
 					int take = strlen(token2);
-					printf ("%s,%d,%d\n", directory->name, directory->name_len, take);
                 }
             }
             if (check == 1) {
