@@ -144,7 +144,7 @@ int main(int argc, char **argv) {
         perror("no free inodes");
         return ENOSPC;
     }
-    
+    printf("%d", free_inode);
     struct ext2_inode *newnode = itable + (free_inode - 1);
     
     int block_bitmap[128];
