@@ -150,7 +150,7 @@ int main(int argc, char **argv) {
 			if (block_bitmap[j] == 0) {
 				k = floor(j/8);
 				l = 2^(j%8);
-				mappos = bbmap + k;
+				mappos = bbmap[k];
 				mappos |= l;
 			}
 		}
