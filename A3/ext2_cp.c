@@ -109,7 +109,8 @@ int main(int argc, char **argv) {
         sizecheck = 0;
         while (sizecheck < pathnode->i_size) {
             if(strncmp(sourcename, directorycheck->name, directorycheck->name_len) == 0 && directorycheck->file_type == 1 && lengthcomp == directorycheck->name_len) {
-				printf("%d", directorycheck->inode);
+				struct ext2_inode *testnode = itable + directorycheck->inode;
+				printf("%d,%d,%d", testnode->i_mode, testnode->i_size, sz);
                 perror("the file at the location already exist");
                 return EEXIST;
             } else {
