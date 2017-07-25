@@ -51,7 +51,7 @@ int main(int argc, char **argv) {
     
     fseek(source, 0L, SEEK_END);
     int sz = ftell(source);
-    int blockneeded = ceil(sz/1024);
+    int blockneeded = sz/1024;
 	printf("%d", blockneeded);
     if (blockneeded > 12) {
         blockneeded += 1;
