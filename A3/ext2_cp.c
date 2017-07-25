@@ -76,16 +76,18 @@ int main(int argc, char **argv) {
 			sizecheck = 0;
             while (sizecheck < pathnode->i_size) {
                 if(strncmp(token2, directory->name, directory->name_len) && lengthcomp == directory->name_len) {
-                    pathnode = itable + directory->inode - 1;
+                    pathnode = itable + directory->inode;
                     sizecheck = 0;
                     check = 1;
 					found = 1;
                     token2 = strtok(NULL, delimiter);
                     break;
                 } else {
+					if (directory->rec_len == 0) {
+						break;
+					}
                     sizecheck += directory->rec_len;
                     directory = (void *) directory + directory->rec_len;
-					printf("%d", sizecheck);
                 }
             }
             if (check == 1) {
