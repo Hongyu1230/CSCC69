@@ -161,7 +161,7 @@ int main(int argc, char **argv) {
 				k = floor(j/8);
 				l = 2^(j%8);
 				mappos = bbmap + k;
-				*mappos |= l;
+				*mappos = (*mappos & ~(1 << l)) | (1 << l);
 				break;
 			}
 		}
