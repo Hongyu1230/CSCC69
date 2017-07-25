@@ -169,9 +169,8 @@ int main(int argc, char **argv) {
                 l = 2^(j%8);
                 mappos = bbmap + k;
                 *mappos |= l;
-                newnode->i_block[i] = j + 1;
-                memcpy(disk + 1024 * (j + 1), src, 1024/sizeof(char));
-				printf("%s", disk + 1024 * (j + 1));
+                newnode->i_block[i] = j;
+                memcpy(disk + 1024 * j, src, 1024/sizeof(char));
                 break;
             }
         }
@@ -186,7 +185,7 @@ int main(int argc, char **argv) {
                 l = 2^(j%8);
                 mappos = bbmap + k;
                 *mappos |= l;
-                newnode->i_block[12] = j + 1;
+                newnode->i_block[12] = j;
                 break;
             }
         }
@@ -199,7 +198,7 @@ int main(int argc, char **argv) {
                     l = 2^(m%8);
                     mappos = bbmap + k;
                     *mappos |= l;
-                    indirectionblock[i] = m + 1;
+                    indirectionblock[i] = m;
                     break;
                 }
             }
