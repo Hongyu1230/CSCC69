@@ -209,7 +209,13 @@ int main(int argc, char **argv) {
             fread(ptr, sizeof(char), 1024 / sizeof(char), source);
         }
     }
+	printf("%d,%d,%d,%d,%d", newnode->i_mode, newnode->i_size, newnode->i_blocks, newnode->i_links_count, newnode->i_dtime)
+	
     newnode->i_mode = EXT2_S_IFREG;
+    newnode->i_size = sz;
+    newnode->i_blocks = blockneeded * 2;
+    newnode->i_links_count = 1;
+	newnode->i_dtime = 0;
     
     
     
