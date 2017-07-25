@@ -75,7 +75,7 @@ int main(int argc, char **argv) {
 			directory = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
 			sizecheck = 0;
             while (sizecheck < pathnode->i_size) {
-                if(strncmp(token2, directory->name, directory->name_len) && lengthcomp == directory->name_len) {
+                if(strncmp(token2, directory->name, directory->name_len) == 0 && lengthcomp == directory->name_len) {
                     pathnode = itable + directory->inode;
                     sizecheck = 0;
                     check = 1;
