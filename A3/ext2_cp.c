@@ -159,10 +159,9 @@ int main(int argc, char **argv) {
 			if (block_bitmap[j] == 0) {
 				k = floor(j/8);
 				l = 2^(j%8);
-				printf("%d%d", k, l);
 			}
 		}
 	}
-	
+	printf("%d%d", k, l);
     return 0;
 }
