@@ -109,14 +109,13 @@ int main(int argc, char **argv) {
         sizecheck = 0;
         while (sizecheck < pathnode->i_size) {
             if(strncmp(sourcename, directorycheck->name, directorycheck->name_len) == 0 && directorycheck->file_type == 1 && lengthcomp == directorycheck->name_len) {
-				printf("%s,%d\n", directorycheck->name, directorycheck->file_type);
+				printf("%d", directorycheck->inode);
                 perror("the file at the location already exist");
                 return EEXIST;
             } else {
                 if (directorycheck->rec_len == 0) {
                     break;
                 }
-				printf("%s,%d\n", directorycheck->name, directorycheck->file_type);
                 sizecheck += directorycheck->rec_len;
                 directorycheck = (void *) directorycheck + directorycheck->rec_len;
             }
@@ -215,6 +214,7 @@ int main(int argc, char **argv) {
     newnode->i_size = sz;
     newnode->i_blocks = blockneeded * 2;
     newnode->i_links_count = 1;
+	newnode->i_dtime = 0;
     struct ext2_dir_entry_2 *oldentry;
     struct ext2_dir_entry_2 *newentry;
     int paddingneeded = 4 - strlen(sourcename) % 4;
