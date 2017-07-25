@@ -102,7 +102,6 @@ int main(int argc, char **argv) {
             return ENOENT;
         }
     }
-	printf("%d\n", directory->inode - 1);
     struct ext2_dir_entry_2 *directorycheck;
     for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
         lengthcomp = strlen(sourcename);
