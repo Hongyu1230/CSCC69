@@ -50,9 +50,8 @@ int main(int argc, char **argv) {
     }
     
     fseek(source, 0L, SEEK_END);
-    int sz = ftell(source);
-    int blockneeded = sz/1024;
-	printf("%d", blockneeded);
+    float sz = ftell(source);
+    int blockneeded = ceil(sz/1024);
     if (blockneeded > 12) {
         blockneeded += 1;
     }
@@ -158,11 +157,12 @@ int main(int argc, char **argv) {
     }
 
     
-    int j, k, l;
+    int j, l;
+	float k;
     int m = 0;
     char *mappos;
     void *ptr;
-    for (i = 0; i < 12 && i < blockneeded - 1; i += 1){
+    for (i = 0; i < 12 && i < blockneeded; i += 1){
         for (j = 0; j < 128; j +=1){
             if (block_bitmap[j] == 0) {
                 block_bitmap[j] = 1;
