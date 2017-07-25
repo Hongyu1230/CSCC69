@@ -164,6 +164,7 @@ int main(int argc, char **argv) {
     for (i = 0; i < 12 && i < blockneeded - 1; i += 1){
         for (j = 0; j < 128; j +=1){
             if (block_bitmap[j] == 0) {
+				printf("read successfully");
                 block_bitmap[j] = 1;
                 k = floor(j/8);
                 l = 2^(j%8);
@@ -172,7 +173,6 @@ int main(int argc, char **argv) {
                 newnode->i_block[i] = j + 1;
                 ptr = (void *)(disk + 1024 * (j + 1));
                 fread(ptr, sizeof(char), 1024 / sizeof(char), source);
-				printf("read successfully");
                 break;
             }
         }
