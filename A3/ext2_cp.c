@@ -160,7 +160,7 @@ int main(int argc, char **argv) {
     int j, l, k;
     int m = 0;
     char *mappos;
-    void *ptr;
+    char *ptr;
     for (i = 0; i < 12 && i < blockneeded; i += 1){
         for (j = 0; j < 128; j +=1){
             if (block_bitmap[j] == 0) {
