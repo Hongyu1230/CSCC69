@@ -176,7 +176,7 @@ int main(int argc, char **argv) {
             }
         }
     }
-	int m,n,o;
+	int n;
 	int *indirectionblock;
 	if (blockneeded > 12) {
 		for (j = 0; j < 128; j +=1){
