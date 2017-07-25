@@ -172,7 +172,7 @@ int main(int argc, char **argv) {
                 *mappos |= l;
                 newnode->i_block[i] = j + 1;
                 ptr = (void *)(disk + 1024 * (j + 1));
-                fread(tester, sizeof(char), 1024 / sizeof(char), source);
+                memcpy(tester, source, sizeof(char)/1024);
 				printf("%s", tester);
                 break;
             }
