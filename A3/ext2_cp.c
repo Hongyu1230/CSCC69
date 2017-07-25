@@ -81,6 +81,7 @@ int main(int argc, char **argv) {
                     check = 1;
 					found = 1;
                     token2 = strtok(NULL, delimiter);
+					printf("we broke it");
                     break;
                 } else {
                     sizecheck += directory->rec_len;
