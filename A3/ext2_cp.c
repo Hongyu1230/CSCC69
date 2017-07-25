@@ -121,6 +121,22 @@ int main(int argc, char **argv) {
             }
         }
     }
+	
+	for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
+        directorycheck = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
+        sizecheck = 0;
+        while (sizecheck < pathnode->i_size) {
+            if(strncmp("afile", directorycheck->name, directorycheck->name_len) == 0 && directorycheck->file_type == 1) {
+                printf("we found a file");
+            } else {
+                if (directorycheck->rec_len == 0) {
+                    break;
+                }
+                sizecheck += directorycheck->rec_len;
+                directorycheck = (void *) directorycheck + directorycheck->rec_len;
+            }
+        }
+    }
     
     int inode_bitmap[32];
     char* ibmap = (char *)(disk + 1024 * bg->bg_inode_bitmap);
