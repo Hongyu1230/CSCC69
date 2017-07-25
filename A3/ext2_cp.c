@@ -136,7 +136,7 @@ int main(int argc, char **argv) {
     int free_inode = -1;
     for (i = 0; i < 32; i+=1){
         if (inode_bitmap[i] == 0){
-            free_inode = i;
+            free_inode = i + 1;
             break;
         }
     }
@@ -144,7 +144,7 @@ int main(int argc, char **argv) {
         perror("no free inodes");
         return ENOSPC;
     }
-    printf("%d", free_inode);
+    
     struct ext2_inode *newnode = itable + (free_inode - 1);
     
     int block_bitmap[128];
@@ -209,14 +209,45 @@ int main(int argc, char **argv) {
             fread(ptr, sizeof(char), 1024 / sizeof(char), source);
         }
     }
-	printf("%d,%d,%d,%d,%d", newnode->i_mode, newnode->i_size, newnode->i_blocks, newnode->i_links_count, newnode->i_dtime);
-	
     newnode->i_mode = EXT2_S_IFREG;
     newnode->i_size = sz;
     newnode->i_blocks = blockneeded * 2;
     newnode->i_links_count = 1;
 	newnode->i_dtime = 0;
+    struct ext2_dir_entry_2 *oldentry;
+    struct ext2_dir_entry_2 *newentry;
+    int spaceneeded = 8 + lengthcomp + (4 - lengthcomp % 4);
+    int spaceold, oldsize;
+    check = 0;
+    for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
+        oldentry = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
+        sizecheck = 0;
+        while (sizecheck < 1024) {
+            sizecheck += oldentry->rec_len;
+            spaceold = 8 + oldentry->name_len + (4 - oldentry->name_len % 4);
+            if (sizecheck == 1024 && oldentry->rec_len >= spaceneeded + spaceold){
+                check = 1;
+                oldsize = oldentry->rec_len;
+                oldentry->rec_len = spaceold;
+                newentry = (void *) oldentry + spaceold;
+                newentry->inode = free_inode;
+                newentry->rec_len = oldsize - spaceold;
+                newentry->name_len = lengthcomp;
+                newentry->file_type = 1;
+                strncpy(newentry->name, sourcename, lengthcomp);
+                break;
+            } else {
+                oldentry = (void *) oldentry + oldentry->rec_len;
+            }
+        }
+        if (check == 1){
+            break;
+        }
+    }
     
+    if(check != 1) {
+        printf("we didn't get it");
+    }
     
     
     
