@@ -186,31 +186,7 @@ int main(int argc, char **argv) {
 	int paddingneeded = 4 - strlen(sourcename) % 4;
 	int paddingneeded2, oldsize;
 	check = 0;
-	for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
-		oldentry = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
-		sizecheck = 0;
-		while (sizecheck < 1024) {
-			sizecheck += oldentry->rec_len;
-			if (sizecheck = 1024 && oldentry->rec_len >= 4*oldentry->name_len + lengthcomp + 8){
-				check = 1;
-				paddingneeded2 = 4 - oldentry->name_len % 4;
-				oldsize = oldentry->rec_len;
-				oldentry->rec_len = 4*oldentry->name_len + 8;
-				newentry = oldentry = (void *) oldentry + oldentry->rec_len;
-				newentry->inode = free_inode;
-				newentry->rec_len = oldsize - oldentry->rec_len;
-				newentry->name_len = lengthcomp;
-				newentry->file_type = 1;
-				strncpy(newentry->name, sourcename, lengthcomp);
-				break;
-			} else {
-				oldentry = (void *) oldentry + oldentry->rec_len;
-			}
-		}
-		if (check == 1){
-			break;
-		}
-	}
+	
 	
 	
     
