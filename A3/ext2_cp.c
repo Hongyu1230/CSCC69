@@ -234,6 +234,7 @@ int main(int argc, char **argv) {
 				newentry->name_len = lengthcomp;
 				newentry->file_type = 1;
 				strncpy(newentry->name, sourcename, lengthcomp);
+				printf("caught one");
 				break;
 			} else {
 				oldentry = (void *) oldentry + oldentry->rec_len;
