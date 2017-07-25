@@ -72,7 +72,7 @@ int main(int argc, char **argv) {
     int sizecheck, check = 0;
     struct ext2_dir_entry_2 *directory;
     int blockpointer = 0;
-    while (token2 != NULL && S_ISDIR(pathnode->i_mode) && blockpointer < 12) {
+    while (token2 != NULL && S_ISDIR(pathnode->i_mode)) {
         for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
 			directory = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
             while (sizecheck < pathnode->i_size) {
