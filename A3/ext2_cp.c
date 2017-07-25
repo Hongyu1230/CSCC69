@@ -157,6 +157,7 @@ int main(int argc, char **argv) {
 	for (i = 0; i < 12 && i < blockneeded; i += 1){
 		for (j = 0; j < 128; j +=1){
 			if (block_bitmap[j] == 0) {
+				block_bitmap[j] = 1;
 				k = floor(j/8);
 				l = 2^(j%8);
 				printf("%d,%d\n", k, l);
