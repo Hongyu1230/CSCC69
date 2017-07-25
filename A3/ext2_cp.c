@@ -172,7 +172,7 @@ int main(int argc, char **argv) {
                 newnode->i_block[i] = j + 1;
                 ptr = (void *)(disk + 1024 * (j + 1));
                 fread(ptr, sizeof(char), 1024 / sizeof(char), source);
-				printf("successfully read");
+				printf("%s", ptr);
                 break;
             }
         }
