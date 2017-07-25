@@ -161,9 +161,9 @@ int main(int argc, char **argv) {
     int m = 0;
     char *mappos;
     void *ptr;
+	printf("%d", blockneeded - 1);
     for (i = 0; i < 12 && i < blockneeded - 1; i += 1){
         for (j = 0; j < 128; j +=1){
-			printf("read successfully");
             if (block_bitmap[j] == 0) {
                 block_bitmap[j] = 1;
                 k = floor(j/8);
