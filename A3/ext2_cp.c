@@ -20,7 +20,7 @@ int main(int argc, char **argv) {
         exit(1);
     }
     int fd = open(argv[1], O_RDWR);
-    int source = open(argv[1], O_RDONLY);
+    int source = open(argv[2], O_RDONLY);
     if (source < 0) {
         perror("could not find source file");
         return ENOENT;
@@ -49,7 +49,7 @@ int main(int argc, char **argv) {
         exit(1);
     }
     
-    int filesize = lseek(source, 0, SEEK_END);
+    size_t filesize = lseek(source, 0, SEEK_END);
     int blockneeded = ceil(filesize/1024);
 	printf("%d",blockneeded);
     if (blockneeded > 12) {
