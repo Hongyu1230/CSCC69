@@ -162,6 +162,6 @@ int main(int argc, char **argv) {
 			}
 		}
 	}
-	printf("%d%d", k, l);
+	printf("%d\n%d", k, l);
     return 0;
 }
