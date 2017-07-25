@@ -160,7 +160,7 @@ int main(int argc, char **argv) {
 				block_bitmap[j] = 1;
 				k = floor(j/8);
 				l = 2^(j%8);
-				mappos = itable + k;
+				mappos = bbmap + k;
 				*mappos |= l;
 				break;
 			}
