@@ -144,14 +144,14 @@ int main(int argc, char **argv) {
     }
 	
 	int j, k, l;
-	char mappos;
+	char *mappos;
 	for (i = 0; i < 12 && i < blockneeded; i += 1){
 		for (j = 0; j < 128; j +=1){
 			if (block_bitmap[j] == 0) {
 				k = floor(j/8);
 				l = 2^(j%8);
-				mappos = bbmap[k];
-				mappos |= l;
+				mappos = bbmap + k;
+				*mappos |= l;
 			}
 		}
 	}
