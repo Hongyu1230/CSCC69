@@ -54,6 +54,7 @@ int main(int argc, char **argv) {
     if (blockneeded > 12) {
         blockneeded += 1;
     }
+	char *src;
 	src = mmap(NULL, filesize, PROT_READ, MAP_PRIVATE, source, 0);
     
     struct ext2_super_block *sb = (struct ext2_super_block *)(disk + 1024);
