@@ -52,10 +52,8 @@ int main(int argc, char **argv) {
     fseek(source, 0L, SEEK_END);
     int sz = ftell(source);
     int blockneeded = ceil(sz/1024);
-    int indirection_needed = 0;
     if (blockneeded > 12) {
         blockneeded += 1;
-        indirection_needed = 1;
     }
     
     struct ext2_super_block *sb = (struct ext2_super_block *)(disk + 1024);
@@ -100,6 +98,19 @@ int main(int argc, char **argv) {
 			return ENOENT;
 		}
     }
+	
+	for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
+		directory = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
+		sizecheck = 0;
+		while (sizecheck < pathnode->i_size) {
+			if(strncmp(sourcename, directory->name, directory->name_len) && directory->file_type == 1) {
+				perror("the file at the location already exist");
+				return EEXIST;
+			}
+			sizecheck += directory->rec_len;
+			directory = (void *) directory + directory->rec_len;
+		}
+	}
     
     int inode_bitmap[32];
     char* ibmap = (char *)(disk + 1024 * bg->bg_inode_bitmap);
@@ -153,6 +164,7 @@ int main(int argc, char **argv) {
             }
         }
     }
+	printf("did I even reach here");
 
     
     return 0;
