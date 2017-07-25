@@ -153,6 +153,7 @@ int main(int argc, char **argv) {
     }
 	
 	int j, k, l;
+	char origmap;
 	for (i = 0; i < 12 && i < blockneeded; i += 1){
 		for (j = 0; j < 128; j +=1){
 			if (block_bitmap[j] == 0) {
