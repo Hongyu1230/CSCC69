@@ -93,6 +93,7 @@ int main(int argc, char **argv) {
         }
 		if (found == 1) {
 			found = 0;
+			printf("reached");
 		} else {
 			perror("cannot find destination directory on disk");
 			return ENOENT;
