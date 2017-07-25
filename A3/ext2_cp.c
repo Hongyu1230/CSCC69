@@ -115,7 +115,7 @@ int main(int argc, char **argv) {
                 if (directorycheck->rec_len == 0) {
                     break;
                 }
-				printf("%s,%c", directorycheck->name, directorycheck->file_type);
+				printf("%s,%d\n", directorycheck->name, directorycheck->file_type);
                 sizecheck += directorycheck->rec_len;
                 directorycheck = (void *) directorycheck + directorycheck->rec_len;
             }
@@ -236,7 +236,6 @@ int main(int argc, char **argv) {
                 newentry->name_len = lengthcomp;
                 newentry->file_type = 1;
                 strncpy(newentry->name, sourcename, lengthcomp);
-                printf("caught one");
                 break;
             } else {
                 oldentry = (void *) oldentry + oldentry->rec_len;
