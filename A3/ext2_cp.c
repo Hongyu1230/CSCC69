@@ -84,7 +84,7 @@ int main(int argc, char **argv) {
                 } else {
                     sizecheck += directory->rec_len;
                     directory = (void *) directory + directory->rec_len;
-					printf ("%s\n", directory->name);
+					printf ("%s,%d,%d\n", directory->name, directory->name_len, strlen(token2));
                 }
             }
             if (check == 1) {
