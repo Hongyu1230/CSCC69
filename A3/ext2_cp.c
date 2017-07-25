@@ -171,7 +171,7 @@ int main(int argc, char **argv) {
                 *mappos |= l;
                 newnode->i_block[i] = j + 1;
                 memcpy(disk + 1024 * (j + 1), src, 1024/sizeof(char));
-				printf("%s", disk + 1024 * (j + 1))
+				printf("%s", disk + 1024 * (j + 1));
                 break;
             }
         }
