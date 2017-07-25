@@ -70,7 +70,6 @@ int main(int argc, char **argv) {
     int sizecheck, check, blockpointer, found = 0;
     struct ext2_dir_entry_2 *directory;
     while (token2 != NULL && S_ISDIR(pathnode->i_mode)) {
-		printf("%s\n", token2);
         for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
 			directory = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
 			sizecheck = 0;
@@ -80,6 +79,7 @@ int main(int argc, char **argv) {
                     sizecheck = 0;
                     check = 1;
 					found = 1;
+					printf("%s\n", token2);
                     token2 = strtok(NULL, delimiter);
                     break;
                 } else {
