@@ -158,7 +158,8 @@ int main(int argc, char **argv) {
 			if (block_bitmap[j] == 0) {
 				k = floor(j/8);
 				l = 2^(j%8);
-				*bbmap[k] |= l;
+				origmap = bbmap[k];
+				bbmap[k] = origmap | l;
 			}
 		}
 	}
