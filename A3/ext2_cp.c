@@ -223,12 +223,13 @@ int main(int argc, char **argv) {
 		sizecheck = 0;
 		while (sizecheck < 1024) {
 			sizecheck += oldentry->rec_len;
-			if (oldentry->rec_len >= (2 * sizeof(struct ext2_dir_entry_2)) + lengthcomp + (4 - lengthcomp % 4) + oldentry->name_len + (4 - (oldentry->name_len % 4))){
+			paddingneeded = 4- lengthcomp % 4
+			paddingneeded2 = 4 - oldentry->name_len % 4;
+			if (oldentry->rec_len >= 2 * sizeof(struct ext2_dir_entry_2) + lengthcomp + paddingneeded + oldentry->name_len + paddingneeded2){
 				check = 1;
-				paddingneeded2 = 4 - oldentry->name_len % 4;
 				oldsize = oldentry->rec_len;
 				oldentry->rec_len = sizeof(struct ext2_dir_entry_2) + oldentry->name_len + (oldentry->name_len % 4);
-				newentry = oldentry = (void *) oldentry + oldentry->rec_len;
+				newentry = (void *) oldentry + oldentry->rec_len;
 				newentry->inode = free_inode;
 				newentry->rec_len = oldsize - oldentry->rec_len;
 				newentry->name_len = lengthcomp;
