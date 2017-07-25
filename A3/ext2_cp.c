@@ -73,7 +73,6 @@ int main(int argc, char **argv) {
         lengthcomp = strlen(token2);
         for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
             directory = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
-			printf("%d\n", directory->inode - 1);
             sizecheck = 0;
             while (sizecheck < pathnode->i_size) {
                 if(strncmp(token2, directory->name, directory->name_len) == 0 && lengthcomp == directory->name_len) {
@@ -145,7 +144,7 @@ int main(int argc, char **argv) {
         perror("no free inodes");
         return ENOSPC;
     }
-    printf("%d\n", free_inode - 1);
+    
     struct ext2_inode *newnode = itable + (free_inode - 1);
     
     int block_bitmap[128];
@@ -211,15 +210,7 @@ int main(int argc, char **argv) {
         }
     }
     newnode->i_mode = EXT2_S_IFREG;
-    newnode->i_size = sz;
-    newnode->i_blocks = blockneeded * 2;
-    newnode->i_links_count = 1;
-	newnode->i_dtime = 0;
-    struct ext2_dir_entry_2 *oldentry;
-    struct ext2_dir_entry_2 *newentry;
-    int spaceneeded = 8 + lengthcomp + (4 - lengthcomp % 4);
-    int spaceold, oldsize;
-    check = 0;
+    
     
     
     
