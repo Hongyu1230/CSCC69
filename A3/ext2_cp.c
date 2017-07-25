@@ -20,8 +20,8 @@ int main(int argc, char **argv) {
         exit(1);
     }
     int fd = open(argv[1], O_RDWR);
-    FILE *source = fopen(argv[2], "r");
-    if (source == NULL) {
+    int source = open(argv[1], O_RDONLY);
+    if (source < 0) {
         perror("could not find source file");
         return ENOENT;
     }
@@ -49,12 +49,12 @@ int main(int argc, char **argv) {
         exit(1);
     }
     
-    fseek(source, 0L, SEEK_END);
-    float sz = ftell(source);
-    int blockneeded = ceil(sz/1024);
+    size_t filesize = lseek(source, 0, SEEK_END);
+    int blockneeded = ceil(filesize/1024);
     if (blockneeded > 12) {
         blockneeded += 1;
     }
+	src = mmap(NULL, filesize, PROT_READ, MAP_PRIVATE, source, 0);
     
     struct ext2_super_block *sb = (struct ext2_super_block *)(disk + 1024);
     
@@ -172,7 +172,7 @@ int main(int argc, char **argv) {
                 *mappos |= l;
                 newnode->i_block[i] = j + 1;
                 ptr = (void *)(disk + 1024 * (j + 1));
-                memcpy(tester, source, sizeof(char)/1024);
+                memcpy(tester, src, sizeof(char)/1024);
 				printf("%s\n", tester);
 				printf("well that did not work out\n");
                 break;
@@ -209,11 +209,11 @@ int main(int argc, char **argv) {
         }
         for (n = 0; n < blockneeded; n+=1) {
             ptr = (void *)(disk + 1024 * indirectionblock[n]);
-            fread(ptr, sizeof(char), 1024 / sizeof(char), source);
+            memcpy(tester, src, sizeof(char)/1024);
         }
     }
     newnode->i_mode = EXT2_S_IFREG;
-    newnode->i_size = sz;
+    newnode->i_size = filesize;
     newnode->i_blocks = blockneeded * 2;
     newnode->i_links_count = 1;
 	newnode->i_dtime = 0;
