@@ -115,7 +115,7 @@ int main(int argc, char **argv) {
                 if (directorycheck->rec_len == 0) {
                     break;
                 }
-				printf("%s,%c", directtorycheck->name, directorycheck->file_type);
+				printf("%s,%c", directorycheck->name, directorycheck->file_type);
                 sizecheck += directorycheck->rec_len;
                 directorycheck = (void *) directorycheck + directorycheck->rec_len;
             }
