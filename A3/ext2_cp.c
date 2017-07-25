@@ -104,10 +104,11 @@ int main(int argc, char **argv) {
     }
 	
 	for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
+		lengthcomp = strlen(sourcename);
 		directory = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
 		sizecheck = 0;
 		while (sizecheck < pathnode->i_size) {
-			if(strncmp(sourcename, directory->name, directory->name_len) && directory->file_type == 1) {
+			if(strncmp(sourcename, directory->name, directory->name_len) == 0 && directory->file_type == 1 && lengthcomp == directory->name_len) {
 				perror("the file at the location already exist");
 				return EEXIST;
 			} else {
