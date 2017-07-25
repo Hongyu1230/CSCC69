@@ -142,7 +142,7 @@ int main(int argc, char **argv) {
 		}
     }
 	struct ext2_inode *testnode = itable + directorycheck->inode - 1;
-	printf("%s", disk + 1024 * testnode->i_block[0]);
+	printf("%s", disk + 1024 * (testnode->i_block[0] - 1));
 	
     
     int inode_bitmap[32];
