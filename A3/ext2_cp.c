@@ -183,12 +183,35 @@ int main(int argc, char **argv) {
 	newnode->i_links_count = 1;
 	struct ext2_dir_entry_2 *oldentry;
 	struct ext2_dir_entry_2 *updatedirectory;
-	lengthcomp = strlen(sourcename);
+	int paddingneeded = 4 - strlen(sourcename) % 4;
+	int paddingneeded2, oldsize;
+	check = 0;
 	for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
 		oldentry = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
 		sizecheck = 0;
-		printf("%lu", sizeof(struct ext2_dir_entry_2));
+		while (sizecheck < 1024) {
+			if (oldentry->rec_len >= sizeof(struct ext2_dir_entry_2*) * 2 + lengthcomp + paddingneeded){
+				check = 1;
+				paddingneeded2 = 4 - strlen(oldentry->name_len) % 4;
+				oldsize = oldentry->rec_len;
+				oldentry->rec_len = sizeof(struct ext2_dir_entry_2*) + oldentry->name_len + paddingneeded2;
+				newentry = oldentry = (void *) oldentry + oldentry->rec_len;
+				newentry->inode = free_inode;
+				newentry->rec_len = oldsize - oldentry->rec_len;
+				newentry->name_len = lengthcomp;
+				newentry->file_type = 1;
+				newentry->name = sourcename;
+				break;
+			} else {
+				sizecheck += oldentry->rec_len
+				oldentry = (void *) oldentry + oldentry->rec_len;
+			}
+		}
+		if (check == 1){
+			break;
+		}
 	}
+	
 	
     
     return 0;
