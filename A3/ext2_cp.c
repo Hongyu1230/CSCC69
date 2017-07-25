@@ -49,9 +49,9 @@ int main(int argc, char **argv) {
         exit(1);
     }
     
-    size_t filesize = lseek(source, 0, SEEK_END);
+    int filesize = lseek(source, 0, SEEK_END);
     int blockneeded = ceil(filesize/1024);
-	printf("%lu",filesize);
+	printf("%d",blockneeded);
     if (blockneeded > 12) {
         blockneeded += 1;
     }
