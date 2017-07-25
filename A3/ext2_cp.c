@@ -51,7 +51,6 @@ int main(int argc, char **argv) {
     
     float filesize = lseek(source, 0, SEEK_END);
     int blockneeded = ceil(filesize/1024);
-	printf("%d",blockneeded);
     if (blockneeded > 12) {
         blockneeded += 1;
     }
