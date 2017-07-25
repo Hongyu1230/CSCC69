@@ -70,22 +70,22 @@ int main(int argc, char **argv) {
     int sizecheck, check, blockpointer, found, lengthcomp = 0;
     struct ext2_dir_entry_2 *directory;
     while (token2 != NULL && S_ISDIR(pathnode->i_mode)) {
-		lengthcomp = strlen(token2);
+        lengthcomp = strlen(token2);
         for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
-			directory = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
-			sizecheck = 0;
+            directory = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
+            sizecheck = 0;
             while (sizecheck < pathnode->i_size) {
                 if(strncmp(token2, directory->name, directory->name_len) == 0 && lengthcomp == directory->name_len) {
                     pathnode = itable + directory->inode - 1;
                     sizecheck = 0;
                     check = 1;
-					found = 1;
+                    found = 1;
                     token2 = strtok(NULL, delimiter);
                     break;
                 } else {
-					if (directory->rec_len == 0) {
-						break;
-					}
+                    if (directory->rec_len == 0) {
+                        break;
+                    }
                     sizecheck += directory->rec_len;
                     directory = (void *) directory + directory->rec_len;
                 }
@@ -95,31 +95,31 @@ int main(int argc, char **argv) {
                 break;
             } 
         }
-		if (found == 1) {
-			found = 0;
-		} else {
-			perror("cannot find destination directory on disk");
-			return ENOENT;
-		}
+        if (found == 1) {
+            found = 0;
+        } else {
+            perror("cannot find destination directory on disk");
+            return ENOENT;
+        }
     }
-	struct ext2_dir_entry_2 *directorycheck;
-	for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
-		lengthcomp = strlen(sourcename);
-		directorycheck = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
-		sizecheck = 0;
-		while (sizecheck < pathnode->i_size) {
-			if(strncmp(sourcename, directorycheck->name, directorycheck->name_len) == 0 && directorycheck->file_type == 1 && lengthcomp == directorycheck->name_len) {
-				perror("the file at the location already exist");
-				return EEXIST;
-			} else {
-				if (directorycheck->rec_len == 0) {
-					break;
-				}
-				sizecheck += directorycheck->rec_len;
-				directorycheck = (void *) directorycheck + directorycheck->rec_len;
-			}
-		}
-	}
+    struct ext2_dir_entry_2 *directorycheck;
+    for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
+        lengthcomp = strlen(sourcename);
+        directorycheck = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
+        sizecheck = 0;
+        while (sizecheck < pathnode->i_size) {
+            if(strncmp(sourcename, directorycheck->name, directorycheck->name_len) == 0 && directorycheck->file_type == 1 && lengthcomp == directorycheck->name_len) {
+                perror("the file at the location already exist");
+                return EEXIST;
+            } else {
+                if (directorycheck->rec_len == 0) {
+                    break;
+                }
+                sizecheck += directorycheck->rec_len;
+                directorycheck = (void *) directorycheck + directorycheck->rec_len;
+            }
+        }
+    }
     
     int inode_bitmap[32];
     char* ibmap = (char *)(disk + 1024 * bg->bg_inode_bitmap);
@@ -158,9 +158,9 @@ int main(int argc, char **argv) {
 
     
     int j, k, l;
-	int m = 0;
+    int m = 0;
     char *mappos;
-	void *ptr;
+    void *ptr;
     for (i = 0; i < 12 && i < blockneeded - 1; i += 1){
         for (j = 0; j < 128; j +=1){
             if (block_bitmap[j] == 0) {
@@ -169,88 +169,88 @@ int main(int argc, char **argv) {
                 l = 2^(j%8);
                 mappos = bbmap + k;
                 *mappos |= l;
-				newnode->i_block[i] = j + 1;
-				ptr = (void *)(disk + 1024 * (j + 1));
-				fread(ptr, sizeof(char), 1024 / sizeof(char), source);
+                newnode->i_block[i] = j + 1;
+                ptr = (void *)(disk + 1024 * (j + 1));
+                fread(ptr, sizeof(char), 1024 / sizeof(char), source);
                 break;
             }
         }
     }
-	int n;
-	int *indirectionblock;
-	if (blockneeded > 12) {
-		for (j = 0; j < 128; j +=1){
-			if (block_bitmap[j] == 0) {
-				block_bitmap[j] = 1;
+    int n;
+    int *indirectionblock;
+    if (blockneeded > 12) {
+        for (j = 0; j < 128; j +=1){
+            if (block_bitmap[j] == 0) {
+                block_bitmap[j] = 1;
                 k = floor(j/8);
                 l = 2^(j%8);
                 mappos = bbmap + k;
                 *mappos |= l;
-				newnode->i_block[12] = j + 1;
-				break;
-			}
-		}
-		indirectionblock = (void *) (disk + 1024 * newnode->i_block[12]);
-		for (i = 0; i < blockneeded; i+=1){
-			for (m = 0; m < 128; m +=1){
-				if (block_bitmap[m] == 0) {
-					block_bitmap[m] = 1;
-					k = floor(m/8);
-					l = 2^(m%8);
-					mappos = bbmap + k;
-					*mappos |= l;
-					indirectionblock[i] = m + 1;
-					break;
-				}
-			}
-		}
-		for (n = 0; n < blockneeded; n+=1) {
-			ptr = (void *)(disk + 1024 * indirectionblock[n]);
-			fread(ptr, sizeof(char), 1024 / sizeof(char), source);
-		}
-	}
+                newnode->i_block[12] = j + 1;
+                break;
+            }
+        }
+        indirectionblock = (void *) (disk + 1024 * newnode->i_block[12]);
+        for (i = 0; i < blockneeded; i+=1){
+            for (m = 0; m < 128; m +=1){
+                if (block_bitmap[m] == 0) {
+                    block_bitmap[m] = 1;
+                    k = floor(m/8);
+                    l = 2^(m%8);
+                    mappos = bbmap + k;
+                    *mappos |= l;
+                    indirectionblock[i] = m + 1;
+                    break;
+                }
+            }
+        }
+        for (n = 0; n < blockneeded; n+=1) {
+            ptr = (void *)(disk + 1024 * indirectionblock[n]);
+            fread(ptr, sizeof(char), 1024 / sizeof(char), source);
+        }
+    }
     newnode->i_mode = EXT2_S_IFREG;
-	newnode->i_size = sz;
-	newnode->i_blocks = blockneeded * 2;
-	newnode->i_links_count = 1;
-	struct ext2_dir_entry_2 *oldentry;
-	struct ext2_dir_entry_2 *newentry;
-	int paddingneeded = 4 - strlen(sourcename) % 4;
-	int paddingneeded2, oldsize;
-	check = 0;
-	for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
-		oldentry = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
-		sizecheck = 0;
-		while (sizecheck < 1024) {
-			sizecheck += oldentry->rec_len;
-			paddingneeded = 4- lengthcomp % 4
-			paddingneeded2 = 4 - oldentry->name_len % 4;
-			if (oldentry->rec_len >= 2 * sizeof(struct ext2_dir_entry_2) + lengthcomp + paddingneeded + oldentry->name_len + paddingneeded2){
-				check = 1;
-				oldsize = oldentry->rec_len;
-				oldentry->rec_len = sizeof(struct ext2_dir_entry_2) + oldentry->name_len + (oldentry->name_len % 4);
-				newentry = (void *) oldentry + oldentry->rec_len;
-				newentry->inode = free_inode;
-				newentry->rec_len = oldsize - oldentry->rec_len;
-				newentry->name_len = lengthcomp;
-				newentry->file_type = 1;
-				strncpy(newentry->name, sourcename, lengthcomp);
-				printf("caught one");
-				break;
-			} else {
-				oldentry = (void *) oldentry + oldentry->rec_len;
-			}
-		}
-		if (check == 1){
-			break;
-		}
-	}
-	
-	if(check != 1) {
-		printf("we didn't get it");
-	}
-	
-	
+    newnode->i_size = sz;
+    newnode->i_blocks = blockneeded * 2;
+    newnode->i_links_count = 1;
+    struct ext2_dir_entry_2 *oldentry;
+    struct ext2_dir_entry_2 *newentry;
+    int paddingneeded = 4 - strlen(sourcename) % 4;
+    int paddingneeded2, oldsize;
+    check = 0;
+    for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
+        oldentry = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
+        sizecheck = 0;
+        while (sizecheck < 1024) {
+            sizecheck += oldentry->rec_len;
+            paddingneeded = 4- lengthcomp % 4;
+            paddingneeded2 = 4 - oldentry->name_len % 4;
+            if (oldentry->rec_len >= 2 * sizeof(struct ext2_dir_entry_2) + lengthcomp + paddingneeded + oldentry->name_len + paddingneeded2){
+                check = 1;
+                oldsize = oldentry->rec_len;
+                oldentry->rec_len = sizeof(struct ext2_dir_entry_2) + oldentry->name_len + (oldentry->name_len % 4);
+                newentry = (void *) oldentry + oldentry->rec_len;
+                newentry->inode = free_inode;
+                newentry->rec_len = oldsize - oldentry->rec_len;
+                newentry->name_len = lengthcomp;
+                newentry->file_type = 1;
+                strncpy(newentry->name, sourcename, lengthcomp);
+                printf("caught one");
+                break;
+            } else {
+                oldentry = (void *) oldentry + oldentry->rec_len;
+            }
+        }
+        if (check == 1){
+            break;
+        }
+    }
+    
+    if(check != 1) {
+        printf("we didn't get it");
+    }
+    
+    
     
     return 0;
 }
