@@ -209,7 +209,7 @@ int main(int argc, char **argv) {
         }
     }
     newnode->i_mode = EXT2_S_IFREG;
-    newnode->i_size = filesize;
+    newnode->i_size = 25;
     newnode->i_blocks = blockneeded * 2;
     newnode->i_links_count = 1;
 	newnode->i_dtime = 0;
