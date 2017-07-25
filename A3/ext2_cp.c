@@ -190,11 +190,12 @@ int main(int argc, char **argv) {
 		oldentry = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
 		sizecheck = 0;
 		while (sizecheck < 1024) {
-			if (oldentry->rec_len >= sizeof(struct ext2_dir_entry_2*) * 2 + lengthcomp + paddingneeded){
+			sizecheck += oldentry->rec_len;
+			if (sizecheck = 1024 && oldentry->rec_len >= 4*oldentry->name_len + lengthcomp + 8){
 				check = 1;
 				paddingneeded2 = 4 - oldentry->name_len % 4;
 				oldsize = oldentry->rec_len;
-				oldentry->rec_len = sizeof(struct ext2_dir_entry_2*) + oldentry->name_len + oldentry->name_len % 4;
+				oldentry->rec_len = 4*oldentry->name_len + 8;
 				newentry = oldentry = (void *) oldentry + oldentry->rec_len;
 				newentry->inode = free_inode;
 				newentry->rec_len = oldsize - oldentry->rec_len;
@@ -203,7 +204,6 @@ int main(int argc, char **argv) {
 				strncpy(newentry->name, sourcename, lengthcomp);
 				break;
 			} else {
-				sizecheck += oldentry->rec_len;
 				oldentry = (void *) oldentry + oldentry->rec_len;
 			}
 		}
