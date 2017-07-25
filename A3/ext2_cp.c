@@ -233,7 +233,7 @@ int main(int argc, char **argv) {
                 newentry->inode = free_inode;
                 newentry->rec_len = oldsize - oldentry->rec_len;
                 newentry->name_len = lengthcomp;
-                newentry->file_type = 1;
+                newentry->file_type = EXT2_FT_DIR;
                 strncpy(newentry->name, sourcename, lengthcomp);
                 printf("caught one");
                 break;
