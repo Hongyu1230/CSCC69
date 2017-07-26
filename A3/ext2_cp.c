@@ -179,7 +179,8 @@ int main(int argc, char **argv) {
     int n;
     int *indirectionblock;
     if (blockneeded > 12) {
-		printf("this file is greater than 12");
+		printf("this file is greater than 12\n")
+		//find a free block for our indirect
         for (j = 0; j < 128; j +=1){
             if (block_bitmap[j] == 0) {
                 block_bitmap[j] = 1;
@@ -192,7 +193,7 @@ int main(int argc, char **argv) {
             }
         }
         indirectionblock = (void *) (disk + 1024 * newnode->i_block[12]);
-        for (i = 0; i < blockneeded; i+=1){
+        for (i = 0; i < blockneeded - 12; i+=1){
             for (m = 0; m < 128; m +=1){
                 if (block_bitmap[m] == 0) {
                     block_bitmap[m] = 1;
@@ -206,7 +207,7 @@ int main(int argc, char **argv) {
             }
         }
         for (n = 0; n < blockneeded; n+=1) {
-            memcpy((disk + 1024 * indirectionblock[n]), src + 1024*n, 1024/sizeof(char));
+            memcpy((disk + 1024 * indirectionblock[n]), src + 1024*(n+12), 1024/sizeof(char));
         }
     }
     newnode->i_mode = EXT2_S_IFREG | S_IROTH;
