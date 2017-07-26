@@ -77,8 +77,10 @@ int main(int argc, char **argv) {
                     sizecheck = 0;
                     check = 1;
                     found = 1;
-					printf("%s,%s\n", directory->name, token2);
                     token2 = strtok(NULL, delimiter);
+					if (token2 != NULL) {
+						printf("%s,%s\n", token2);
+					}
                     break;
                 } else {
                     if (directory->rec_len == 0) {
