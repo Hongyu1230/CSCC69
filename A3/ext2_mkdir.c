@@ -48,18 +48,7 @@ int main(int argc, char **argv) {
 	char filename[strlen(destpath)];
 	int pathlocation = 0;
     token = strtok(destpath, delimiter);
-    while (token != NULL) {
-        strcpy(storedarray[pathlocation], token);
-		strcpy(filename, token);
-		pathlocation += 1;
-        token = strtok(NULL, delimiter);
-    }
-    struct ext2_group_desc *bg = (struct ext2_group_desc *)(disk + 2048);
-    struct ext2_inode *itable = (struct ext2_inode *)(disk + 1024 * bg->bg_inode_table);
-    struct ext2_inode *pathnode = itable + 1;
-    token2 = strtok(destpath, delimiter);
-    int sizecheck, check, blockpointer, found, lengthcomp, storedlocation, immediatebreak = 0;
-    struct ext2_dir_entry_2 *directory;
+    
     
     
     
