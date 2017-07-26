@@ -159,14 +159,6 @@ int main(int argc, char **argv) {
         }
     }
     
-    for (i = 0; i < 16; i+=1, bbmap +=1) {
-        for (pos = 0; pos < 8; pos+=1) {
-            printf("%d", block_bitmap[(8 * i) + pos]);
-        }
-        printf(" ");
-    }
-    printf("\n");
-    
     int j, l, k;
     int m = 0;
     char *mappos;
