@@ -173,10 +173,6 @@ int main(int argc, char **argv) {
         for (j = 0; j < 128; j +=1){
             if (block_bitmap[j] == 0) {
                 block_bitmap[j] = 1;
-                k = floor(j/8);
-                l = 2^(j%8);
-                mappos = bbmap + k;
-                *mappos |= l;
                 newnode->i_block[i] = j + 1;
                 memcpy(disk + 1024 * (j + 1), src + 1024*i, 1024/sizeof(char));
                 break;
@@ -190,10 +186,6 @@ int main(int argc, char **argv) {
         for (j = 0; j < 128; j +=1){
             if (block_bitmap[j] == 0) {
                 block_bitmap[j] = 1;
-                k = floor(j/8);
-                l = 2^(j%8);
-                mappos = bbmap + k;
-                *mappos |= l;
                 newnode->i_block[12] = j + 1;
                 break;
             }
@@ -203,10 +195,6 @@ int main(int argc, char **argv) {
             for (m = 0; m < 128; m +=1){
                 if (block_bitmap[m] == 0) {
                     block_bitmap[m] = 1;
-                    k = floor(m/8);
-                    l = 2^(m%8);
-                    mappos = bbmap + k;
-                    *mappos |= l;
                     indirectionblock[i] = m + 1;
                     break;
                 }
@@ -260,10 +248,6 @@ int main(int argc, char **argv) {
         for (m = 0; m < 128; m +=1){
              if (block_bitmap[m] == 0) {
                 block_bitmap[m] = 1;
-                k = floor(m/8);
-                l = 2^(m%8);
-                mappos = bbmap + k;
-                *mappos |= l;
                 pathnode->i_block[unusedblock] = m + 1;
                 break;
             }
