@@ -171,7 +171,7 @@ int main(int argc, char **argv) {
                 mappos = bbmap + k;
                 *mappos |= l;
                 newnode->i_block[i] = j + 1;
-                memcpy(disk + 1024 * (j + 1), src, 1024/sizeof(char));
+                memcpy(disk + 1024 * (j + 1), src + 1024*i, 1024/sizeof(char));
                 break;
             }
         }
@@ -206,7 +206,7 @@ int main(int argc, char **argv) {
             }
         }
         for (n = 0; n < blockneeded; n+=1) {
-            memcpy((disk + 1024 * indirectionblock[n]), src, 1024/sizeof(char));
+            memcpy((disk + 1024 * indirectionblock[n]), src + 1024*n, 1024/sizeof(char));
         }
     }
     newnode->i_mode = EXT2_S_IFREG | S_IROTH;
