@@ -138,7 +138,7 @@ int main(int argc, char **argv) {
     int free_inode = -1;
     for (i = 0; i < 32; i+=1){
         if (inode_bitmap[i] == 0){
-			inode_bitmap[i] = 1;
+            inode_bitmap[i] = 1;
             free_inode = i + 1;
             break;
         }
@@ -158,15 +158,15 @@ int main(int argc, char **argv) {
             block_bitmap[(8 * i) + pos] = (temp >> pos) & 1;
         }
     }
-	
-	for (i = 0; i < 16; i+=1, bbmap +=1) {
+    
+    for (i = 0; i < 16; i+=1, bbmap +=1) {
         for (pos = 0; pos < 8; pos+=1) {
             printf("%d", block_bitmap[(8 * i) + pos]);
         }
-		printf(" ");
+        printf(" ");
     }
     printf("\n");
-	
+    
     int j, l, k;
     int m = 0;
     char *mappos;
@@ -183,7 +183,7 @@ int main(int argc, char **argv) {
     int n;
     int *indirectionblock;
     if (blockneeded > 12) {
-		//find a free block for our indirect
+        //find a free block for our indirect
         for (j = 0; j < 128; j +=1){
             if (block_bitmap[j] == 0) {
                 block_bitmap[j] = 1;
@@ -253,34 +253,36 @@ int main(int argc, char **argv) {
                 break;
             }
         }
-		newentry = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[unusedblock]);
-		newentry->inode = free_inode;
+        newentry = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[unusedblock]);
+        newentry->inode = free_inode;
         newentry->rec_len = 1024;
         newentry->name_len = lengthcomp;
         newentry->file_type = 1;
-		strncpy(newentry->name, sourcename, lengthcomp);
+        strncpy(newentry->name, sourcename, lengthcomp);
     }
     
     bbmap = (char *)(disk + 1024 * bg->bg_block_bitmap);
     for (i = 0; i < 16; i+=1, bbmap +=1) {
         for (pos = 0; pos < 8; pos+=1) {
-			*bbmap |= 11111111;
+			if (block_bitmap[(8 * i) + pos] == 1) {
+                *bbmap |= 2^pos;
+			|
         }
-    }	
-	
-	bbmap = (char *)(disk + 1024 * bg->bg_block_bitmap);
-	for (i = 0; i < 16; i+=1, bbmap +=1) {
+    }   
+    
+    bbmap = (char *)(disk + 1024 * bg->bg_block_bitmap);
+    for (i = 0; i < 16; i+=1, bbmap +=1) {
         temp = *bbmap;
         for (pos = 0; pos < 8; pos+=1) {
             block_bitmap[(8 * i) + pos] = (temp >> pos) & 1;
         }
     }
-	printf("checkpoint");
-	for (i = 0; i < 16; i+=1, bbmap +=1) {
+    printf("checkpoint");
+    for (i = 0; i < 16; i+=1, bbmap +=1) {
         for (pos = 0; pos < 8; pos+=1) {
             printf("%d", block_bitmap[(8 * i) + pos]);
         }
-		printf(" ");
+        printf(" ");
     }
     printf("\n");
     
