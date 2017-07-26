@@ -243,6 +243,7 @@ int main(int argc, char **argv) {
                 block_bitmap[m] = 1;
                 pathnode->i_block[unusedblock] = m + 1;
 				pathnode->i_size += 1024;
+				pathnode->i_blocks += 2;
                 break;
             }
         }
