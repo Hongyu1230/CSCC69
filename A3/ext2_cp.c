@@ -54,8 +54,8 @@ int main(int argc, char **argv) {
     if (blockneeded > 12) {
         blockneeded += 1;
     }
-	char *src;
-	src = mmap(NULL, filesize, PROT_READ, MAP_PRIVATE, source, 0);
+    char *src;
+    src = mmap(NULL, filesize, PROT_READ, MAP_PRIVATE, source, 0);
     
     struct ext2_super_block *sb = (struct ext2_super_block *)(disk + 1024);
     
@@ -110,8 +110,6 @@ int main(int argc, char **argv) {
         sizecheck = 0;
         while (sizecheck < pathnode->i_size) {
             if(strncmp(sourcename, directorycheck->name, directorycheck->name_len) == 0 && directorycheck->file_type == 1 && lengthcomp == directorycheck->name_len) {
-				struct ext2_inode *testnode = itable + directorycheck->inode - 1;
-				printf("%d", testnode->i_block[1]);
                 perror("the file at the location already exist");
                 return EEXIST;
             } else {
@@ -123,7 +121,7 @@ int main(int argc, char **argv) {
             }
         }
     }
-	
+    
     
     int inode_bitmap[32];
     char* ibmap = (char *)(disk + 1024 * bg->bg_inode_bitmap);
@@ -181,6 +179,7 @@ int main(int argc, char **argv) {
     int n;
     int *indirectionblock;
     if (blockneeded > 12) {
+		printf("this file is greater than 12");
         for (j = 0; j < 128; j +=1){
             if (block_bitmap[j] == 0) {
                 block_bitmap[j] = 1;
@@ -214,13 +213,17 @@ int main(int argc, char **argv) {
     newnode->i_size = filesize;
     newnode->i_blocks = blockneeded * 2;
     newnode->i_links_count = 1;
-	newnode->i_dtime = 0;
+    newnode->i_dtime = 0;
     struct ext2_dir_entry_2 *oldentry;
     struct ext2_dir_entry_2 *newentry;
     int spaceneeded = 8 + lengthcomp + (4 - lengthcomp % 4);
-    int spaceold, oldsize;
+    int spaceold, oldsize, unusedblock;
     check = 0;
     for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
+        if (pathnode->i_block[blockpointer] == 0){
+            unusedblock = blockpointer;
+            break;
+        }
         oldentry = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
         sizecheck = 0;
         while (sizecheck < 1024) {
@@ -246,9 +249,24 @@ int main(int argc, char **argv) {
         }
     }
     
-	//used blocks don't got space;
     if(check != 1) {
-		
+        for (m = 0; m < 128; m +=1){
+             if (block_bitmap[m] == 0) {
+                block_bitmap[m] = 1;
+                k = floor(m/8);
+                l = 2^(m%8);
+                mappos = bbmap + k;
+                *mappos |= l;
+                pathnode->i_block[unusedblock] = m + 1;
+                break;
+            }
+        }
+		newentry = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[unusedblock]);
+		newentry->inode = free_inode;
+        newentry->rec_len = 1024;
+        newentry->name_len = lengthcomp;
+        newentry->file_type = 1;
+		strncpy(newentry->name, sourcename, lengthcomp);
     }
     
     
