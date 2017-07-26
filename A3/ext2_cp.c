@@ -260,16 +260,7 @@ int main(int argc, char **argv) {
         newentry->file_type = 1;
         strncpy(newentry->name, sourcename, lengthcomp);
     }
-    printf("\n");
-	printf("checkpoint");
-	printf("\n");
-    for (i = 0; i < 16; i+=1, bbmap +=1) {
-        for (pos = 0; pos < 8; pos+=1) {
-            printf("%d", block_bitmap[(8 * i) + pos]);
-        }
-        printf(" ");
-    }
-    printf("\n");
+	
     bbmap = (char *)(disk + 1024 * bg->bg_block_bitmap);
     for (i = 0; i < 16; i+=1, bbmap +=1) {
         for (pos = 0; pos < 8; pos+=1) {
@@ -278,23 +269,14 @@ int main(int argc, char **argv) {
 			}
         }
     }   
-    
-    bbmap = (char *)(disk + 1024 * bg->bg_block_bitmap);
-    for (i = 0; i < 16; i+=1, bbmap +=1) {
-        temp = *bbmap;
+    ibmap = (char *)(disk + 1024 * bg->bg_inode_bitmap);
+    for (i = 0; i < 4; i+=1, ibmap +=1) {
         for (pos = 0; pos < 8; pos+=1) {
-            block_bitmap[(8 * i) + pos] = (temp >> pos) & 1;
+            if (inode_bitmap[(8 * i) + pos] == 1) {
+                *ibmap |= (int) pow(2,pos);
+			}
         }
     }
-    printf("checkpoint2");
-	printf("\n");
-    for (i = 0; i < 16; i+=1, bbmap +=1) {
-        for (pos = 0; pos < 8; pos+=1) {
-            printf("%d", block_bitmap[(8 * i) + pos]);
-        }
-        printf(" ");
-    }
-    printf("\n");
     
     return 0;
 }

@@ -227,7 +227,22 @@ int main(int argc, char **argv) {
         newentry->file_type = 2;
 		strncpy(newentry->name, filename, lengthcomp);
     }
-    
+    bbmap = (char *)(disk + 1024 * bg->bg_block_bitmap);
+    for (i = 0; i < 16; i+=1, bbmap +=1) {
+        for (pos = 0; pos < 8; pos+=1) {
+			if (block_bitmap[(8 * i) + pos] == 1) {
+                *bbmap |= (int) pow(2,pos);
+			}
+        }
+    }   
+    ibmap = (char *)(disk + 1024 * bg->bg_inode_bitmap);
+    for (i = 0; i < 4; i+=1, ibmap +=1) {
+        for (pos = 0; pos < 8; pos+=1) {
+            if (inode_bitmap[(8 * i) + pos] == 1) {
+                *ibmap |= (int) pow(2,pos);
+			}
+        }
+    }
     
     return 0;
 }
