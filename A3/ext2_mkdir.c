@@ -54,7 +54,6 @@ int main(int argc, char **argv) {
     token = strtok(destpath, delimiter);
     while (token != NULL) {
         storedarray[pathlocation] = token;
-		printf("%s", storedarray[pathlocation]);
         strcpy(filename, token);
         pathlocation += 1;
         token = strtok(NULL, delimiter);
@@ -67,7 +66,7 @@ int main(int argc, char **argv) {
     int sizecheck, check, blockpointer, found, lengthcomp, immediatebreak = 0;
 	int storedlocation = 1;
     struct ext2_dir_entry_2 *directory;
-    while (token2 != NULL && S_ISDIR(pathnode->i_mode) && storedlocation < pathlocation - 1) {
+    while (token2 != NULL && S_ISDIR(pathnode->i_mode)) {
         lengthcomp = strlen(token2);
         for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
             directory = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
@@ -80,6 +79,7 @@ int main(int argc, char **argv) {
                     found = 1;
                     token2 = strtok(NULL, delimiter);
                     storedlocation += 1;
+					printf("%s", storedarray[storedlocation]);
                     //we found the 2nd last entry on our path, so we just need to make the directory now
                     if (storedarray[storedlocation] == NULL){
                         immediatebreak = 1;
