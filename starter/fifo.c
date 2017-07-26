@@ -25,7 +25,7 @@ int fifo_evict() {
 	int evicted = counter;
 	
 	//increment counter, if our counter is at the end we need to reset it back to 0
-	if (counter == (memsize - 1)) {
+    if (counter == (memsize - 1)) {
 		counter = 0;
 	}
 	else {
