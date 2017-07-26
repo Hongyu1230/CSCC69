@@ -124,7 +124,7 @@ int main(int argc, char **argv) {
     
     
     int inode_bitmap[32];
-    char* ibmap = (char *)(disk + 1024 * bg->bg_inode_bitmap);
+    char *ibmap = (char *)(disk + 1024 * bg->bg_inode_bitmap);
     int i, pos;
     char temp;
     for (i = 0; i < 4; i+=1, ibmap +=1) {
@@ -138,6 +138,7 @@ int main(int argc, char **argv) {
     int free_inode = -1;
     for (i = 0; i < 32; i+=1){
         if (inode_bitmap[i] == 0){
+			inode_bitmap[i] = 1;
             free_inode = i + 1;
             break;
         }
@@ -150,7 +151,7 @@ int main(int argc, char **argv) {
     struct ext2_inode *newnode = itable + (free_inode - 1);
     
     int block_bitmap[128];
-    char* bbmap = (char *)(disk + 1024 * bg->bg_block_bitmap);
+    char *bbmap = (char *)(disk + 1024 * bg->bg_block_bitmap);
     for (i = 0; i < 16; i+=1, bbmap +=1) {
         temp = *bbmap;
         for (pos = 0; pos < 8; pos+=1) {
@@ -260,20 +261,7 @@ int main(int argc, char **argv) {
 		strncpy(newentry->name, sourcename, lengthcomp);
     }
     
-    bbmap = (char *)(disk + 1024 * bg->bg_block_bitmap);
-    for (i = 0; i < 16; i+=1, bbmap +=1) {
-        for (pos = 0; pos < 8; pos+=1) {
-			*bbmap >> pos |= block_bitmap[(8 * i) + pos];
-        }
-    }	
-	
-	bbmap = (char *)(disk + 1024 * bg->bg_block_bitmap);
-	for (i = 0; i < 16; i+=1, bbmap +=1) {
-        temp = *bbmap;
-        for (pos = 0; pos < 8; pos+=1) {
-            block_bitmap[(8 * i) + pos] = (temp >> pos) & 1;
-        }
-    }
+    
 	printf("checkpoint");
 	for (i = 0; i < 16; i+=1, bbmap +=1) {
         for (pos = 0; pos < 8; pos+=1) {
