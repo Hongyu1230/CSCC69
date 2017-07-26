@@ -54,7 +54,7 @@ int main(int argc, char **argv) {
     token = strtok(destpath, delimiter);
     while (token != NULL) {
         storedarray[pathlocation] = token;
-		printf("%s", storedarray[storedlocation]);
+		printf("%s", storedarray[pathlocation]);
         strcpy(filename, token);
         pathlocation += 1;
         token = strtok(NULL, delimiter);
