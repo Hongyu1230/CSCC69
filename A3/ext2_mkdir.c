@@ -48,12 +48,10 @@ int main(int argc, char **argv) {
         perror("not enough space for the new file");
         return ENOSPC;
     }
-    const char *storedarray[strlen(destpath)];
     char filename[strlen(destpath)];
     int pathlocation = 0;
     token = strtok(destpath, delimiter);
     while (token != NULL) {
-        storedarray[pathlocation] = token;
         strcpy(filename, token);
         pathlocation += 1;
         token = strtok(NULL, delimiter);
@@ -63,12 +61,11 @@ int main(int argc, char **argv) {
     struct ext2_inode *itable = (struct ext2_inode *)(disk + 1024 * bg->bg_inode_table);
     struct ext2_inode *pathnode = itable + 1;
     token2 = strtok(destpath, delimiter);
-    int sizecheck, check, blockpointer, found, lengthcomp, immediatebreak = 0;
-	int storedlocation = 1;
+    int sizecheck, check, blockpointer, found, lengthcomp, immediatebreak, startingpoint = 0;
     struct ext2_dir_entry_2 *directory;
     while (token2 != NULL && S_ISDIR(pathnode->i_mode)) {
         lengthcomp = strlen(token2);
-        for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
+        for (blockpointer = 0; blockpointer < 12 && startingpoint < pathlocation; blockpointer+=1) {
             directory = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
             sizecheck = 0;
             while (sizecheck < pathnode->i_size) {
@@ -77,14 +74,8 @@ int main(int argc, char **argv) {
                     sizecheck = 0;
                     check = 1;
                     found = 1;
-                    storedlocation += 1;
-					printf("%s, %s", storedarray[storedlocation], token2);
-					token2 = strtok(NULL, delimiter);
-                    //we found the 2nd last entry on our path, so we just need to make the directory now
-                    if (storedarray[storedlocation] == NULL){
-                        immediatebreak = 1;
-                    }
-                    break;
+                    startingpoint += 1;
+					token2 = strtok(NULL, delimiter);          
                 } else {
                     if (directory->rec_len == 0) {
                         break;
@@ -103,10 +94,6 @@ int main(int argc, char **argv) {
         } else {
             perror("cannot find one of the paths on the mkdir route");
             return ENOENT;
-        }
-        //don't want to continue anymore, since we found the directtory in which we want to make our directory in
-        if (immediatebreak == 1){
-            break;
         }
     }
     struct ext2_dir_entry_2 *directorycheck;
