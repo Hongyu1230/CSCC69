@@ -80,6 +80,8 @@ int main(int argc, char **argv) {
                     token2 = strtok(NULL, delimiter);
 					if (token2 != NULL) {
 						printf("%s\n", token2);
+					} else {
+						printf("null");
 					}
                     break;
                 } else {
