@@ -26,7 +26,7 @@ int main(int argc, char **argv) {
         perror("the path needs to start from root, beginning with /");
         return ENOENT;
     }
-	if (strlen(destpath) == 1) {
+    if (strlen(destpath) == 1) {
         perror("you need to specify a path with at least a directory to create");
         return ENOENT;
     }
@@ -48,14 +48,14 @@ int main(int argc, char **argv) {
         perror("not enough space for the new file");
         return ENOSPC;
     }
-	const char *storedarray[strlen(destpath)];
-	char filename[strlen(destpath)];
-	int pathlocation = 0;
+    const char *storedarray[strlen(destpath)];
+    char filename[strlen(destpath)];
+    int pathlocation = 0;
     token = strtok(destpath, delimiter);
     while (token != NULL) {
         storedarray[pathlocation] = token;
-		strcpy(filename, token);
-		pathlocation += 1;
+        strcpy(filename, token);
+        pathlocation += 1;
         token = strtok(NULL, delimiter);
     }
 
@@ -68,6 +68,9 @@ int main(int argc, char **argv) {
     while (token2 != NULL && S_ISDIR(pathnode->i_mode) && storedlocation < pathlocation - 1) {
         lengthcomp = strlen(token2);
         for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
+            if(pathnode->i_block[blockpointer] == 0) {
+                break;
+            }
             directory = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
             sizecheck = 0;
             while (sizecheck < pathnode->i_size) {
@@ -77,11 +80,11 @@ int main(int argc, char **argv) {
                     check = 1;
                     found = 1;
                     token2 = strtok(NULL, delimiter);
-					storedlocation += 1;
-					//we found the 2nd last entry on our path, so we just need to make the directory now
-					if (storedarray[storedlocation] == NULL){
-						immediatebreak = 1;
-					}
+                    storedlocation += 1;
+                    //we found the 2nd last entry on our path, so we just need to make the directory now
+                    if (storedarray[storedlocation] == NULL){
+                        immediatebreak = 1;
+                    }
                     break;
                 } else {
                     if (directory->rec_len == 0) {
@@ -102,13 +105,16 @@ int main(int argc, char **argv) {
             perror("cannot find one of the paths on the mkdir route");
             return ENOENT;
         }
-		//don't want to continue anymore, since we found the directtory in which we want to make our directory in
-		if (immediatebreak == 1){
-			break;
-		}
+        //don't want to continue anymore, since we found the directtory in which we want to make our directory in
+        if (immediatebreak == 1){
+            break;
+        }
     }
     struct ext2_dir_entry_2 *directorycheck;
     for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
+        if(pathnode->i_block[blockpointer] == 0) {
+            break;
+        }
         lengthcomp = strlen(filename);
         directorycheck = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
         sizecheck = 0;
@@ -224,19 +230,19 @@ int main(int argc, char **argv) {
                 break;
             }
         }
-		newentry = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[unusedblock]);
-		newentry->inode = free_inode;
+        newentry = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[unusedblock]);
+        newentry->inode = free_inode;
         newentry->rec_len = 1024;
         newentry->name_len = lengthcomp;
         newentry->file_type = 2;
-		strncpy(newentry->name, filename, lengthcomp);
+        strncpy(newentry->name, filename, lengthcomp);
     }
     bbmap = (char *)(disk + 1024 * bg->bg_block_bitmap);
     for (i = 0; i < 16; i+=1, bbmap +=1) {
         for (pos = 0; pos < 8; pos+=1) {
-			if (block_bitmap[(8 * i) + pos] == 1) {
+            if (block_bitmap[(8 * i) + pos] == 1) {
                 *bbmap |= (int) pow(2,pos);
-			}
+            }
         }
     }   
     ibmap = (char *)(disk + 1024 * bg->bg_inode_bitmap);
@@ -244,7 +250,7 @@ int main(int argc, char **argv) {
         for (pos = 0; pos < 8; pos+=1) {
             if (inode_bitmap[(8 * i) + pos] == 1) {
                 *ibmap |= (int) pow(2,pos);
-			}
+            }
         }
     }
     
