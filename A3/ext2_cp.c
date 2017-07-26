@@ -266,7 +266,7 @@ int main(int argc, char **argv) {
         for (pos = 0; pos < 8; pos+=1) {
 			if (block_bitmap[(8 * i) + pos] == 1) {
                 *bbmap |= 2^pos;
-			|
+			}
         }
     }   
     
