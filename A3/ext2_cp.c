@@ -276,7 +276,7 @@ int main(int argc, char **argv) {
 		strncpy(newentry->name, sourcename, lengthcomp);
     }
     
-    char* bbmap = (char *)(disk + 1024 * bg->bg_block_bitmap);
+    bbmap = (char *)(disk + 1024 * bg->bg_block_bitmap);
     for (i = 0; i < 16; i+=1, bbmap +=1) {
         temp = *bbmap;
         for (pos = 0; pos < 8; pos+=1) {
