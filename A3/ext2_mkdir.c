@@ -64,7 +64,7 @@ int main(int argc, char **argv) {
     struct ext2_inode *pathnode = itable + 1;
     token2 = strtok(destpath, delimiter);
     int sizecheck, check, blockpointer, found, lengthcomp, immediatebreak = 0;
-	int storedlocation = 1;
+	int storedlocation = 0;
     struct ext2_dir_entry_2 *directory;
     while (token2 != NULL && S_ISDIR(pathnode->i_mode) && storedlocation < pathlocation - 1) {
         lengthcomp = strlen(token2);
@@ -83,6 +83,7 @@ int main(int argc, char **argv) {
                     token2 = strtok(NULL, delimiter);
                     storedlocation += 1;
                     //we found the 2nd last entry on our path, so we just need to make the directory now
+					printf("%s, %s", token, storedarray[storedlocation]);
                     if (storedarray[storedlocation] == NULL){
                         immediatebreak = 1;
                     }
