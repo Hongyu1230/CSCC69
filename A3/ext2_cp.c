@@ -167,7 +167,7 @@ int main(int argc, char **argv) {
             if (block_bitmap[j] == 0) {
                 block_bitmap[j] = 1;
                 newnode->i_block[i] = j + 1;
-                memcpy(disk + 1024 * (j + 1), src + 1024*i, 1024;
+                memcpy(disk + 1024 * (j + 1), src + 1024*i, 1024);
                 break;
             }
         }
