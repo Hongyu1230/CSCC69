@@ -110,8 +110,6 @@ int main(int argc, char **argv) {
         sizecheck = 0;
         while (sizecheck < pathnode->i_size) {
             if(strncmp(sourcename, directorycheck->name, directorycheck->name_len) == 0 && directorycheck->file_type == 1 && lengthcomp == directorycheck->name_len) {
-				struct ext2_inode *testnode = itable + directorycheck->inode - 1;
-				printf("%s", disk + 1024 * (testnode->i_block[0]));
                 perror("the file at the location already exist");
                 return EEXIST;
             } else {
@@ -210,7 +208,7 @@ int main(int argc, char **argv) {
             memcpy((disk + 1024 * indirectionblock[n]), src, 1024/sizeof(char));
         }
     }
-    newnode->i_mode = EXT2_S_IFREG;
+    newnode->i_mode = EXT2_S_IFREG | S_IRWXU;
     newnode->i_size = filesize;
     newnode->i_blocks = blockneeded * 2;
     newnode->i_links_count = 1;
