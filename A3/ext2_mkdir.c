@@ -63,7 +63,8 @@ int main(int argc, char **argv) {
     struct ext2_inode *itable = (struct ext2_inode *)(disk + 1024 * bg->bg_inode_table);
     struct ext2_inode *pathnode = itable + 1;
     token2 = strtok(destpath, delimiter);
-    int sizecheck, check, blockpointer, found, lengthcomp, storedlocation, immediatebreak = 0;
+    int sizecheck, check, blockpointer, found, lengthcomp, immediatebreak = 0;
+	int storedlocation = 1;
     struct ext2_dir_entry_2 *directory;
     while (token2 != NULL && S_ISDIR(pathnode->i_mode) && storedlocation < pathlocation - 1) {
         lengthcomp = strlen(token2);
