@@ -42,17 +42,23 @@ int main(int argc, char **argv) {
 	}
 
 	//parses path argument
-	int i;
+	int i, store;
 	int depth = 0;
 	char path[strlen(argv[2+a])];
 	strcpy(path, argv[2+a]);
 	char *list[strlen(argv[2+a])]; 
 	char *segment = strtok(path, "/");
+
+
 	for (i = 0; segment != NULL  ; i++) {
 		list[i] = segment;
 		segment = strtok (NULL, "/");
 		depth ++;
 	}
+   	if (path[0] != '/') {
+        	perror("the path needs to start from root, beginning with /");
+    		return ENOENT;
+    	}
 
 	//structures necessary for directory traversal
 	struct ext2_group_desc *gd = (struct ext2_group_desc *)(disk + EXT2_BLOCK_SIZE*2);
@@ -79,25 +85,26 @@ int main(int argc, char **argv) {
 
 			//while we are still within the node's boundaries and haven't found a segment
 			while (length < pathnode->i_size && lvl_clear == 0){
-				dir_entry = (struct ext2_dir_entry_2 *) (disk + ((1024 * (pathnode->i_block[0]))+length));
+				dir_entry = (struct ext2_dir_entry_2 *) (disk + ((1024 * (pathnode->i_block[i]))+length));
 				length += dir_entry->rec_len;
 				
 				//compares path segment at same level to entry name
-				if (strncmp(list[level-1], dir_entry->name, dir_entry->name_len) == 0) {
+				if (strncmp(list[level-1], dir_entry->name, dir_entry->name_len) == 0 && strlen(list[level-1]) == dir_entry->name_len) {
 					invalid = 0;
 					lvl_clear = 1;
-					
-					//check if final segment in path
+					//move into the matching (directory) inode
+					pathnode = itable + dir_entry->inode - 1;
+					//check if next segment is the null, indicating final segment in path
 					if(level == depth){
 						discovered = dir_entry->inode;
+						//store the pointer block the inode is in
+						store = i;
 						//if it is just a regular file or symlink, print it's name on the spot
 						if (dir_entry->file_type == EXT2_FT_SYMLINK || 
 						dir_entry->file_type == EXT2_FT_REG_FILE){					
 							printf("%.*s\n", dir_entry->name_len, dir_entry->name);						
-						}
-					}
-					//move into the matching (directory) inode
-					pathnode = itable + dir_entry->inode - 1;
+						}	
+					}				
 				}	
 
 				else {
@@ -110,16 +117,19 @@ int main(int argc, char **argv) {
 		level++;
 	}
 
+	//if root directory, we need to go into 2nd inode
+	if (discovered == 0 && invalid == 0) { discovered = 2; }
+
 	//we want to now print the contents of the final directory in path, if found
 	if (discovered != 0) {
 		pathnode = (struct ext2_inode *) (inodeloc + sizeof(struct ext2_inode) * (discovered-1)); 
-		
+		//pathnode = itable + discovered-1
 		if (S_ISDIR(pathnode->i_mode)) {
 			length = 0;
-
 			//print all contents for directory inode
 			while (length < pathnode->i_size){
-				dir_entry = (struct ext2_dir_entry_2 *) (disk + ((1024 * (pathnode->i_block[0]))+length));
+				
+				dir_entry = (struct ext2_dir_entry_2 *) (disk + ((1024 * (pathnode->i_block[store]))+length));
 				if (a == 1) {
 					printf("%.*s\n", dir_entry->name_len, dir_entry->name);
 				}
@@ -138,7 +148,7 @@ int main(int argc, char **argv) {
 		return ENOENT;
 	}
 	
-
+	
 	return 0;
 	
 }
