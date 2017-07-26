@@ -261,7 +261,20 @@ int main(int argc, char **argv) {
 		strncpy(newentry->name, sourcename, lengthcomp);
     }
     
-    
+    bbmap = (char *)(disk + 1024 * bg->bg_block_bitmap);
+    for (i = 0; i < 16; i+=1, bbmap +=1) {
+        for (pos = 0; pos < 8; pos+=1) {
+			bbmap |= 11111111;
+        }
+    }	
+	
+	bbmap = (char *)(disk + 1024 * bg->bg_block_bitmap);
+	for (i = 0; i < 16; i+=1, bbmap +=1) {
+        temp = *bbmap;
+        for (pos = 0; pos < 8; pos+=1) {
+            block_bitmap[(8 * i) + pos] = (temp >> pos) & 1;
+        }
+    }
 	printf("checkpoint");
 	for (i = 0; i < 16; i+=1, bbmap +=1) {
         for (pos = 0; pos < 8; pos+=1) {
