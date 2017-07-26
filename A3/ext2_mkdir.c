@@ -49,7 +49,7 @@ int main(int argc, char **argv) {
 	int pathlocation = 0;
     token = strtok(destpath, delimiter);
     while (token != NULL) {
-        strcpy(storedarray[pathlocation], token);
+        
 		strcpy(filename, token);
 		pathlocation += 1;
         token = strtok(NULL, delimiter);
