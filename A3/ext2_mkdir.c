@@ -63,9 +63,9 @@ int main(int argc, char **argv) {
     token2 = strtok(destpath, delimiter);
     int sizecheck, check, blockpointer, found, lengthcomp, immediatebreak, startingpoint = 0;
     struct ext2_dir_entry_2 *directory;
-    while (token2 != NULL && S_ISDIR(pathnode->i_mode)) {
+    while (token2 != NULL && S_ISDIR(pathnode->i_mode && startingpoint < pathlocation)) {
         lengthcomp = strlen(token2);
-        for (blockpointer = 0; blockpointer < 12 && startingpoint < pathlocation; blockpointer+=1) {
+        for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
             directory = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
             sizecheck = 0;
             while (sizecheck < pathnode->i_size) {
