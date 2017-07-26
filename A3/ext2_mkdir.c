@@ -60,48 +60,7 @@ int main(int argc, char **argv) {
     token2 = strtok(destpath, delimiter);
     int sizecheck, check, blockpointer, found, lengthcomp, storedlocation, immediatebreak = 0;
     struct ext2_dir_entry_2 *directory;
-    while (token2 != NULL && S_ISDIR(pathnode->i_mode)) {
-        lengthcomp = strlen(token2);
-        for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
-            directory = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
-            sizecheck = 0;
-            while (sizecheck < pathnode->i_size) {
-                if(strncmp(token2, directory->name, directory->name_len) == 0 && lengthcomp == directory->name_len) {
-                    pathnode = itable + directory->inode - 1;
-                    sizecheck = 0;
-                    check = 1;
-                    found = 1;
-                    token2 = strtok(NULL, delimiter);
-					storedlocation += 1;
-					//we found the 2nd last entry on our path, so we just need to make the directory now
-					if (storedarray[storedlocation] == NULL){
-						immediatebreak = 1;
-					}
-                    break;
-                } else {
-                    if (directory->rec_len == 0) {
-                        break;
-                    }
-                    sizecheck += directory->rec_len;
-                    directory = (void *) directory + directory->rec_len;
-                }
-            }
-            if (check == 1) {
-                check = 0;
-                break;
-            } 
-        }
-        if (found == 1) {
-            found = 0;
-        } else {
-            perror("cannot find one of the paths on the mkdir route");
-            return ENOENT;
-        }
-		//don't want to continue anymore, since we found the directtory in which we want to make our directory in
-		if (immediatebreak == 1){
-			break;
-		}
-    }
+    
     
     
     
