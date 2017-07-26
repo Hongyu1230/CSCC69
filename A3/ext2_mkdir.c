@@ -78,7 +78,6 @@ int main(int argc, char **argv) {
                     check = 1;
                     found = 1;
                     token2 = strtok(NULL, delimiter);
-                    storedlocation += 1;
                     //we found the 2nd last entry on our path, so we just need to make the directory now
 					printf("%s, %s", token, storedarray[storedlocation]);
                     if (storedarray[storedlocation] == NULL){
