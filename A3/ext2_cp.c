@@ -262,6 +262,7 @@ int main(int argc, char **argv) {
     }
     printf("\n");
 	printf("checkpoint");
+	printf("\n");
     for (i = 0; i < 16; i+=1, bbmap +=1) {
         for (pos = 0; pos < 8; pos+=1) {
             printf("%d", block_bitmap[(8 * i) + pos]);
@@ -286,6 +287,7 @@ int main(int argc, char **argv) {
         }
     }
     printf("checkpoint2");
+	printf("\n");
     for (i = 0; i < 16; i+=1, bbmap +=1) {
         for (pos = 0; pos < 8; pos+=1) {
             printf("%d", block_bitmap[(8 * i) + pos]);
