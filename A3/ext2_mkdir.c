@@ -26,6 +26,10 @@ int main(int argc, char **argv) {
         perror("the path needs to start from root, beginning with /");
         return ENOENT;
     }
+	if (strlen(destpath) == 1) {
+        perror("you need to specify a path with at least a directory to create");
+        return ENOENT;
+    }
     char *token;
     char *token2;
     const char delimiter[2] = "/";
