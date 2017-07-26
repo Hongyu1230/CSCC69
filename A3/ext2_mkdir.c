@@ -68,7 +68,6 @@ int main(int argc, char **argv) {
     struct ext2_dir_entry_2 *directory;
     while (token2 != NULL && S_ISDIR(pathnode->i_mode)) {
         lengthcomp = strlen(token2);
-		startingpoint += 1;
         for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
             directory = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
             sizecheck = 0;
@@ -78,9 +77,8 @@ int main(int argc, char **argv) {
                     sizecheck = 0;
                     check = 1;
                     found = 1;
-                    storedlocation += 1;
-					printf("%s, %s", storedarray[storedlocation], token2);
-					token2 = strtok(NULL, delimiter);
+                    token2 = strtok(NULL, delimiter);
+                    break;
                 } else {
                     if (directory->rec_len == 0) {
                         break;
@@ -97,7 +95,7 @@ int main(int argc, char **argv) {
         if (found == 1) {
             found = 0;
         } else {
-            perror("cannot find one of the paths on the mkdir route");
+            perror("cannot find destination directory on disk");
             return ENOENT;
         }
     }
