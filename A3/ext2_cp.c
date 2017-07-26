@@ -174,7 +174,27 @@ int main(int argc, char **argv) {
     }
     int n;
     int *indirectionblock;
-    
+    if (blockneeded > 12) {
+        //find a free block for our indirect
+        for (j = 0; j < 128; j +=1){
+            if (block_bitmap[j] == 0) {
+                block_bitmap[j] = 1;
+                newnode->i_block[12] = j + 1;
+                break;
+            }
+        }
+        indirectionblock = (void *) (disk + 1024 * newnode->i_block[12]);
+        for (i = 0; i < blockneeded - 12; i+=1){
+            for (m = 0; m < 128; m +=1){
+                if (block_bitmap[m] == 0) {
+                    block_bitmap[m] = 1;
+                    indirectionblock[i] = m + 1;
+                    break;
+                }
+            }
+        }
+        
+    }
     newnode->i_mode = EXT2_S_IFREG | S_IROTH;
     newnode->i_size = filesize;
     newnode->i_blocks = blockneeded * 2;
