@@ -21,6 +21,7 @@ int main(int argc, char **argv) {
     }
     int fd = open(argv[1], O_RDWR);
     char destpath[strlen(argv[2])];
+	//for the 2nd strtok call
 	char destpath2[strlen(argv[2])];
     strcpy(destpath, argv[2]);
 	strcpy(destpath2, argv[2]);
@@ -50,12 +51,10 @@ int main(int argc, char **argv) {
         perror("not enough space for the new file");
         return ENOSPC;
     }
-    const char *storedarray[strlen(destpath)];
     char filename[strlen(destpath)];
     int pathlocation = 0;
     token = strtok(destpath, delimiter);
     while (token != NULL) {
-        storedarray[pathlocation] = token;
         strcpy(filename, token);
         pathlocation += 1;
         token = strtok(NULL, delimiter);
@@ -68,7 +67,8 @@ int main(int argc, char **argv) {
     int sizecheck, check, blockpointer, found, lengthcomp, startingpoint, immediatebreak = 0;
 	int storedlocation = 1;
     struct ext2_dir_entry_2 *directory;
-    while (token2 != NULL && S_ISDIR(pathnode->i_mode)) {
+    while (token2 != NULL && S_ISDIR(pathnode->i_mode) && startingpoint < pathlocation) {
+		startingpoint += 1;
         lengthcomp = strlen(token2);
         for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
             directory = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
@@ -80,11 +80,6 @@ int main(int argc, char **argv) {
                     check = 1;
                     found = 1;
                     token2 = strtok(NULL, delimiter);
-					if (token2 != NULL) {
-						printf("%s\n", token2);
-					} else {
-						printf("null");
-					}
                     break;
                 } else {
                     if (directory->rec_len == 0) {
