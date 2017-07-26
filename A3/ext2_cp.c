@@ -193,7 +193,9 @@ int main(int argc, char **argv) {
                 }
             }
         }
-        
+        for (n = 0; n < blockneeded; n+=1) {
+            memcpy((disk + 1024 * indirectionblock[n]), src + 1024*(n+12), 1024/sizeof(char));
+        }
     }
     newnode->i_mode = EXT2_S_IFREG | S_IROTH;
     newnode->i_size = filesize;
