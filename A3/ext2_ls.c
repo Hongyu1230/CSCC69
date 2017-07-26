@@ -49,7 +49,6 @@ int main(int argc, char **argv) {
 	char *list[strlen(argv[2+a])]; 
 	char *segment = strtok(path, "/");
 
-
 	for (i = 0; segment != NULL  ; i++) {
 		list[i] = segment;
 		segment = strtok (NULL, "/");
@@ -94,11 +93,13 @@ int main(int argc, char **argv) {
 					lvl_clear = 1;
 					//move into the matching (directory) inode
 					pathnode = itable + dir_entry->inode - 1;
+
 					//check if next segment is the null, indicating final segment in path
 					if(level == depth){
 						discovered = dir_entry->inode;
 						//store the pointer block the inode is in
 						store = i;
+
 						//if it is just a regular file or symlink, print it's name on the spot
 						if (dir_entry->file_type == EXT2_FT_SYMLINK || 
 						dir_entry->file_type == EXT2_FT_REG_FILE){					
@@ -106,7 +107,6 @@ int main(int argc, char **argv) {
 						}	
 					}				
 				}	
-
 				else {
 					if (dir_entry->rec_len == 0) {		
 						break;
@@ -123,13 +123,15 @@ int main(int argc, char **argv) {
 	//we want to now print the contents of the final directory in path, if found
 	if (discovered != 0) {
 		pathnode = (struct ext2_inode *) (inodeloc + sizeof(struct ext2_inode) * (discovered-1)); 
+
 		//pathnode = itable + discovered-1
 		if (S_ISDIR(pathnode->i_mode)) {
 			length = 0;
+
 			//print all contents for directory inode
-			while (length < pathnode->i_size){
-				
+			while (length < pathnode->i_size){	
 				dir_entry = (struct ext2_dir_entry_2 *) (disk + ((1024 * (pathnode->i_block[store]))+length));
+
 				if (a == 1) {
 					printf("%.*s\n", dir_entry->name_len, dir_entry->name);
 				}
@@ -138,6 +140,7 @@ int main(int argc, char **argv) {
 				else if (strcmp(dir_entry->name, ".") != 0 && strcmp(dir_entry->name, "..") != 0) {
 					printf("%.*s\n", dir_entry->name_len, dir_entry->name);		
 				} 
+
 				length += dir_entry->rec_len;
 			}
 		}
