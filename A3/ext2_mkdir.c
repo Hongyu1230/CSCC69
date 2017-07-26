@@ -105,8 +105,8 @@ int main(int argc, char **argv) {
         directorycheck = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
         sizecheck = 0;
         while (sizecheck < pathnode->i_size) {
-            if(strncmp(filename, directorycheck->name, directorycheck->name_len) == 0 && directorycheck->file_type == 2 && lengthcomp == directorycheck->name_len) {
-                perror("the directory at the location already exist");
+            if(strncmp(filename, directorycheck->name, directorycheck->name_len) == 0 && lengthcomp == directorycheck->name_len) {
+                perror("a file or directory with the name already exists");
                 return EEXIST;
             } else {
                 if (directorycheck->rec_len == 0) {
