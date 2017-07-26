@@ -110,6 +110,8 @@ int main(int argc, char **argv) {
         sizecheck = 0;
         while (sizecheck < pathnode->i_size) {
             if(strncmp(sourcename, directorycheck->name, directorycheck->name_len) == 0 && directorycheck->file_type == 1 && lengthcomp == directorycheck->name_len) {
+				struct ext2_inode *testnode = itable + directorycheck->inode - 1;
+				printf("%d", testnode->i_block[1]);
                 perror("the file at the location already exist");
                 return EEXIST;
             } else {
@@ -244,8 +246,9 @@ int main(int argc, char **argv) {
         }
     }
     
+	//used blocks don't got space;
     if(check != 1) {
-        printf("we didn't get it");
+		
     }
     
     
