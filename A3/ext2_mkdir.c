@@ -79,7 +79,7 @@ int main(int argc, char **argv) {
                     found = 1;
                     token2 = strtok(NULL, delimiter);
 					if (token2 != NULL) {
-						printf("%s,%s\n", token2);
+						printf("%s\n", token2);
 					}
                     break;
                 } else {
