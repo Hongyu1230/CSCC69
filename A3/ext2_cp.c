@@ -179,7 +179,7 @@ int main(int argc, char **argv) {
     int n;
     int *indirectionblock;
     if (blockneeded > 12) {
-		printf("this file is greater than 12\n")
+		printf("this file is greater than 12\n");
 		//find a free block for our indirect
         for (j = 0; j < 128; j +=1){
             if (block_bitmap[j] == 0) {
