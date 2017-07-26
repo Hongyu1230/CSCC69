@@ -66,7 +66,7 @@ int main(int argc, char **argv) {
     int sizecheck, check, blockpointer, found, lengthcomp, startingpoint, immediatebreak = 0;
 	int storedlocation = 1;
     struct ext2_dir_entry_2 *directory;
-    while (token2 != NULL && S_ISDIR(pathnode->i_mode) && startingpoint < pathlocation - 1) {
+    while (token2 != NULL && S_ISDIR(pathnode->i_mode) && startingpoint < pathlocation) {
         lengthcomp = strlen(token2);
 		printf("%d", startingpoint);
 		startingpoint += 1;
