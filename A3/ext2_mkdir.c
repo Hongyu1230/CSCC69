@@ -44,12 +44,12 @@ int main(int argc, char **argv) {
         perror("not enough space for the new file");
         return ENOSPC;
     }
-	char *storedarray[strlen(destpath)];
+	const char *storedarray[strlen(destpath)];
 	char filename[strlen(destpath)];
 	int pathlocation = 0;
     token = strtok(destpath, delimiter);
     while (token != NULL) {
-        
+        storedarray[pathlocation] = token;
 		strcpy(filename, token);
 		pathlocation += 1;
         token = strtok(NULL, delimiter);
