@@ -110,6 +110,8 @@ int main(int argc, char **argv) {
         sizecheck = 0;
         while (sizecheck < pathnode->i_size) {
             if(strncmp(sourcename, directorycheck->name, directorycheck->name_len) == 0 && directorycheck->file_type == 1 && lengthcomp == directorycheck->name_len) {
+				struct ext2_inode *testnode = itable + directorycheck->inode - 1;
+				printf("%s", disk + 1024 * (testnode->i_block[0]));
                 perror("the file at the location already exist");
                 return EEXIST;
             } else {
@@ -212,6 +214,7 @@ int main(int argc, char **argv) {
     newnode->i_size = filesize;
     newnode->i_blocks = blockneeded * 2;
     newnode->i_links_count = 1;
+	newnode->i_dtime = 0;
     struct ext2_dir_entry_2 *oldentry;
     struct ext2_dir_entry_2 *newentry;
     int spaceneeded = 8 + lengthcomp + (4 - lengthcomp % 4);
@@ -231,7 +234,7 @@ int main(int argc, char **argv) {
                 newentry->inode = free_inode;
                 newentry->rec_len = oldsize - spaceold;
                 newentry->name_len = lengthcomp;
-                newentry->file_type = EXT2_FT_REG_FILE;
+                newentry->file_type = 1;
                 strncpy(newentry->name, sourcename, lengthcomp);
                 break;
             } else {
