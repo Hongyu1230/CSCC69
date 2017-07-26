@@ -274,8 +274,7 @@ int main(int argc, char **argv) {
     for (i = 0; i < 16; i+=1, bbmap +=1) {
         for (pos = 0; pos < 8; pos+=1) {
 			if (block_bitmap[(8 * i) + pos] == 1) {
-				printf("\n%d", 2^pos);
-                *bbmap |= 2^pos;
+                *bbmap |= pow(2,pos);
 			}
         }
     }   
