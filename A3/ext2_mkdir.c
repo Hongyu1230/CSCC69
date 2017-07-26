@@ -21,10 +21,10 @@ int main(int argc, char **argv) {
     }
     int fd = open(argv[1], O_RDWR);
     char destpath[strlen(argv[2])];
-	//for the 2nd strtok call
-	char destpath2[strlen(argv[2])];
+    //for the 2nd strtok call
+    char destpath2[strlen(argv[2])];
     strcpy(destpath, argv[2]);
-	strcpy(destpath2, argv[2]);
+    strcpy(destpath2, argv[2]);
     if (destpath[0] != '/') {
         perror("the path needs to start from root, beginning with /");
         return ENOENT;
@@ -66,7 +66,7 @@ int main(int argc, char **argv) {
     int sizecheck, check, blockpointer, found, lengthcomp, startingpoint, immediatebreak = 0;
     struct ext2_dir_entry_2 *directory;
     while (token2 != NULL && S_ISDIR(pathnode->i_mode) && startingpoint < pathlocation - 1) {
-		startingpoint += 1;
+        startingpoint += 1;
         lengthcomp = strlen(token2);
         for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
             directory = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
@@ -135,7 +135,7 @@ int main(int argc, char **argv) {
     for (i = 0; i < 32; i+=1){
         if (inode_bitmap[i] == 0){
             free_inode = i + 1;
-			inode_bitmap[i] = 1;
+            inode_bitmap[i] = 1;
             break;
         }
     }
@@ -214,7 +214,7 @@ int main(int argc, char **argv) {
              if (block_bitmap[m] == 0) {
                 block_bitmap[m] = 1;
                 pathnode->i_block[unusedblock] = m + 1;
-				pathnode->i_size += 1024;
+                pathnode->i_size += 1024;
                 break;
             }
         }
