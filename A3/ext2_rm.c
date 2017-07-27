@@ -184,6 +184,9 @@ int main(int argc, char **argv) {
 					memset(deletiondirectory, 0, deletiondirectory->rec_len);
                     break;
                 } else {
+					oldsize = deletiondirectory->rec_len;
+					memset(deletiondirectory, 0, deletiondirectory->rec_len);
+					deletiondirectory->rec_len = oldsize;
                 }
             } else {
                 oldentry = (void *) oldentry + oldentry->rec_len;
