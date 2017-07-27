@@ -105,7 +105,7 @@ int main(int argc, char **argv) {
             if(strncmp(filename, directorycheck->name, directorycheck->name_len) == 0 && lengthcomp == directorycheck->name_len) {
                 if (directorycheck->file_type == 2) {
                     perror("the file at the location is a directory");
-                    return EEXIST;
+                    return EISDIR;
                 } else {
                     check = 1;
                     break;
