@@ -183,7 +183,7 @@ int main(int argc, char **argv) {
                     oldentry->rec_len += deletiondirectory->rec_len;
                     break;
                 } else {
-                    
+                    printf("incomplete");
                 }
             } else {
                 oldentry = (void *) oldentry + oldentry->rec_len;
