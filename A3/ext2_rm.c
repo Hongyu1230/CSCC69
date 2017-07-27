@@ -163,7 +163,7 @@ int main(int argc, char **argv) {
             block_bitmap[deletionnode->i_block[i] - 1] = 0;
         }   
     }
-    
+    printf("%d",deletiondirectory->inode);
     struct ext2_dir_entry_2 *oldentry;
     int spaceold, oldsize, unusedblock, oldlen;
     check = 0;
@@ -183,7 +183,6 @@ int main(int argc, char **argv) {
                     oldentry->rec_len += deletiondirectory->rec_len;
                     break;
                 } else {
-                    printf("incomplete");
                 }
             } else {
                 oldentry = (void *) oldentry + oldentry->rec_len;
