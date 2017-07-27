@@ -179,13 +179,11 @@ int main(int argc, char **argv) {
                 check = 1;
                 //we clearly have a entry before this
                 if (sizecheck > 0) {
-					printf("first cond");
                     oldentry = (void *) oldentry - oldlen;
                     oldentry->rec_len += deletiondirectory->rec_len;
                     memset(deletiondirectory, 0, deletiondirectory->rec_len);
                     break;
                 } else {
-					printf("second cond");
                     oldsize = deletiondirectory->rec_len;
                     memset(deletiondirectory, 0, deletiondirectory->rec_len);
                     deletiondirectory->rec_len = oldsize;
