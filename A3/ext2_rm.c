@@ -102,13 +102,13 @@ int main(int argc, char **argv) {
         directorycheck = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
         sizecheck = 0;
         while (sizecheck < pathnode->i_size) {
+			printf("%s,%s", filename, directorycheck->name);
             if(strncmp(filename, directorycheck->name, directorycheck->name_len) == 0 && lengthcomp == directorycheck->name_len) {
                 if (directorycheck->file_type == 2) {
                     perror("the file at the location is a directory");
                     return EEXIST;
                 } else {
                     check = 1;
-					printf("oh really?\n");
                     break;
                 }
             } else {
