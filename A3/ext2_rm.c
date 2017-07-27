@@ -155,7 +155,7 @@ int main(int argc, char **argv) {
     deletionnode->i_links_count -= 1;
 	int blockfreed = 0;
 	//zero out the bitmap for inode and blocks for our operation later
-	for (i = 0; i < 12 i +=1){
+	for (i = 0; i < 12; i +=1){
 		if (deletionnode->i_block[i] == 0) {
 			break;
 		} else {
