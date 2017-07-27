@@ -121,7 +121,7 @@ int main(int argc, char **argv) {
         //we found the file we need to delete
         if (check == 1) {
             deletionnode = itable + directorycheck->inode - 1;
-            deletiondirectory = (struct ext2_dir_entry_2 *)(disk + 1024 * deletionnode->i_block[blockpointer]);
+            deletiondirectory = directorycheck;
             break;
         }
     }
@@ -163,7 +163,7 @@ int main(int argc, char **argv) {
             block_bitmap[deletionnode->i_block[i] - 1] = 0;
         }   
     }
-    
+    inode_bitmap[deletionnode->inode - 1] = 0;
     struct ext2_dir_entry_2 *oldentry;
     int spaceold, oldsize, unusedblock, oldlen;
     check = 0;
@@ -175,7 +175,6 @@ int main(int argc, char **argv) {
         oldentry = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
         sizecheck = 0;
         while (sizecheck < 1024) {
-			printf("%s\n", deletiondirectory->name);
             if (oldentry == deletiondirectory) {
                 check = 1;
                 //we clearly have a entry before this
