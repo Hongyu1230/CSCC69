@@ -36,7 +36,7 @@ int main(int argc, char **argv) {
 	char filename[strlen(destpath)];
 	int stoppoint = 0;
     while (token != NULL) {
-        strcpy(sourcename, token);
+        strcpy(filename, token);
 		stoppoint +=1;
         token = strtok(NULL, delimiter);
     }
@@ -54,7 +54,7 @@ int main(int argc, char **argv) {
     int sizecheck, check, blockpointer, found, lengthcomp, startpoint = 0;
     struct ext2_dir_entry_2 *directory;
     while (token2 != NULL && S_ISDIR(pathnode->i_mode) && startpoint < stoppoint) {
-		stoppoint +=1
+		stoppoint +=1;
         lengthcomp = strlen(token2);
         for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
 			if (pathnode->i_block[blockpointer] == 0){
@@ -98,11 +98,11 @@ int main(int argc, char **argv) {
 		if (pathnode->i_block[blockpointer] == 0){
 			break;
 		}
-        lengthcomp = strlen(sourcename);
+        lengthcomp = strlen(filename);
         directorycheck = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
         sizecheck = 0;
         while (sizecheck < pathnode->i_size) {
-            if(strncmp(sourcename, directorycheck->name, directorycheck->name_len) == 0 && lengthcomp == directorycheck->name_len) {
+            if(strncmp(filename, directorycheck->name, directorycheck->name_len) == 0 && lengthcomp == directorycheck->name_len) {
 				if (directorycheck->file_type == 2) {
                     perror("the file at the location is a directory");
                     return EEXIST;
@@ -155,7 +155,7 @@ int main(int argc, char **argv) {
     deletionnode->i_links_count -= 1;
 	int blockfreed = 0;
 	//zero out the bitmap for inode and blocks for our operation later
-	for (i = 0; i < 12 i +=1){
+	for (i = 0; i < 12; i +=1){
 		if (deletionnode->i_block[i] == 0) {
 			break;
 		} else {
