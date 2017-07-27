@@ -64,7 +64,7 @@ int main(int argc, char **argv) {
     token2 = strtok(destpath2, delimiter);
     int sizecheck, check, blockpointer, found, lengthcomp, startingpoint, immediatebreak = 0;
     struct ext2_dir_entry_2 *directory;
-	printf("check the mode: %d\n", S_ISDIR(pathnode->i_mode));
+	printf("does condition check out: %d\n", token2 != NULL && S_ISDIR(pathnode->i_mode) && startingpoint < pathlocation - 1);
     while (token2 != NULL && S_ISDIR(pathnode->i_mode) && startingpoint < pathlocation - 1) {
         startingpoint += 1;
         lengthcomp = strlen(token2);
