@@ -163,10 +163,6 @@ int main(int argc, char **argv) {
             block_bitmap[deletionnode->i_block[i] - 1] = 0;
         }   
     }
-    inode_bitmap[deletiondirectory->inode - 1] = 0;
-    struct ext2_dir_entry_2 *oldentry;
-    int spaceold, oldsize, unusedblock, oldlen;
-    check = 0;
     
     
     return 0;
