@@ -132,63 +132,7 @@ int main(int argc, char **argv) {
 	}
     
     
-    int inode_bitmap[32];
-    char *ibmap = (char *)(disk + 1024 * bg->bg_inode_bitmap);
-    int i, pos;
-    char temp;
-    for (i = 0; i < 4; i+=1, ibmap +=1) {
-        temp = *ibmap;
-        for (pos = 0; pos < 8; pos+=1) {
-            inode_bitmap[(8 * i) + pos] = (temp >> pos) & 1;
-        }
-    }
     
-    int block_bitmap[128];
-    char *bbmap = (char *)(disk + 1024 * bg->bg_block_bitmap);
-    for (i = 0; i < 16; i+=1, bbmap +=1) {
-        temp = *bbmap;
-        for (pos = 0; pos < 8; pos+=1) {
-            block_bitmap[(8 * i) + pos] = (temp >> pos) & 1;
-        }
-    }
-    int n;
-    deletionnode->i_links_count -= 1;
-	int blockfreed = 0;
-	//zero out the bitmap for inode and blocks for our operation later
-	for (i = 0; i < 12; i +=1){
-		if (deletionnode->i_block[i] == 0) {
-			break;
-		} else {
-			blockfreed += 1;
-			block_bitmap[deletionnode->i_block[i] - 1] = 0;
-		}	
-	}
-	inode_bitmap[deletiondirectory->inode - 1] = 0;
-    struct ext2_dir_entry_2 *oldentry;
-    int spaceold, oldsize, unusedblock, oldlen;
-    check = 0;
-    
-    
-	if (deletionnode->i_links_count == 0) {
-        bbmap = (char *)(disk + 1024 * bg->bg_block_bitmap);
-        for (i = 0; i < 16; i+=1, bbmap +=1) {
-            for (pos = 0; pos < 8; pos+=1) {
-                if (block_bitmap[(8 * i) + pos] == 1) {
-                    *bbmap |= (int) pow(2,pos);
-                }
-            }
-        }   
-        ibmap = (char *)(disk + 1024 * bg->bg_inode_bitmap);
-        for (i = 0; i < 4; i+=1, ibmap +=1) {
-            for (pos = 0; pos < 8; pos+=1) {
-                if (inode_bitmap[(8 * i) + pos] == 1) {
-                    *ibmap |= (int) pow(2,pos);
-                }
-            }
-        }
-		sb->s_free_blocks_count += blockfreed;
-	    sb->s_free_inodes_count += 1;
-	}
     
     return 0;
 }
