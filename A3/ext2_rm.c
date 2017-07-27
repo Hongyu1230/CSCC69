@@ -175,7 +175,7 @@ int main(int argc, char **argv) {
         oldentry = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
         sizecheck = 0;
         while (sizecheck < 1024) {
-			printf("%s\n", deletionfile->name);
+			printf("%s\n", deletiondirectory->name);
             if (oldentry == deletiondirectory) {
                 check = 1;
                 //we clearly have a entry before this
