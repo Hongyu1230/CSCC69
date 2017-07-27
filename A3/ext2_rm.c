@@ -163,7 +163,7 @@ int main(int argc, char **argv) {
             block_bitmap[deletionnode->i_block[i] - 1] = 0;
         }   
     }
-    printf("%d",deletiondirectory->inode);
+    inode_bitmap[deletiondirectory->inode - 1] = 0;
     struct ext2_dir_entry_2 *oldentry;
     int spaceold, oldsize, unusedblock, oldlen;
     check = 0;
@@ -179,6 +179,7 @@ int main(int argc, char **argv) {
                 check = 1;
                 //we clearly have a entry before this
                 if (sizecheck > 0) {
+					printf("wait does this work");
                     oldentry = (void *) oldentry - oldlen;
                     oldentry->rec_len += deletiondirectory->rec_len;
                     break;

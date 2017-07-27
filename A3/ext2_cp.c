@@ -73,9 +73,9 @@ int main(int argc, char **argv) {
     while (token2 != NULL && S_ISDIR(pathnode->i_mode)) {
         lengthcomp = strlen(token2);
         for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
-			if (pathnode->i_block[blockpointer] == 0){
-			    break;
-		    }
+            if (pathnode->i_block[blockpointer] == 0){
+                break;
+            }
             directory = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
             sizecheck = 0;
             while (sizecheck < pathnode->i_size) {
@@ -108,9 +108,9 @@ int main(int argc, char **argv) {
     }
     struct ext2_dir_entry_2 *directorycheck;
     for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
-		if (pathnode->i_block[blockpointer] == 0){
-			break;
-		}
+        if (pathnode->i_block[blockpointer] == 0){
+            break;
+        }
         lengthcomp = strlen(sourcename);
         directorycheck = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
         sizecheck = 0;
@@ -172,7 +172,7 @@ int main(int argc, char **argv) {
         for (j = 0; j < 128; j +=1){
             if (block_bitmap[j] == 0) {
                 block_bitmap[j] = 1;
-				blockused +=1;
+                blockused +=1;
                 newnode->i_block[i] = j + 1;
                 memcpy(disk + 1024 * (j + 1), src + 1024*i, 1024);
                 break;
@@ -186,7 +186,7 @@ int main(int argc, char **argv) {
         for (j = 0; j < 128; j +=1){
             if (block_bitmap[j] == 0) {
                 block_bitmap[j] = 1;
-				blockused +=1;
+                blockused +=1;
                 newnode->i_block[12] = j + 1;
                 break;
             }
@@ -196,7 +196,7 @@ int main(int argc, char **argv) {
             for (m = 0; m < 128; m +=1){
                 if (block_bitmap[m] == 0) {
                     block_bitmap[m] = 1;
-					blockused +=1;
+                    blockused +=1;
                     indirectionblock[i] = m + 1;
                     break;
                 }
@@ -250,7 +250,7 @@ int main(int argc, char **argv) {
         for (m = 0; m < 128; m +=1){
              if (block_bitmap[m] == 0) {
                 block_bitmap[m] = 1;
-				blockused +=1;
+                blockused +=1;
                 pathnode->i_block[unusedblock] = m + 1;
                 pathnode->i_size += 1024;
                 pathnode->i_blocks += 2;
@@ -281,7 +281,7 @@ int main(int argc, char **argv) {
             }
         }
     }
-	sb->s_free_blocks_count -= blockused;
-	sb->s_free_inodes_count -= 1;
+    sb->s_free_blocks_count -= blockused;
+    sb->s_free_inodes_count -= 1;
     return 0;
 }
