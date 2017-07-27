@@ -44,9 +44,9 @@ int main(int argc, char **argv) {
     }
     
     int blockneeded = 1;
-    
+    int blockused = 0;
     struct ext2_super_block *sb = (struct ext2_super_block *)(disk + 1024);
-    
+    printf("%d\n", sb->s_free_blocks_count);
     if (blockneeded > sb->s_free_blocks_count) {
         perror("not enough space for the new file");
         return ENOSPC;
@@ -169,6 +169,7 @@ int main(int argc, char **argv) {
         for (j = 0; j < 128; j +=1){
             if (block_bitmap[j] == 0) {
                 block_bitmap[j] = 1;
+				blockused +=1;
                 newnode->i_block[i] = j + 1;
                 break;
             }
@@ -219,6 +220,7 @@ int main(int argc, char **argv) {
         for (m = 0; m < 128; m +=1){
              if (block_bitmap[m] == 0) {
                 block_bitmap[m] = 1;
+				blockused +=1;
                 pathnode->i_block[unusedblock] = m + 1;
                 pathnode->i_size += 1024;
 				pathnode->i_blocks += 2;
@@ -248,6 +250,8 @@ int main(int argc, char **argv) {
             }
         }
     }
-    
+	sb->s_free_blocks_count -= blockused;
+    sb->s_free_inodes_count -= 1;
+	printf("%d\n", sb->s_free_blocks_count);
     return 0;
 }

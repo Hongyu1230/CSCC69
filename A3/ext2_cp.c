@@ -59,7 +59,6 @@ int main(int argc, char **argv) {
     
     struct ext2_super_block *sb = (struct ext2_super_block *)(disk + 1024);
     int blockused = 0;
-	printf("%d\n", sb->s_free_blocks_count);
     if (blockneeded > sb->s_free_blocks_count) {
         perror("not enough space for the new file");
         return ENOSPC;
@@ -284,6 +283,5 @@ int main(int argc, char **argv) {
     }
 	sb->s_free_blocks_count -= blockused;
 	sb->s_free_inodes_count -= 1;
-    printf("%d\n", sb->s_free_blocks_count);
     return 0;
 }
