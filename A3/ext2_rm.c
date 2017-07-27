@@ -53,8 +53,8 @@ int main(int argc, char **argv) {
     token2 = strtok(destpath2, delimiter);
     int sizecheck, check, blockpointer, found, lengthcomp, startpoint = 0;
     struct ext2_dir_entry_2 *directory;
+	printf("%d", stoppoint);
     while (token2 != NULL && S_ISDIR(pathnode->i_mode) && startpoint < stoppoint) {
-		printf("code ran here");
         startpoint +=1;
         lengthcomp = strlen(token2);
         for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
