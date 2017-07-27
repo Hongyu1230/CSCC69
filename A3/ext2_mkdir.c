@@ -101,6 +101,9 @@ int main(int argc, char **argv) {
     }
     struct ext2_dir_entry_2 *directorycheck;
     for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
+		if (pathnode->i_block[blockpointer] == 0){
+			break;
+		}
         lengthcomp = strlen(filename);
         directorycheck = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
         sizecheck = 0;
