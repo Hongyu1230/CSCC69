@@ -53,8 +53,7 @@ int main(int argc, char **argv) {
     token2 = strtok(destpath2, delimiter);
     int sizecheck, check, blockpointer, found, lengthcomp, startpoint = 0;
     struct ext2_dir_entry_2 *directory;
-	printf("%d", stoppoint);
-    while (token2 != NULL && S_ISDIR(pathnode->i_mode) && startpoint < stoppoint) {
+    while (token2 != NULL && S_ISDIR(pathnode->i_mode) && startpoint < stoppoint - 1) {
         startpoint +=1;
         lengthcomp = strlen(token2);
         for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
@@ -103,7 +102,6 @@ int main(int argc, char **argv) {
         directorycheck = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
         sizecheck = 0;
         while (sizecheck < pathnode->i_size) {
-			printf("%s,%s", filename, directorycheck->name);
             if(strncmp(filename, directorycheck->name, directorycheck->name_len) == 0 && lengthcomp == directorycheck->name_len) {
                 if (directorycheck->file_type == 2) {
                     perror("the file at the location is a directory");
