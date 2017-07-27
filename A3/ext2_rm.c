@@ -108,6 +108,7 @@ int main(int argc, char **argv) {
                     return EEXIST;
                 } else {
                     check = 1;
+					printf("oh really?\n");
                     break;
                 }
             } else {
