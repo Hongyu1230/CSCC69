@@ -90,46 +90,7 @@ int main(int argc, char **argv) {
             return ENOENT;
         }
     }
-	check = 0;
-    struct ext2_dir_entry_2 *directorycheck;
-	struct ext2_inode *deletionnode;
-	struct ext2_dir_entry_2 *deletiondirectory;
-    for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
-		if (pathnode->i_block[blockpointer] == 0){
-			break;
-		}
-        lengthcomp = strlen(filename);
-        directorycheck = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
-        sizecheck = 0;
-        while (sizecheck < pathnode->i_size) {
-            if(strncmp(filename, directorycheck->name, directorycheck->name_len) == 0 && lengthcomp == directorycheck->name_len) {
-				if (directorycheck->file_type == 2) {
-                    perror("the file at the location is a directory");
-                    return EEXIST;
-				} else {
-					check = 1;
-					break;
-				}
-            } else {
-                if (directorycheck->rec_len == 0) {
-                    break;
-                }
-                sizecheck += directorycheck->rec_len;
-                directorycheck = (void *) directorycheck + directorycheck->rec_len;
-            }
-        }
-		//we found the file we need to delete
-		if (check == 1) {
-			deletionnode = itable + directorycheck->inode - 1;
-			deletiondirectory = (struct ext2_dir_entry_2 *)(disk + 1024 * deletionnode->i_block[blockpointer]);
-			break;
-		}
-    }
 	
-	if (check == 0) {
-		perror("cannot find the file at the location given");
-        return ENOENT;
-	}
     
     
     
