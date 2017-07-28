@@ -172,7 +172,7 @@ int main(int argc, char **argv) {
                     sizecheck = 0;
                     check = 1;
                     found = 1;
-                    token2 = strtok(NULL, delimiter);
+                    token4 = strtok(NULL, delimiter);
                     break;
                 } else {
                     if (directory->rec_len == 0) {
