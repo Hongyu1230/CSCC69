@@ -46,7 +46,8 @@ int main(int argc, char **argv) {
     int blockneeded = 1;
     int blockused = 0;
     struct ext2_super_block *sb = (struct ext2_super_block *)(disk + 1024);
-    if (blockneeded > sb->s_free_blocks_count) {
+	//want to make sure we have 1 extra block in case we need one for inserting a file/directory
+    if (blockneeded + 1 > sb->s_free_blocks_count) {
         perror("not enough space for the new file");
         return ENOSPC;
     }
