@@ -158,8 +158,9 @@ int main(int argc, char **argv) {
 	found = 0;
 	int lengthcomps = 0;
 	startingpoint = 0;
-    while (token4 != NULL && S_ISDIR(pathnode->i_mode) && startingpoint < destlength - 1) {
+    while (token4 != NULL && S_ISDIR(pathnode->i_mode) && startingpoint < sourcepath - 1) {
         lengthcomps = strlen(token4);
+		startingpoint += 1;
         for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
             if (pathnode->i_block[blockpointer] == 0){
                 break;
