@@ -182,7 +182,6 @@ int main(int argc, char **argv) {
                 check = 1;
                 //we clearly have a entry before this
                 if (sizecheck > 0) {
-                    memset(deletiondirectory, 0, deletiondirectory->rec_len);
 					oldentry = (void *) oldentry - oldlen;
                     oldentry->rec_len += deletiondirectory->rec_len;
                     break;
