@@ -195,7 +195,7 @@ int main(int argc, char **argv) {
         }
     }
 	check = 0;
-	struct ext2_dir_entry_2 *linksource;
+	printf("%s", sourcename);
     for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
         if (pathnode->i_block[blockpointer] == 0){
             break;
