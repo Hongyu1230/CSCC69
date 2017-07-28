@@ -158,7 +158,7 @@ int main(int argc, char **argv) {
 	found = 0;
 	int lengthcomps = 0;
 	startingpoint = 0;
-    while (token4 != NULL && S_ISDIR(pathnode->i_mode) && startingpoint < sourcepath - 1) {
+    while (token4 != NULL && S_ISDIR(pathnode->i_mode) && startingpoint < sourcelength - 1) {
         lengthcomps = strlen(token4);
 		startingpoint += 1;
         for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
@@ -169,7 +169,6 @@ int main(int argc, char **argv) {
             sizecheck = 0;
             while (sizecheck < pathnode->i_size) {
                 if(strncmp(token4, directory->name, directory->name_len) == 0 && lengthcomps == directory->name_len) {
-					printf("%s, %s\n", directory->name, token4);
                     pathnode = itable + directory->inode - 1;
                     sizecheck = 0;
                     check = 1;
