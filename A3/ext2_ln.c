@@ -64,7 +64,7 @@ int main(int argc, char **argv) {
 	token3 = strtok(destpath, delimiter);
 	//to get the destination of the link
 	while (token3 != NULL) {
-        strcpy(destname, token);
+        strcpy(destname, token3);
 		destlength += 1;
         token3 = strtok(NULL, delimiter);
     }
