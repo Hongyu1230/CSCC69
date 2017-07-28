@@ -32,7 +32,6 @@ int main(int argc, char **argv) {
     char *token;
     char *token2;
     const char delimiter[2] = "/";
-    char destinationsplit[strlen(destpath)];
     token = strtok(destpath, delimiter);
     char filename[strlen(destpath)];
     int stoppoint = 0;

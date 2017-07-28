@@ -37,7 +37,6 @@ int main(int argc, char **argv) {
     char *token2;
     const char delimiter[2] = "/";
     char sourcename[strlen(sourcepath)];
-    char destinationsplit[strlen(destpath)];
     token = strtok(sourcepath, delimiter);
     while (token != NULL) {
         strcpy(sourcename, token);

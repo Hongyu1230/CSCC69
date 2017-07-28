@@ -36,7 +36,6 @@ int main(int argc, char **argv) {
     char *token;
     char *token2;
     const char delimiter[2] = "/";
-    char destinationsplit[strlen(destpath)];
     disk = mmap(NULL, 128 * 1024, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
     if(disk == MAP_FAILED) {
         perror("mmap");
