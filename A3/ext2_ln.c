@@ -258,7 +258,7 @@ int main(int argc, char **argv) {
             block_bitmap[(8 * i) + pos] = (temp >> pos) & 1;
         }
     }
-    struct ext2_inode *linkinode = itable + linknode->inode - 1;
+    struct ext2_inode *linkinode = itable + linknode - 1;
     linkinode->i_links_count += 1;
     struct ext2_dir_entry_2 *oldentry;
     struct ext2_dir_entry_2 *newentry;
