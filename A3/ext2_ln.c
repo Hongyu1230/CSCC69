@@ -45,7 +45,10 @@ int main(int argc, char **argv) {
         perror("the paths needs to start from root, beginning with /");
         return ENOENT;
     }
-    char* token, token2, token3, token4;
+    char *token;
+    char *token2;
+	char *token3;
+    char *token4;
     const char delimiter[2] = "/";
     char sourcename[strlen(sourcepath)];
 	char destname[strlen(destpath)];
