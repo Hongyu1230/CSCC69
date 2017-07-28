@@ -54,7 +54,6 @@ int main(int argc, char **argv) {
 	char destname[strlen(destpath)];
     char destinationsplit[strlen(destpath)];
     token = strtok(sourcepath, delimiter);
-	token3 = strtok(destpath, delimiter);
 	int sourcelength = 0, destlength = 0;
 	//to get the source of the link
     while (token != NULL) {
@@ -62,7 +61,13 @@ int main(int argc, char **argv) {
 		sourcelength += 1;
         token = strtok(NULL, delimiter);
     }
-	
+	token3 = strtok(destpath, delimiter);
+	//to get the destination of the link
+	while (token3 != NULL) {
+        strcpy(destname, token);
+		destlength += 1;
+        token3 = strtok(NULL, delimiter);
+    }
     disk = mmap(NULL, 128 * 1024, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
     if(disk == MAP_FAILED) {
         perror("mmap");
