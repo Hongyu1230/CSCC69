@@ -33,11 +33,6 @@ int main(int argc, char **argv) {
         exit(1);
     }
     int fd = open(argv[1], O_RDWR);
-    int source = open(argv[3 + s], O_RDONLY);
-    if (source < 0) {
-        perror("could not find source file");
-        return ENOENT;
-    }
     char sourcepath[strlen(argv[3 + s])];
     char destpath[strlen(argv[2 + s])];
 	char sourcepath2[strlen(argv[3 + s])];
