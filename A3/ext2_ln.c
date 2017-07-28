@@ -194,8 +194,8 @@ int main(int argc, char **argv) {
             return ENOENT;
         }
     }
+	printf("%s", directory->name);
 	check = 0;
-	printf("%s", sourcename);
     for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
         if (pathnode->i_block[blockpointer] == 0){
             break;
