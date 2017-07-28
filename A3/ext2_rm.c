@@ -154,7 +154,7 @@ int main(int argc, char **argv) {
     }
     int n;
     deletionnode->i_links_count -= 1;
-	unsigned int newdtime = static_cast<unsigned int> time(NULL);
+	unsigned int newdtime = (unsigned int) time(NULL);
 	deletionnode->i_dtime = newdtime;
 	printf("%d", newdtime);
     int blockfreed = 0;
