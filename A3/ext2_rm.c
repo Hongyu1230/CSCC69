@@ -156,7 +156,6 @@ int main(int argc, char **argv) {
     deletionnode->i_links_count -= 1;
 	unsigned int newdtime = (unsigned int) time(NULL);
 	deletionnode->i_dtime = newdtime;
-	printf("%d\n", newdtime);
     int blockfreed = 0;
     //zero out the bitmap for inode and blocks for our operation later
     for (i = 0; i < 12; i +=1){
