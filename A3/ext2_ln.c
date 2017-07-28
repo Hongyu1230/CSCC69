@@ -129,7 +129,7 @@ int main(int argc, char **argv) {
         }
     }
     struct ext2_dir_entry_2 *directorycheck;
-	unsigned int linkinode;
+	unsigned int linknode;
     for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
         if (pathnode->i_block[blockpointer] == 0){
             break;
@@ -227,7 +227,7 @@ int main(int argc, char **argv) {
             }
         }
 		if(check == 1) {
-			linkinode = directorycheck->inode;
+			linknode = directorycheck->inode;
 			break;
 		}
     }
@@ -295,6 +295,7 @@ int main(int argc, char **argv) {
         }
     }
     
+	int m;
     if(check != 1) {
         for (m = 0; m < 128; m +=1){
              if (block_bitmap[m] == 0) {
