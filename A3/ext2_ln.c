@@ -260,11 +260,11 @@ int main(int argc, char **argv) {
     int spaceold, oldsize, unusedblock;
     check = 0;
     for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
-        if (pathnode->i_block[blockpointer] == 0){
+        if (destinationnode->i_block[blockpointer] == 0){
             unusedblock = blockpointer;
             break;
         }
-        oldentry = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
+        oldentry = (struct ext2_dir_entry_2 *)(disk + 1024 * destinationnode->i_block[blockpointer]);
         sizecheck = 0;
         while (sizecheck < 1024) {
             sizecheck += oldentry->rec_len;
