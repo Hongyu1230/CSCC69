@@ -81,7 +81,7 @@ int main(int argc, char **argv) {
     
     struct ext2_super_block *sb = (struct ext2_super_block *)(disk + 1024);
     int blockused = 0;
-    if (blockneeded > sb->s_free_blocks_count) {
+    if (1 > sb->s_free_blocks_count) {
         perror("not enough space for the new file");
         return ENOSPC;
     }
@@ -139,7 +139,7 @@ int main(int argc, char **argv) {
         sizecheck = 0;
         while (sizecheck < pathnode->i_size) {
             if(strncmp(destname, directorycheck->name, directorycheck->name_len) == 0 && lengthcomp == directorycheck->name_len) {
-				if (directorycheck->file_type == 2)) {
+				if (directorycheck->file_type == 2) {
                     perror("the destination path is already a directory");
 				    return EISDIR;
 				} else {
