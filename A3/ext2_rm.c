@@ -182,7 +182,7 @@ int main(int argc, char **argv) {
                 check = 1;
                 //we clearly have a entry before this
                 if (sizecheck > 0) {
-					printf("%s\n", oldentry->name)
+					printf("%s\n", oldentry->name);
 					oldentry = (void *) oldentry - oldlen;
                     oldentry->rec_len += deletiondirectory->rec_len;
                     break;
