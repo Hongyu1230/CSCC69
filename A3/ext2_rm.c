@@ -184,7 +184,6 @@ int main(int argc, char **argv) {
                 if (sizecheck > 0) {
 					oldentry = (void *) oldentry - oldlen;
                     oldentry->rec_len += deletiondirectory->rec_len;
-					printf("%s\n", oldentry->name);
                     break;
                 } else {
                     oldsize = deletiondirectory->rec_len;
@@ -193,8 +192,8 @@ int main(int argc, char **argv) {
 					break;
                 }
             } else {
+				oldlen = oldentry->rec_len;
                 oldentry = (void *) oldentry + oldentry->rec_len;
-                oldlen = oldentry->rec_len;
             }
             sizecheck += oldentry->rec_len;
         }
