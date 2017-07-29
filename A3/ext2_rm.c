@@ -30,7 +30,7 @@ int main(int argc, char **argv) {
         return ENOENT;
     }
 	if (destpath[strlen(argv[2]) - 1] == '/') {
-        perror("the removed file cannot end with /, needs to be a regular file");
+        perror("the removed file cannot end with /, needs to be a regular file not a directory");
         return EISDIR;
     }
     char *token;

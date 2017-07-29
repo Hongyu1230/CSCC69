@@ -52,7 +52,7 @@ int main(int argc, char **argv) {
         return EISDIR;
     }
 	if (sourcepath[strlen(argv[2 + s]) - 1] == '/' && s == 0) {
-        perror("the source cannot end with a / unless you are creating a symbolic link");
+        perror("the source cannot end with a /, needs to be a directory unless you are creating a symbolic link");
         return EISDIR;
     }
     char *token;
