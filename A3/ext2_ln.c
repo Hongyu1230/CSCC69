@@ -253,7 +253,9 @@ int main(int argc, char **argv) {
         }
     }
     struct ext2_inode *linkinode = itable + linknode - 1;
-    linkinode->i_links_count += 1;
+	if (s == 0) {
+		linkinode->i_links_count += 1;
+	}
     struct ext2_dir_entry_2 *oldentry;
     struct ext2_dir_entry_2 *newentry;
     int spaceneeded = 8 + lengthcomp + (4 - lengthcomp % 4);
@@ -277,7 +279,11 @@ int main(int argc, char **argv) {
                 newentry->inode = linknode;
                 newentry->rec_len = oldsize - spaceold;
                 newentry->name_len = lengthcomp;
-                newentry->file_type = 1;
+				if (s == 0) {
+				    newentry->file_type = 1;
+				} else {
+					newentry->file_type = 7;
+				}
                 strncpy(newentry->name, destname, lengthcomp);
                 break;
             } else {
@@ -305,7 +311,11 @@ int main(int argc, char **argv) {
         newentry->inode = linknode;
         newentry->rec_len = 1024;
         newentry->name_len = lengthcomp;
-        newentry->file_type = 1;
+        if (s == 0) {
+		    newentry->file_type = 1;
+		} else {
+			newentry->file_type = 7;
+		}
         strncpy(newentry->name, destname, lengthcomp);
     }
     
