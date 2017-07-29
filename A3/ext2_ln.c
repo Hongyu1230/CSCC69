@@ -325,6 +325,7 @@ int main(int argc, char **argv) {
                 } else {
                     newentry->inode = free_inode;
                     newentry->file_type = 1;
+					printf("%s", disk + 1024 * (newnode->i_block[0] + 1))
                 }
                 newentry->rec_len = oldsize - spaceold;
                 newentry->name_len = lengthcomp;
