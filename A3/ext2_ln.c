@@ -282,6 +282,7 @@ int main(int argc, char **argv) {
         int m = 0;
         char *mappos;
         //path shouldn't exceed 4098
+		printf("got them");
         for (i = 0; i < 4 && i < blockneeded; i += 1){
             for (j = 0; j < 128; j +=1){
                 if (block_bitmap[j] == 0) {
@@ -289,7 +290,6 @@ int main(int argc, char **argv) {
                     blockused +=1;
                     newnode->i_block[i] = j + 1;
                     memset(disk + 1024 * (j + 1), 'a', 1024);
-					printf("%s", disk + 1024 * (newnode->i_block[0] + 1));
                     break;
                 }
             }
