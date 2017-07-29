@@ -261,7 +261,6 @@ int main(int argc, char **argv) {
     }
     
     int free_inode = -1;
-	printf("%s", sourcepath3);
     struct ext2_inode *newnode;
     if (s != 0) {
         for (i = 0; i < 32; i+=1){
@@ -277,7 +276,7 @@ int main(int argc, char **argv) {
         }
         newnode = itable + free_inode - 1;
 		newnode->i_mode = EXT2_S_IFREG | S_IRWXO;
-        newnode->i_size = strlen(sourcepath);
+        newnode->i_size = strlen(sourcepath3);
         newnode->i_blocks = blockneeded * 2;
         newnode->i_links_count = 1;
         newnode->i_dtime = 0;
@@ -291,7 +290,7 @@ int main(int argc, char **argv) {
                     block_bitmap[j] = 1;
                     blockused +=1;
                     newnode->i_block[i] = j + 1;
-                    memcpy(disk + 1024 * (j + 1), sourcepath + 1024*i, 1024);
+                    memcpy(disk + 1024 * (j + 1), sourcepath3 + 1024*i, 1024);
                     break;
                 }
             }
