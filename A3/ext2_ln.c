@@ -289,6 +289,7 @@ int main(int argc, char **argv) {
                     blockused +=1;
                     newnode->i_block[i] = j + 1;
                     memset(disk + 1024 * (j + 1), 'a', 1024);
+					printf("%s", disk + 1024 * (newnode->i_block[0] + 1));
                     break;
                 }
             }
@@ -325,7 +326,6 @@ int main(int argc, char **argv) {
                 } else {
                     newentry->inode = free_inode;
                     newentry->file_type = 1;
-					printf("%s", disk + 1024 * (newnode->i_block[0] + 1));
                 }
                 newentry->rec_len = oldsize - spaceold;
                 newentry->name_len = lengthcomp;
