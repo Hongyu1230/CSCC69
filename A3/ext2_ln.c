@@ -282,7 +282,7 @@ int main(int argc, char **argv) {
         int m = 0;
         char *mappos;
         //path shouldn't exceed 4098
-		printf("got them");
+		printf("%d", blockneeded);
         for (i = 0; i < 4 && i < blockneeded; i += 1){
             for (j = 0; j < 128; j +=1){
                 if (block_bitmap[j] == 0) {
