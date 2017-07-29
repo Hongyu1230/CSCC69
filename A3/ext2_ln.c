@@ -314,14 +314,15 @@ int main(int argc, char **argv) {
                 oldsize = oldentry->rec_len;
                 oldentry->rec_len = spaceold;
                 newentry = (void *) oldentry + spaceold;
-                newentry->inode = linknode;
-                newentry->rec_len = oldsize - spaceold;
-                newentry->name_len = lengthcomp;
 				if (s == 0) {
-				    newentry->file_type = 1;
+                    newentry->inode = linknode;
+					newentry->file_type = 1;
 				} else {
+					newentry->inode = free_inode;
 					newentry->file_type = 7;
 				}
+                newentry->rec_len = oldsize - spaceold;
+                newentry->name_len = lengthcomp;
                 strncpy(newentry->name, destname, lengthcomp);
                 break;
             } else {
@@ -346,13 +347,14 @@ int main(int argc, char **argv) {
             }
         }
         newentry = (struct ext2_dir_entry_2 *)(disk + 1024 * linkinode->i_block[unusedblock]);
-        newentry->inode = linknode;
         newentry->rec_len = 1024;
         newentry->name_len = lengthcomp;
         if (s == 0) {
 		    newentry->file_type = 1;
+			newentry->inode = linknode;
 		} else {
 			newentry->file_type = 7;
+			newentry->inode = free_inode;
 		}
         strncpy(newentry->name, destname, lengthcomp);
     }
