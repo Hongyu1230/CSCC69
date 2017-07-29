@@ -47,6 +47,14 @@ int main(int argc, char **argv) {
         perror("the paths needs to start from root, beginning with /");
         return ENOENT;
     }
+	if (destpath[strlen(argv[3 + s]) - 1] == '/') {
+        perror("the destination path cannot end with a /");
+        return EISDIR;
+    }
+	if (sourcepath[strlen(argv[2 + s]) - 1] == '/' && s == 0) {
+        perror("the source cannot end with a / unless you are creating a symbolic link");
+        return EISDIR;
+    }
     char *token;
     char *token2;
     char *token3;
