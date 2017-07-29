@@ -14,19 +14,19 @@ unsigned char *disk;
 
 
 int main(int argc, char **argv) {
-	
-	int s = 0;
-	int option;
-	while ((option = getopt (argc, argv, ":s")) != EOF) {
-		switch (option)	{
-		case 's':
-			s++;
-			break;
-		default:
-			break;
+    
+    int s = 0;
+    int option;
+    while ((option = getopt (argc, argv, ":s")) != EOF) {
+        switch (option) {
+        case 's':
+            s++;
+            break;
+        default:
+            break;
 
-		}
-	}
+        }
+    }
 
     if(argc != 4 + s) {
         fprintf(stderr, "Usage: ext2_ln <image file name> <LINK> <SOURCE>\n");
@@ -35,11 +35,11 @@ int main(int argc, char **argv) {
     int fd = open(argv[1], O_RDWR);
     char sourcepath[strlen(argv[3 + s])];
     char destpath[strlen(argv[2 + s])];
-	char sourcepath2[strlen(argv[3 + s])];
+    char sourcepath2[strlen(argv[3 + s])];
     char destpath2[strlen(argv[2 + s])];
     strcpy(sourcepath, argv[3 + s]);
     strcpy(destpath, argv[2 + s]);
-	strcpy(sourcepath2, argv[3 + s]);
+    strcpy(sourcepath2, argv[3 + s]);
     strcpy(destpath2, argv[2 + s]);
     if (destpath[0] != '/' || sourcepath[0] != '/') {
         perror("the paths needs to start from root, beginning with /");
@@ -47,25 +47,25 @@ int main(int argc, char **argv) {
     }
     char *token;
     char *token2;
-	char *token3;
+    char *token3;
     char *token4;
     const char delimiter[2] = "/";
     char sourcename[strlen(sourcepath)];
-	char destname[strlen(destpath)];
+    char destname[strlen(destpath)];
     char destinationsplit[strlen(destpath)];
     token = strtok(sourcepath, delimiter);
-	int sourcelength = 0, destlength = 0;
-	//to get the source of the link
+    int sourcelength = 0, destlength = 0;
+    //to get the source of the link
     while (token != NULL) {
         strcpy(sourcename, token);
-		sourcelength += 1;
+        sourcelength += 1;
         token = strtok(NULL, delimiter);
     }
-	token3 = strtok(destpath, delimiter);
-	//to get the destination of the link
-	while (token3 != NULL) {
+    token3 = strtok(destpath, delimiter);
+    //to get the destination of the link
+    while (token3 != NULL) {
         strcpy(destname, token3);
-		destlength += 1;
+        destlength += 1;
         token3 = strtok(NULL, delimiter);
     }
     disk = mmap(NULL, 128 * 1024, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
@@ -75,12 +75,12 @@ int main(int argc, char **argv) {
     }
     struct ext2_super_block *sb = (struct ext2_super_block *)(disk + 1024);
     int blockused = 0;
-	int blockneeded;
-	if (s == 0){
-		blockneeded = 0;
-	} else {
-		blockneeded = ceil(strlen(destpath)/1024);
-	}
+    int blockneeded;
+    if (s == 0){
+        blockneeded = 0;
+    } else {
+        blockneeded = ceil(strlen(destpath)/1024);
+    }
     if (blockneeded + 1 > sb->s_free_blocks_count) {
         perror("not enough space for the new file");
         return ENOSPC;
@@ -94,7 +94,7 @@ int main(int argc, char **argv) {
     struct ext2_dir_entry_2 *directory;
     while (token2 != NULL && S_ISDIR(pathnode->i_mode) && startingpoint < destlength - 1) {
         lengthcomp = strlen(token2);
-		startingpoint += 1;
+        startingpoint += 1;
         for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
             if (pathnode->i_block[blockpointer] == 0){
                 break;
@@ -130,7 +130,7 @@ int main(int argc, char **argv) {
         }
     }
     struct ext2_dir_entry_2 *directorycheck;
-	unsigned int linknode;
+    unsigned int linknode;
     for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
         if (pathnode->i_block[blockpointer] == 0){
             break;
@@ -140,13 +140,13 @@ int main(int argc, char **argv) {
         sizecheck = 0;
         while (sizecheck < pathnode->i_size) {
             if(strncmp(destname, directorycheck->name, directorycheck->name_len) == 0 && lengthcomp == directorycheck->name_len) {
-				if (directorycheck->file_type == 2) {
+                if (directorycheck->file_type == 2) {
                     perror("the destination path is already a directory");
-				    return EISDIR;
-				} else {
-					perror("the destination already has a file named that");
-					return EEXIST;
-				}
+                    return EISDIR;
+                } else {
+                    perror("the destination already has a file named that");
+                    return EEXIST;
+                }
             } else {
                 if (directorycheck->rec_len == 0) {
                     break;
@@ -157,17 +157,17 @@ int main(int argc, char **argv) {
         }
     }
     
-	//rerun this to find our source for the link
-	struct ext2_inode *destinationnode = pathnode;
-	pathnode = itable + 1;
+    //rerun this to find our source for the link
+    struct ext2_inode *destinationnode = pathnode;
+    pathnode = itable + 1;
     token4 = strtok(sourcepath2, delimiter);
     check = 0;
-	found = 0;
-	int lengthcomps = 0;
-	startingpoint = 0;
+    found = 0;
+    int lengthcomps = 0;
+    startingpoint = 0;
     while (token4 != NULL && S_ISDIR(pathnode->i_mode) && startingpoint < sourcelength - 1) {
         lengthcomps = strlen(token4);
-		startingpoint += 1;
+        startingpoint += 1;
         for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
             if (pathnode->i_block[blockpointer] == 0){
                 break;
@@ -202,7 +202,7 @@ int main(int argc, char **argv) {
             return ENOENT;
         }
     }
-	check = 0;
+    check = 0;
     for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
         if (pathnode->i_block[blockpointer] == 0){
             break;
@@ -213,12 +213,12 @@ int main(int argc, char **argv) {
         while (sizecheck < pathnode->i_size) {
             if(strncmp(sourcename, directorycheck->name, directorycheck->name_len) == 0 && lengthcomps == directorycheck->name_len) {
                 if (directorycheck->file_type == 2) {
-					perror("the source file is a directory");
-					return EISDIR;
-				} else {
-					check = 1;
-					break;
-				}
+                    perror("the source file is a directory");
+                    return EISDIR;
+                } else {
+                    check = 1;
+                    break;
+                }
             } else {
                 if (directorycheck->rec_len == 0) {
                     break;
@@ -227,50 +227,17 @@ int main(int argc, char **argv) {
                 directorycheck = (void *) directorycheck + directorycheck->rec_len;
             }
         }
-		if(check == 1) {
-			linknode = directorycheck->inode;
-			break;
-		}
+        if(check == 1) {
+            linknode = directorycheck->inode;
+            break;
+        }
     }
-	
-	if (check == 0) {
-		perror("cannot find the source file to link");
+    
+    if (check == 0) {
+        perror("cannot find the source file to link");
         return ENOENT;
-	}
-	
-	
-	int free_inode = -1;
-	struct ext2_inode *newnode;
-	if (s != 0) {
-        for (i = 0; i < 32; i+=1){
-            if (inode_bitmap[i] == 0){
-                inode_bitmap[i] = 1;
-                free_inode = i + 1;
-                break;
-            }
-        }
-        if(free_inode == -1) {
-            perror("no free inodes");
-            return ENOSPC;
-        }
-		newnode = itable + free_inode - 1;
-		int j, l, k;
-        int m = 0;
-        char *mappos;
-		//path shouldn't exceed 4098
-        for (i = 0; i < 4 && i < blockneeded; i += 1){
-            for (j = 0; j < 128; j +=1){
-                if (block_bitmap[j] == 0) {
-                    block_bitmap[j] = 1;
-                    blockused +=1;
-                    newnode->i_block[i] = j + 1;
-                    memcpy(disk + 1024 * (j + 1), destpath + 1024*i, 1024);
-                    break;
-                }
-            }
-        }
-	}
-	
+    }
+    
     int inode_bitmap[32];
     char *ibmap = (char *)(disk + 1024 * bg->bg_inode_bitmap);
     int i, pos;
@@ -290,10 +257,43 @@ int main(int argc, char **argv) {
             block_bitmap[(8 * i) + pos] = (temp >> pos) & 1;
         }
     }
+    
+    int free_inode = -1;
+    struct ext2_inode *newnode;
+    if (s != 0) {
+        for (i = 0; i < 32; i+=1){
+            if (inode_bitmap[i] == 0){
+                inode_bitmap[i] = 1;
+                free_inode = i + 1;
+                break;
+            }
+        }
+        if(free_inode == -1) {
+            perror("no free inodes");
+            return ENOSPC;
+        }
+        newnode = itable + free_inode - 1;
+        int j, l, k;
+        int m = 0;
+        char *mappos;
+        //path shouldn't exceed 4098
+        for (i = 0; i < 4 && i < blockneeded; i += 1){
+            for (j = 0; j < 128; j +=1){
+                if (block_bitmap[j] == 0) {
+                    block_bitmap[j] = 1;
+                    blockused +=1;
+                    newnode->i_block[i] = j + 1;
+                    memcpy(disk + 1024 * (j + 1), destpath + 1024*i, 1024);
+                    break;
+                }
+            }
+        }
+    }
+    
     struct ext2_inode *linkinode = itable + linknode - 1;
-	if (s == 0) {
-		linkinode->i_links_count += 1;
-	}
+    if (s == 0) {
+        linkinode->i_links_count += 1;
+    }
     struct ext2_dir_entry_2 *oldentry;
     struct ext2_dir_entry_2 *newentry;
     int spaceneeded = 8 + lengthcomp + (4 - lengthcomp % 4);
@@ -314,13 +314,13 @@ int main(int argc, char **argv) {
                 oldsize = oldentry->rec_len;
                 oldentry->rec_len = spaceold;
                 newentry = (void *) oldentry + spaceold;
-				if (s == 0) {
+                if (s == 0) {
                     newentry->inode = linknode;
-					newentry->file_type = 1;
-				} else {
-					newentry->inode = free_inode;
-					newentry->file_type = 7;
-				}
+                    newentry->file_type = 1;
+                } else {
+                    newentry->inode = free_inode;
+                    newentry->file_type = 7;
+                }
                 newentry->rec_len = oldsize - spaceold;
                 newentry->name_len = lengthcomp;
                 strncpy(newentry->name, destname, lengthcomp);
@@ -334,7 +334,7 @@ int main(int argc, char **argv) {
         }
     }
     
-	int m;
+    int m;
     if(check != 1) {
         for (m = 0; m < 128; m +=1){
              if (block_bitmap[m] == 0) {
@@ -350,12 +350,12 @@ int main(int argc, char **argv) {
         newentry->rec_len = 1024;
         newentry->name_len = lengthcomp;
         if (s == 0) {
-		    newentry->file_type = 1;
-			newentry->inode = linknode;
-		} else {
-			newentry->file_type = 7;
-			newentry->inode = free_inode;
-		}
+            newentry->file_type = 1;
+            newentry->inode = linknode;
+        } else {
+            newentry->file_type = 7;
+            newentry->inode = free_inode;
+        }
         strncpy(newentry->name, destname, lengthcomp);
     }
     
