@@ -175,7 +175,7 @@ int main(int argc, char **argv) {
         }
     }
     
-    newnode->i_mode = EXT2_S_IFDIR | S_IRWXO;
+    newnode->i_mode = EXT2_S_IFDIR | S_IROTH | S_IWOTH;
     newnode->i_size = 1024;
     newnode->i_blocks = blockneeded * 2;
     newnode->i_links_count = 2;

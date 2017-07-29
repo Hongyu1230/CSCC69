@@ -207,7 +207,7 @@ int main(int argc, char **argv) {
             memcpy(disk + 1024 * indirectionblock[n], src + 1024*(n+12), 1024);
         }
     }
-    newnode->i_mode = EXT2_S_IFREG | S_IRWXO;
+    newnode->i_mode = EXT2_S_IFDIR | S_IROTH | S_IWOTH;
     newnode->i_size = filesize;
     newnode->i_blocks = blockneeded * 2;
     newnode->i_links_count = 1;
