@@ -88,7 +88,7 @@ int main(int argc, char **argv) {
     struct ext2_dir_entry_2 *directory;
     while (token2 != NULL && S_ISDIR(pathnode->i_mode) && startingpoint < destlength - 1) {
         lengthcomp = strlen(token2);
-		printf("%s", token2);
+		startingpoint += 1;
         for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
             if (pathnode->i_block[blockpointer] == 0){
                 break;
