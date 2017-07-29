@@ -275,7 +275,7 @@ int main(int argc, char **argv) {
         }
         newnode = itable + free_inode - 1;
 		newnode->i_mode = EXT2_S_IFREG | S_IRWXO;
-        newnode->i_size = strlen(destpath);
+        newnode->i_size = strlen(sourcepath);
         newnode->i_blocks = blockneeded * 2;
         newnode->i_links_count = 1;
         newnode->i_dtime = 0;
@@ -289,7 +289,7 @@ int main(int argc, char **argv) {
                     block_bitmap[j] = 1;
                     blockused +=1;
                     newnode->i_block[i] = j + 1;
-                    memcpy(disk + 1024 * (j + 1), destpath + 1024*i, 1024);
+                    memcpy(disk + 1024 * (j + 1), sourcepath + 1024*i, 1024);
                     break;
                 }
             }
