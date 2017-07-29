@@ -129,7 +129,7 @@ int main(int argc, char **argv) {
         }
     }
     
-    
+    printf("did I get stuck");
     int inode_bitmap[32];
     char *ibmap = (char *)(disk + 1024 * bg->bg_inode_bitmap);
     int i, pos;
@@ -217,7 +217,6 @@ int main(int argc, char **argv) {
     int spaceneeded = 8 + lengthcomp + (4 - lengthcomp % 4);
     int spaceold, oldsize, unusedblock;
     check = 0;
-	printf("did I get stuck");
     for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
         if (pathnode->i_block[blockpointer] == 0){
             unusedblock = blockpointer;
