@@ -33,16 +33,16 @@ int main(int argc, char **argv) {
         exit(1);
     }
     int fd = open(argv[1 + s], O_RDWR);
-    char sourcepath[strlen(argv[3 + s])];
-    char destpath[strlen(argv[2 + s])];
-    char sourcepath2[strlen(argv[3 + s])];
-    char destpath2[strlen(argv[2 + s])];
-	char sourcepath3[strlen(argv[3 + s])];
-    strcpy(sourcepath, argv[3 + s]);
-    strcpy(destpath, argv[2 + s]);
-    strcpy(sourcepath2, argv[3 + s]);
-    strcpy(destpath2, argv[2 + s]);
-	strcpy(sourcepath3, argv[3 + s]);
+    char sourcepath[strlen(argv[2 + s])];
+    char destpath[strlen(argv[3 + s])];
+    char sourcepath2[strlen(argv[2 + s])];
+    char destpath2[strlen(argv[3 + s])];
+	char sourcepath3[strlen(argv[2 + s])];
+    strcpy(sourcepath, argv[2 + s]);
+    strcpy(destpath, argv[3 + s]);
+    strcpy(sourcepath2, argv[2 + s]);
+    strcpy(destpath2, argv[3 + s]);
+	strcpy(sourcepath3, argv[2 + s]);
     if (destpath[0] != '/' || sourcepath[0] != '/') {
         perror("the paths needs to start from root, beginning with /");
         return ENOENT;
