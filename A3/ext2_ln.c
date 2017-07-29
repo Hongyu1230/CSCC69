@@ -37,6 +37,7 @@ int main(int argc, char **argv) {
     char destpath[strlen(argv[2 + s])];
     char sourcepath2[strlen(argv[3 + s])];
     char destpath2[strlen(argv[2 + s])];
+	char sourcepath3[strlen(argv[3 + s])];
     strcpy(sourcepath, argv[3 + s]);
     strcpy(destpath, argv[2 + s]);
     strcpy(sourcepath2, argv[3 + s]);
@@ -260,7 +261,7 @@ int main(int argc, char **argv) {
     }
     
     int free_inode = -1;
-	printf("%s", sourcepath);
+	printf("%s", sourcepath3);
     struct ext2_inode *newnode;
     if (s != 0) {
         for (i = 0; i < 32; i+=1){
