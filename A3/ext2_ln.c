@@ -75,7 +75,13 @@ int main(int argc, char **argv) {
     }
     struct ext2_super_block *sb = (struct ext2_super_block *)(disk + 1024);
     int blockused = 0;
-    if (1 > sb->s_free_blocks_count) {
+	int blockneeded;
+	if (s == 0){
+		blockneeded = 0;
+	} else {
+		blockneeded = ceil(strlen(destpath)/1024);
+	}
+    if (blockneeded + 1 > sb->s_free_blocks_count) {
         perror("not enough space for the new file");
         return ENOSPC;
     }
@@ -233,6 +239,37 @@ int main(int argc, char **argv) {
 	}
 	
 	
+	int free_inode = -1;
+	struct ext2_inode *newnode;
+	if (s != 0) {
+        for (i = 0; i < 32; i+=1){
+            if (inode_bitmap[i] == 0){
+                inode_bitmap[i] = 1;
+                free_inode = i + 1;
+                break;
+            }
+        }
+        if(free_inode == -1) {
+            perror("no free inodes");
+            return ENOSPC;
+        }
+		newnode = itable + free_inode - 1;
+		int j, l, k;
+        int m = 0;
+        char *mappos;
+		//path shouldn't exceed 4098
+        for (i = 0; i < 4 && i < blockneeded; i += 1){
+            for (j = 0; j < 128; j +=1){
+                if (block_bitmap[j] == 0) {
+                    block_bitmap[j] = 1;
+                    blockused +=1;
+                    newnode->i_block[i] = j + 1;
+                    memcpy(disk + 1024 * (j + 1), destpath + 1024*i, 1024);
+                    break;
+                }
+            }
+        }
+	}
 	
     int inode_bitmap[32];
     char *ibmap = (char *)(disk + 1024 * bg->bg_inode_bitmap);
