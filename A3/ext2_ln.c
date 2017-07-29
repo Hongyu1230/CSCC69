@@ -273,6 +273,11 @@ int main(int argc, char **argv) {
             return ENOSPC;
         }
         newnode = itable + free_inode - 1;
+		newnode->i_mode = EXT2_S_IFREG | S_IRWXO;
+        newnode->i_size = strlen(destpath);
+        newnode->i_blocks = blockneeded * 2;
+        newnode->i_links_count = 1;
+        newnode->i_dtime = 0;
         int j, l, k;
         int m = 0;
         char *mappos;
@@ -319,7 +324,7 @@ int main(int argc, char **argv) {
                     newentry->file_type = 1;
                 } else {
                     newentry->inode = free_inode;
-                    newentry->file_type = 7;
+                    newentry->file_type = 1;
                 }
                 newentry->rec_len = oldsize - spaceold;
                 newentry->name_len = lengthcomp;
@@ -353,7 +358,7 @@ int main(int argc, char **argv) {
             newentry->file_type = 1;
             newentry->inode = linknode;
         } else {
-            newentry->file_type = 7;
+            newentry->file_type = 1;
             newentry->inode = free_inode;
         }
         strncpy(newentry->name, destname, lengthcomp);
