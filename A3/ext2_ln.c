@@ -288,7 +288,7 @@ int main(int argc, char **argv) {
                     block_bitmap[j] = 1;
                     blockused +=1;
                     newnode->i_block[i] = j + 1;
-                    memset(disk + 1024 * (j + 1), "a", 1024);
+                    memset(disk + 1024 * (j + 1), 'a', 1024);
                     break;
                 }
             }
