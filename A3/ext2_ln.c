@@ -159,6 +159,7 @@ int main(int argc, char **argv) {
 	int lengthcomps = 0;
 	startingpoint = 0;
     while (token4 != NULL && S_ISDIR(pathnode->i_mode) && startingpoint < sourcelength - 1) {
+		printf("%s", token4);
         lengthcomps = strlen(token4);
 		startingpoint += 1;
         for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
