@@ -32,7 +32,7 @@ int main(int argc, char **argv) {
         fprintf(stderr, "Usage: ext2_ln <image file name> <LINK> <SOURCE>\n");
         exit(1);
     }
-    int fd = open(argv[1], O_RDWR);
+    int fd = open(argv[1 + s], O_RDWR);
     char sourcepath[strlen(argv[3 + s])];
     char destpath[strlen(argv[2 + s])];
     char sourcepath2[strlen(argv[3 + s])];
