@@ -260,6 +260,7 @@ int main(int argc, char **argv) {
     }
     
     int free_inode = -1;
+	printf("%s", sourcepath);
     struct ext2_inode *newnode;
     if (s != 0) {
         for (i = 0; i < 32; i+=1){
