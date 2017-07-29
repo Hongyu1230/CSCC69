@@ -1,16 +1,16 @@
 all: readimage cp ln ls mkdir rm
 
-readimage : readimage.o gcc
-	-Wall -g -o readimage $^
+readimage : readimage.o
+	gcc -Wall -g -o readimage $^
 	
-cp : ext2_cp.o gcc
-	-Wall -g -o ext2_cp $^ -lm
+cp : ext2_cp.o
+	gcc -Wall -g -o ext2_cp $^ -lm
 	
-ln : ext2_ln.o gcc
-	-Wall -g -o ext2_ln $^ -lm
+ln : ext2_ln.o
+	gcc -Wall -g -o ext2_ln $^ -lm
 	
-ls : ext2_ls.o gcc
-	-Wall -g -o ext2_ls $^
+ls : ext2_ls.o
+	gcc -Wall -g -o ext2_ls $^
 	
 mkdir : ext2_mkdir.o
 	gcc -Wall -g -o ext2_mkdir $^ -lm
