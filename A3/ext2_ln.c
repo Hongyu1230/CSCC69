@@ -42,6 +42,7 @@ int main(int argc, char **argv) {
     strcpy(destpath, argv[2 + s]);
     strcpy(sourcepath2, argv[3 + s]);
     strcpy(destpath2, argv[2 + s]);
+	strcpy(sourcepath3, argv[3 + s]);
     if (destpath[0] != '/' || sourcepath[0] != '/') {
         perror("the paths needs to start from root, beginning with /");
         return ENOENT;
