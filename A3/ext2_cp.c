@@ -33,7 +33,7 @@ int main(int argc, char **argv) {
         perror("the path needs to start from root, beginning with /");
         return ENOENT;
     }
-	printf("%s",sourcepath[strlen(argv[2]) - 1]);
+	printf("%c",sourcepath[strlen(argv[2]) - 1]);
     char *token;
     char *token2;
     const char delimiter[2] = "/";
