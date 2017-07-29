@@ -64,7 +64,7 @@ int main(int argc, char **argv) {
         perror("not enough space for the new file");
         return ENOSPC;
     }
-    
+    printf("did I get stuck");
     struct ext2_group_desc *bg = (struct ext2_group_desc *)(disk + 2048);
     struct ext2_inode *itable = (struct ext2_inode *)(disk + 1024 * bg->bg_inode_table);
     struct ext2_inode *pathnode = itable + 1;
@@ -129,7 +129,6 @@ int main(int argc, char **argv) {
         }
     }
     
-    printf("did I get stuck");
     int inode_bitmap[32];
     char *ibmap = (char *)(disk + 1024 * bg->bg_inode_bitmap);
     int i, pos;
