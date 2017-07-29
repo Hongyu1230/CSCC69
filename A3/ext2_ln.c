@@ -215,7 +215,7 @@ int main(int argc, char **argv) {
         sizecheck = 0;
         while (sizecheck < pathnode->i_size) {
             if(strncmp(sourcename, directorycheck->name, directorycheck->name_len) == 0 && lengthcomps == directorycheck->name_len) {
-                if (directorycheck->file_type == 2) {
+                if (directorycheck->file_type == 2 && s == 0) {
                     perror("the source file is a directory");
                     return EISDIR;
                 } else {
