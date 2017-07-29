@@ -79,8 +79,8 @@ int main(int argc, char **argv) {
     if (s == 0){
         blockneeded = 0;
     } else {
-		float sizeforlink = strlen(destpath)/1024;
-        blockneeded = ceil(sizeforlink);
+		float sizeforlink = strlen(destpath);
+        blockneeded = ceil(sizeforlink/1024);
     }
     if (blockneeded + 1 > sb->s_free_blocks_count) {
         perror("not enough space for the new file");
