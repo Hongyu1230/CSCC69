@@ -241,13 +241,13 @@ int main(int argc, char **argv) {
     }
 	struct ext2_dir_entry_2 *selfentry;
 	struct ext2_dir_entry_2 *parententry;
-	selfentry = (struct ext2_dir_entry_2 *) (disk + 1024 * newnode->i_block[0])
+	selfentry = (struct ext2_dir_entry_2 *) (disk + 1024 * newnode->i_block[0]);
 	selfentry->inode = free_inode;
 	selfentry->rec_len = 12;
 	selfentry->name_len = 1;
 	selfentry->file_type = 2;
 	
-	parententry = (struct ext2_dir_entry_2 *) (disk + 1024 * newnode->i_block[0] + 12)
+	parententry = (struct ext2_dir_entry_2 *) (disk + 1024 * newnode->i_block[0] + 12);
 	parententry->inode = parentnode;
 	parententry->rec_len = 12;
 	parententry->name_len = 2;
