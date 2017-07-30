@@ -218,11 +218,12 @@ int main(int argc, char **argv) {
 			if (oldtype == 2){
 			    if (strcmp(oldname,".") != 0 && strcmp(oldname,"..") != 0){
 				    sprintf(command, "./ext2_rm_bonus %s -r %s/%s", argv[1 + r], argv[2 + r], oldname);
+					system(command);
 				}
 			} else {
 		        sprintf(command, "./ext2_rm %s %s/%s", argv[1 + r], argv[2 + r], oldname);
+				system(command);
 			}
-			system(command);
         }
         if (check == 1){
             break;
