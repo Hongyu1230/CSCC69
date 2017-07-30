@@ -88,7 +88,8 @@ int main(int argc, char **argv) {
 				length += dir_entry->rec_len;
 				
 				//compares path segment at same level to entry name
-				if (strncmp(list[level-1], dir_entry->name, dir_entry->name_len) == 0 && strlen(list[level-1]) == dir_entry->name_len) {
+				if (strncmp(list[level-1], dir_entry->name, dir_entry->name_len) == 0 
+				&& strlen(list[level-1]) == dir_entry->name_len) {
 					invalid = 0;
 					lvl_clear = 1;
 					//move into the matching (directory) inode
@@ -105,7 +106,13 @@ int main(int argc, char **argv) {
 						dir_entry->file_type == EXT2_FT_REG_FILE){					
 							printf("%.*s\n", dir_entry->name_len, dir_entry->name);						
 						}	
-					}				
+					}
+					else if (dir_entry->inode != EXT2_FT_DIR) {
+                        printf("One of the files on the path to the file is not a directory\n");
+                        return ENOENT;
+					}
+
+									
 				}	
 				else {
 					if (dir_entry->rec_len == 0) {		
