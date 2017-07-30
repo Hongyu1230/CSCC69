@@ -63,9 +63,10 @@ int main(int argc, char **argv) {
     struct ext2_inode *pathnode = itable + 1;
     token2 = strtok(destpath2, delimiter);
 	int parentnode;
-    int sizecheck, check = 0, blockpointer, found = 0, lengthcomp, startingpoint = 0;
+    int sizecheck, check = 0, blockpointer, found = 0, lengthcomp, startingpoint = 0, passedonce = 0;
     struct ext2_dir_entry_2 *directory;
     while (token2 != NULL && startingpoint < pathlocation - 1) {
+		passedonce = 1;
         startingpoint += 1;
         lengthcomp = strlen(token2);
         for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
@@ -108,6 +109,11 @@ int main(int argc, char **argv) {
         }
     }
     
+	//our parent node is the root
+	if (passedonce == 0) {
+		parentnode = 2;
+	}
+	
     struct ext2_dir_entry_2 *directorycheck;
     for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
         if (pathnode->i_block[blockpointer] == 0){
@@ -256,7 +262,6 @@ int main(int argc, char **argv) {
 	parententry->name_len = 2;
 	parententry->file_type = 2;
 	strncpy(parententry->name, dotdot, 2);
-	printf("%d", parentnode);
     
 	bbmap = (char *)(disk + 1024 * bg->bg_block_bitmap);
     for (i = 0; i < 16; i+=1, bbmap +=1) {
