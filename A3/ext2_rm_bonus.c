@@ -125,7 +125,7 @@ int main(int argc, char **argv) {
         sizecheck = 0;
         while (sizecheck < pathnode->i_size) {
             if(strncmp(filename, directorycheck->name, directorycheck->name_len) == 0 && lengthcomp == directorycheck->name_len) {
-                if (directorycheck->file_type == 2 && s == 0) {
+                if (directorycheck->file_type == 2 && r == 0) {
                     printf("the file at the location is a directory\n");
                     return EISDIR;
                 } else {
@@ -153,6 +153,7 @@ int main(int argc, char **argv) {
         return ENOENT;
     }
 	
+	//if this is a file, we do nothing different, call our old command
 	if (deletiondirectory->file_type != 2) {
 		char command[strlen(argv[1 + r]) + strlen(argv[2 + r]) + strlen(argv[3 + r]) + 30];
 		sscanf(command, "./ext2_rm %s %s %s", argv[1 + r], argv[2 + r], argv[3 + r]);
