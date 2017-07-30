@@ -155,7 +155,6 @@ int main(int argc, char **argv) {
             block_bitmap[(8 * i) + pos] = (temp >> pos) & 1;
         }
     }
-    int n;
     deletionnode->i_links_count -= 1;
 	unsigned int newdtime = (unsigned int) time(NULL);
 	deletionnode->i_dtime = newdtime;
@@ -171,11 +170,10 @@ int main(int argc, char **argv) {
     }
     inode_bitmap[deletiondirectory->inode - 1] = 0;
     struct ext2_dir_entry_2 *oldentry;
-    int spaceold, oldsize, unusedblock, oldlen;
+    int oldsize, oldlen;
     check = 0;
     for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
         if (pathnode->i_block[blockpointer] == 0){
-            unusedblock = blockpointer;
             break;
         }
         oldentry = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);

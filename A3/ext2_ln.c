@@ -62,7 +62,6 @@ int main(int argc, char **argv) {
     const char delimiter[2] = "/";
     char sourcename[strlen(sourcepath)];
     char destname[strlen(destpath)];
-    char destinationsplit[strlen(destpath)];
     token = strtok(sourcepath, delimiter);
     int sourcelength = 0, destlength = 0;
     //to get the source of the link
@@ -289,9 +288,7 @@ int main(int argc, char **argv) {
         newnode->i_blocks = blockneeded * 2;
         newnode->i_links_count = 1;
         newnode->i_dtime = 0;
-        int j, l, k;
-        int m = 0;
-        char *mappos;
+        int j;
         //path shouldn't exceed 4098
         for (i = 0; i < 4 && i < blockneeded; i += 1){
             for (j = 0; j < 128; j +=1){
