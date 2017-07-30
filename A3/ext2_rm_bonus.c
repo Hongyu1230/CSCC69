@@ -155,8 +155,8 @@ int main(int argc, char **argv) {
 	//if this is a file, we do nothing different, call our old command
 	if (deletiondirectory->file_type != 2) {
 		char command[strlen(argv[1 + r]) + strlen(argv[2 + r]) + 30];
-		sscanf(command, "./ext2_rm %s %s", argv[1 + r], argv[2 + r]);
-		printf("hello");
+		sprintf(command, "./ext2_rm %s %s", argv[1 + r], argv[2 + r]);
+		printf("%s", command);
 		system(command);
 		return 0;
 	}
