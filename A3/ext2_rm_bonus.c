@@ -77,7 +77,8 @@ int main(int argc, char **argv) {
         lengthcomp = strlen(token2);
         for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
             if (pathnode->i_block[blockpointer] == 0){
-                break;
+                printf("cannot one of the files on the file path\n");
+                return ENOENT;
             }
             directory = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
             sizecheck = 0;
@@ -118,8 +119,11 @@ int main(int argc, char **argv) {
     struct ext2_dir_entry_2 *directorycheck;
     struct ext2_inode *deletionnode;
     struct ext2_dir_entry_2 *deletiondirectory;
-    //make sure the file at the location is not a directory
+    //make sure the file at the location is not a directory if the r tag is not on
     for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
+		if (pathnode->i_block[blockpointer] == 0){
+            break;
+        }
         lengthcomp = strlen(filename);
         directorycheck = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
         sizecheck = 0;
@@ -197,7 +201,34 @@ int main(int argc, char **argv) {
     struct ext2_dir_entry_2 *oldentry;
     int oldsize, oldlen;
     check = 0;
-    //removing the directory from the parent b
+	//recursively remove all in the deletion directory
+	for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
+        if (deletionnode->i_block[blockpointer] == 0){
+            break;
+        }
+        oldentry = (struct ext2_dir_entry_2 *)(disk + 1024 * deletionnode->i_block[blockpointer]);
+        sizecheck = 0;
+        while (sizecheck < 1024) {
+			sizecheck += oldentry->rec_len;
+			char oldname[255] = oldentry->name;
+			int oldtype = oldentry->file_type;
+			unsigned short oldmode = oldentry->i_mode;
+			oldentry = (void *) oldentry + oldentry->rec_len;
+			char command[strlen(argv[1 + r]) + strlen(argv[2 + r]) + 300];
+			if (S_ISDIR(oldmode)){
+				sprintf(command, "./ext2_rm %s -r %s/%s", argv[1 + r], argv[2 + r], oldname);
+			} else {
+		        sprintf(command, "./ext2_rm %s %s/%s", argv[1 + r], argv[2 + r], oldname);
+			}
+		    system(command);
+        }
+        if (check == 1){
+            break;
+        }
+    }
+	
+	
+    //remove the entry in the parent directory
     for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
         if (pathnode->i_block[blockpointer] == 0){
             break;
