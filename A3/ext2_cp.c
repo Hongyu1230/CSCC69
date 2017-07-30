@@ -22,7 +22,7 @@ int main(int argc, char **argv) {
     int fd = open(argv[1], O_RDWR);
     int source = open(argv[2], O_RDONLY);
     if (source < 0) {
-        printf("could not find source file");
+        printf("could not find source file\n");
         return ENOENT;
     }
     char sourcepath[strlen(argv[2])];
@@ -30,11 +30,11 @@ int main(int argc, char **argv) {
     strcpy(sourcepath, argv[2]);
     strcpy(destpath, argv[3]);
     if (destpath[0] != '/') {
-        printf("the path needs to start from root, beginning with /");
+        printf("the path needs to start from root, beginning with /\n");
         return ENOENT;
     }
     if (sourcepath[strlen(argv[2]) - 1] == '/') {
-        printf("the source cannot end with /, needs to be a regular file not a directory");
+        printf("the source cannot end with /, needs to be a regular file not a directory\n");
         return EISDIR;
     }
     char *token;
@@ -65,7 +65,7 @@ int main(int argc, char **argv) {
     int blockused = 0;
     //want to make sure we have 1 extra block in case we need one for inserting a file/directory
     if (blockneeded + 1 > sb->s_free_blocks_count) {
-        printf("not enough space for the new file");
+        printf("not enough space for the new file\n");
         return ENOSPC;
     }
     struct ext2_group_desc *bg = (struct ext2_group_desc *)(disk + 2048);
@@ -86,7 +86,7 @@ int main(int argc, char **argv) {
                 if(strncmp(token2, directory->name, directory->name_len) == 0 && lengthcomp == directory->name_len) {
                     pathnode = itable + directory->inode - 1;
                     if (!(S_ISDIR(pathnode->i_mode))) {
-                        printf("one of the files on the paths is not a directory");
+                        printf("one of the files on the paths is not a directory\n");
                         return ENOENT;
                     }
                     sizecheck = 0;
@@ -110,7 +110,7 @@ int main(int argc, char **argv) {
         if (found == 1) {
             found = 0;
         } else {
-            printf("cannot find destination directory on disk");
+            printf("cannot find destination directory on disk\n");
             return ENOENT;
         }
     }
@@ -125,7 +125,7 @@ int main(int argc, char **argv) {
         sizecheck = 0;
         while (sizecheck < pathnode->i_size) {
             if(strncmp(sourcename, directorycheck->name, directorycheck->name_len) == 0 && lengthcomp == directorycheck->name_len) {
-                printf("a file or directory with the name already exists");
+                printf("a file or directory with the name already exists\n");
                 return EEXIST;
             } else {
                 if (directorycheck->rec_len == 0) {
@@ -158,7 +158,7 @@ int main(int argc, char **argv) {
         }
     }
     if(free_inode == -1) {
-        printf("no free inodes");
+        printf("no free inodes\n");
         return ENOSPC;
     }
     

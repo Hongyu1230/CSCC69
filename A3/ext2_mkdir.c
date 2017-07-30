@@ -26,11 +26,11 @@ int main(int argc, char **argv) {
     strcpy(destpath, argv[2]);
     strcpy(destpath2, argv[2]);
     if (destpath[0] != '/') {
-        printf("the path needs to start from root, beginning with /");
+        printf("the path needs to start from root, beginning with /\n");
         return ENOENT;
     }
     if (strlen(destpath) == 1) {
-        printf("you need to specify a path with at least a directory to create");
+        printf("you need to specify a path with at least a directory to create\n");
         return ENOENT;
     }
     char *token;
@@ -47,7 +47,7 @@ int main(int argc, char **argv) {
     struct ext2_super_block *sb = (struct ext2_super_block *)(disk + 1024);
     //want to make sure we have 1 extra block in case we need one for inserting a file/directory
     if (blockneeded + 1 > sb->s_free_blocks_count) {
-        printf("not enough space for the new file");
+        printf("not enough space for the new file\n");
         return ENOSPC;
     }
     char filename[strlen(destpath)];
@@ -79,7 +79,7 @@ int main(int argc, char **argv) {
                     pathnode = itable + directory->inode - 1;
 					parentnode = directory->inode;
                     if (!(S_ISDIR(pathnode->i_mode))) {
-                        printf("one of the files on the path is not a directory");
+                        printf("one of the files on the path is not a directory\n");
                         return ENOENT;
                     }
                     sizecheck = 0;
@@ -103,7 +103,7 @@ int main(int argc, char **argv) {
         if (found == 1) {
             found = 0;
         } else {
-            printf("cannot find destination directory on disk");
+            printf("cannot find destination directory on disk\n");
             return ENOENT;
         }
     }
@@ -118,7 +118,7 @@ int main(int argc, char **argv) {
         sizecheck = 0;
         while (sizecheck < pathnode->i_size) {
             if(strncmp(filename, directorycheck->name, directorycheck->name_len) == 0 && lengthcomp == directorycheck->name_len) {
-                printf("a file or directory with the name already exists");
+                printf("a file or directory with the name already exists\n");
                 return EEXIST;
             } else {
                 if (directorycheck->rec_len == 0) {
@@ -152,7 +152,7 @@ int main(int argc, char **argv) {
         }
     }
     if(free_inode == -1) {
-        printf("no free inodes");
+        printf("no free inodes\n");
         return ENOSPC;
     }
     

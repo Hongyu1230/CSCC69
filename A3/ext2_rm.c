@@ -26,11 +26,11 @@ int main(int argc, char **argv) {
     strcpy(destpath, argv[2]);
     strcpy(destpath2, argv[2]);
     if (destpath[0] != '/') {
-        printf("the path needs to start from root, beginning with /");
+        printf("the path needs to start from root, beginning with /\n");
         return ENOENT;
     }
     if (destpath[strlen(argv[2]) - 1] == '/') {
-        printf("the removed file cannot end with /, needs to be a regular file not a directory");
+        printf("the removed file cannot end with /, needs to be a regular file not a directory\n");
         return EISDIR;
     }
     char *token;
@@ -70,7 +70,7 @@ int main(int argc, char **argv) {
                 if(strncmp(token2, directory->name, directory->name_len) == 0 && lengthcomp == directory->name_len) {
                     pathnode = itable + directory->inode - 1;
                     if (!(S_ISDIR(pathnode->i_mode))) {
-                        printf("one of the files on the path to the file is not a directory");
+                        printf("one of the files on the path to the file is not a directory\n");
                         return ENOENT;
                     }
                     sizecheck = 0;
@@ -94,7 +94,7 @@ int main(int argc, char **argv) {
         if (found == 1) {
             found = 0;
         } else {
-            printf("cannot one of the files on the file path");
+            printf("cannot one of the files on the file path\n");
             return ENOENT;
         }
     }
@@ -113,7 +113,7 @@ int main(int argc, char **argv) {
         while (sizecheck < pathnode->i_size) {
             if(strncmp(filename, directorycheck->name, directorycheck->name_len) == 0 && lengthcomp == directorycheck->name_len) {
                 if (directorycheck->file_type == 2) {
-                    printf("the file at the location is a directory");
+                    printf("the file at the location is a directory\n");
                     return EISDIR;
                 } else {
                     check = 1;
@@ -136,7 +136,7 @@ int main(int argc, char **argv) {
     }
     
     if (check == 0) {
-        printf("cannot find the file at the location given");
+        printf("cannot find the file at the location given\n");
         return ENOENT;
     }
     
