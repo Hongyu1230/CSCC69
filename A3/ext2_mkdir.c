@@ -26,11 +26,11 @@ int main(int argc, char **argv) {
     strcpy(destpath, argv[2]);
     strcpy(destpath2, argv[2]);
     if (destpath[0] != '/') {
-        perror("the path needs to start from root, beginning with /");
+        printf("the path needs to start from root, beginning with /");
         return ENOENT;
     }
     if (strlen(destpath) == 1) {
-        perror("you need to specify a path with at least a directory to create");
+        printf("you need to specify a path with at least a directory to create");
         return ENOENT;
     }
     char *token;
@@ -38,7 +38,7 @@ int main(int argc, char **argv) {
     const char delimiter[2] = "/";
     disk = mmap(NULL, 128 * 1024, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
     if(disk == MAP_FAILED) {
-        perror("mmap");
+        printf("mmap");
         exit(1);
     }
     
@@ -47,7 +47,7 @@ int main(int argc, char **argv) {
     struct ext2_super_block *sb = (struct ext2_super_block *)(disk + 1024);
     //want to make sure we have 1 extra block in case we need one for inserting a file/directory
     if (blockneeded + 1 > sb->s_free_blocks_count) {
-        perror("not enough space for the new file");
+        printf("not enough space for the new file");
         return ENOSPC;
     }
     char filename[strlen(destpath)];
@@ -77,7 +77,7 @@ int main(int argc, char **argv) {
                 if(strncmp(token2, directory->name, directory->name_len) == 0 && lengthcomp == directory->name_len) {
                     pathnode = itable + directory->inode - 1;
                     if (!(S_ISDIR(pathnode->i_mode))) {
-                        perror("one of the files on the path is not a directory");
+                        printf("one of the files on the path is not a directory");
                         return ENOENT;
                     }
                     sizecheck = 0;
@@ -101,7 +101,7 @@ int main(int argc, char **argv) {
         if (found == 1) {
             found = 0;
         } else {
-            perror("cannot find destination directory on disk");
+            printf("cannot find destination directory on disk");
             return ENOENT;
         }
     }
@@ -116,7 +116,7 @@ int main(int argc, char **argv) {
         sizecheck = 0;
         while (sizecheck < pathnode->i_size) {
             if(strncmp(filename, directorycheck->name, directorycheck->name_len) == 0 && lengthcomp == directorycheck->name_len) {
-                perror("a file or directory with the name already exists");
+                printf("a file or directory with the name already exists");
                 return EEXIST;
             } else {
                 if (directorycheck->rec_len == 0) {
@@ -150,7 +150,7 @@ int main(int argc, char **argv) {
         }
     }
     if(free_inode == -1) {
-        perror("no free inodes");
+        printf("no free inodes");
         return ENOSPC;
     }
     

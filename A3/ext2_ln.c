@@ -44,15 +44,15 @@ int main(int argc, char **argv) {
     strcpy(destpath2, argv[3 + s]);
     strcpy(sourcepath3, argv[2 + s]);
     if (destpath[0] != '/' || sourcepath[0] != '/') {
-        perror("the paths needs to start from root, beginning with /");
+        printf("the paths needs to start from root, beginning with /");
         return ENOENT;
     }
     if (destpath[strlen(argv[3 + s]) - 1] == '/') {
-        perror("the destination path cannot end with a /");
+        printf("the destination path cannot end with a /");
         return EISDIR;
     }
     if (sourcepath[strlen(argv[2 + s]) - 1] == '/' && s == 0) {
-        perror("the source cannot end with a /, needs to be a directory unless you are creating a symbolic link");
+        printf("the source cannot end with a /, needs to be a directory unless you are creating a symbolic link");
         return EISDIR;
     }
     char *token;
@@ -79,7 +79,7 @@ int main(int argc, char **argv) {
     }
     disk = mmap(NULL, 128 * 1024, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
     if(disk == MAP_FAILED) {
-        perror("mmap");
+        printf("mmap");
         exit(1);
     }
     struct ext2_super_block *sb = (struct ext2_super_block *)(disk + 1024);
@@ -92,7 +92,7 @@ int main(int argc, char **argv) {
         blockneeded = ceil(sizeforlink/1024);
     }
     if (blockneeded + 1 > sb->s_free_blocks_count) {
-        perror("not enough space for the new file");
+        printf("not enough space for the new file");
         return ENOSPC;
     }
     
@@ -115,7 +115,7 @@ int main(int argc, char **argv) {
                 if(strncmp(token2, directory->name, directory->name_len) == 0 && lengthcomp == directory->name_len) {
                     pathnode = itable + directory->inode - 1;
                     if (!(S_ISDIR(pathnode->i_mode))) {
-                        perror("one of the files on the path to the destination is not a directory");
+                        printf("one of the files on the path to the destination is not a directory");
                         return ENOENT;
                     }
                     sizecheck = 0;
@@ -139,7 +139,7 @@ int main(int argc, char **argv) {
         if (found == 1) {
             found = 0;
         } else {
-            perror("cannot find one of the paths for the destination location");
+            printf("cannot find one of the paths for the destination location");
             return ENOENT;
         }
     }
@@ -156,10 +156,10 @@ int main(int argc, char **argv) {
         while (sizecheck < pathnode->i_size) {
             if(strncmp(destname, directorycheck->name, directorycheck->name_len) == 0 && lengthcomp == directorycheck->name_len) {
                 if (directorycheck->file_type == 2) {
-                    perror("the destination path is already a directory");
+                    printf("the destination path is already a directory");
                     return EISDIR;
                 } else {
-                    perror("the destination already has a file named that");
+                    printf("the destination already has a file named that");
                     return EEXIST;
                 }
             } else {
@@ -193,7 +193,7 @@ int main(int argc, char **argv) {
                 if(strncmp(token4, directory->name, directory->name_len) == 0 && lengthcomps == directory->name_len) {
                     pathnode = itable + directory->inode - 1;
                     if (!(S_ISDIR(pathnode->i_mode))) {
-                        perror("one of the files on the path to the source file is not a directory");
+                        printf("one of the files on the path to the source file is not a directory");
                         return ENOENT;
                     }
                     sizecheck = 0;
@@ -217,7 +217,7 @@ int main(int argc, char **argv) {
         if (found == 1) {
             found = 0;
         } else {
-            perror("cannot find one of the paths for the link source");
+            printf("cannot find one of the paths for the link source");
             return ENOENT;
         }
     }
@@ -233,7 +233,7 @@ int main(int argc, char **argv) {
         while (sizecheck < pathnode->i_size) {
             if(strncmp(sourcename, directorycheck->name, directorycheck->name_len) == 0 && lengthcomps == directorycheck->name_len) {
                 if (directorycheck->file_type == 2 && s == 0) {
-                    perror("the source file is a directory");
+                    printf("the source file is a directory");
                     return EISDIR;
                 } else {
                     check = 1;
@@ -254,7 +254,7 @@ int main(int argc, char **argv) {
     }
     
     if (check == 0) {
-        perror("cannot find the source file to link");
+        printf("cannot find the source file to link");
         return ENOENT;
     }
     
@@ -289,7 +289,7 @@ int main(int argc, char **argv) {
             }
         }
         if(free_inode == -1) {
-            perror("no free inodes");
+            printf("no free inodes");
             return ENOSPC;
         }
         newnode = itable + free_inode - 1;
