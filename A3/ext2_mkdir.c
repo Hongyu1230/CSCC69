@@ -203,7 +203,6 @@ int main(int argc, char **argv) {
             spaceold = 8 + oldentry->name_len + (4 - oldentry->name_len % 4);
             if (sizecheck == 1024 && oldentry->rec_len >= spaceneeded + spaceold){
                 check = 1;
-				printf("%d,%s\n", oldentry->file_type, oldentry->name);
                 oldsize = oldentry->rec_len;
                 oldentry->rec_len = spaceold;
                 newentry = (void *) oldentry + spaceold;
@@ -214,7 +213,6 @@ int main(int argc, char **argv) {
                 strncpy(newentry->name, filename, lengthcomp);
                 break;
             } else {
-				printf("%d,%s\n", oldentry->file_type, oldentry->name);
                 oldentry = (void *) oldentry + oldentry->rec_len;
             }
         }
@@ -254,7 +252,7 @@ int main(int argc, char **argv) {
 	
 	parententry = (void *) selfentry + 12;
 	parententry->inode = parentnode;
-	parententry->rec_len = 12;
+	parententry->rec_len = 1012;
 	parententry->name_len = 2;
 	parententry->file_type = 2;
 	strncpy(parententry->name, dotdot, 2);
