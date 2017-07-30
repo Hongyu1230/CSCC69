@@ -29,8 +29,8 @@ int main(int argc, char **argv) {
         }
     }
 
-    if(argc != 3) {
-        fprintf(stderr, "Usage: ext2_rm <image file name> <FILE>\n");
+    if(argc != 3 + r) {
+        fprintf(stderr, "Usage: ext2_rm_bonus <image file name> [-r] <FILE>\n");
         exit(1);
     }
     int fd = open(argv[1 + r], O_RDWR);
