@@ -29,7 +29,7 @@ int main(int argc, char **argv) {
     }
 
     if(argc != 4 + s) {
-        fprintf(stderr, "Usage: ext2_ln <image file name> <SOURCE> <LINK>\n");
+        fprintf(stderr, "Usage: ext2_ln <image file name> [-s] <SOURCE> <LINK>\n");
         exit(1);
     }
     int fd = open(argv[1 + s], O_RDWR);
