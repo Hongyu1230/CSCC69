@@ -98,7 +98,7 @@ int main(int argc, char **argv) {
                     token2 = strtok(NULL, delimiter);
                     break;
                 } else {
-					if (directorycheck->rec_len == 0) {
+					if (directory->rec_len == 0) {
                         break;
                     }
                     sizecheck += directory->rec_len;
