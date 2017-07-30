@@ -38,11 +38,11 @@ int main(int argc, char **argv) {
     char sourcepath2[strlen(argv[2 + s]) + 1];
     char destpath2[strlen(argv[3 + s]) + 1];
     char sourcepath3[strlen(argv[2 + s]) + 1];
-    strncpy(sourcepath, argv[2 + s], strlen(argv[2 + s]));
-    strncpy(destpath, argv[3 + s], strlen(argv[2 + s]));
-    strncpy(sourcepath2, argv[2 + s], strlen(argv[2 + s]));
-    strncpy(destpath2, argv[3 + s], strlen(argv[2 + s]));
-    strncpy(sourcepath3, argv[2 + s], strlen(argv[2 + s]));
+    strcpy(sourcepath, argv[2 + s]);
+    strcpy(destpath, argv[3 + s]);
+    strcpy(sourcepath2, argv[2 + s]);
+    strcpy(destpath2, argv[3 + s]);
+    strcpy(sourcepath3, argv[2 + s]);
     if (destpath[0] != '/' || sourcepath[0] != '/') {
         printf("the paths needs to start from root, beginning with /\n");
         return ENOENT;
@@ -66,14 +66,14 @@ int main(int argc, char **argv) {
     int sourcelength = 0, destlength = 0;
     //to get the source of the link
     while (token != NULL) {
-        strncpy(sourcename, token, strlen(token));
+        strcpy(sourcename, token);
         sourcelength += 1;
         token = strtok(NULL, delimiter);
     }
     token3 = strtok(destpath, delimiter);
     //to get the destination of the link
     while (token3 != NULL) {
-        strncpy(destname, token3, strlen(token));
+        strcpy(destname, token3);
         destlength += 1;
         token3 = strtok(NULL, delimiter);
     }

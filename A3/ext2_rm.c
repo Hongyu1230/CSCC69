@@ -23,8 +23,8 @@ int main(int argc, char **argv) {
     int fd = open(argv[1], O_RDWR);
     char destpath[strlen(argv[2]) + 1];
     char destpath2[strlen(argv[2]) + 1];
-    strncpy(destpath, argv[2], strlen(argv[2]));
-    strncpy(destpath2, argv[2], strlen(argv[2]));
+    strcpy(destpath, argv[2]);
+    strcpy(destpath2, argv[2]);
     if (destpath[0] != '/') {
         printf("the path needs to start from root, beginning with /\n");
         return ENOENT;
@@ -40,7 +40,7 @@ int main(int argc, char **argv) {
     token = strtok(destpath, delimiter);
     int stoppoint = 0;
     while (token != NULL) {
-        strncpy(filename, token, strlen(token));
+        strcpy(filename, token);
         stoppoint +=1;
         token = strtok(NULL, delimiter);
     }
