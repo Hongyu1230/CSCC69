@@ -241,17 +241,21 @@ int main(int argc, char **argv) {
     }
 	struct ext2_dir_entry_2 *selfentry;
 	struct ext2_dir_entry_2 *parententry;
+	char dot = ".";
+	char dotdot = "..";
 	selfentry = (struct ext2_dir_entry_2 *) (disk + 1024 * newnode->i_block[0]);
 	selfentry->inode = free_inode;
 	selfentry->rec_len = 12;
 	selfentry->name_len = 1;
 	selfentry->file_type = 2;
+	strncpy(selfentry->name, dot, 1);
 	
 	parententry = (void *) selfentry + 12;
 	parententry->inode = parentnode;
 	parententry->rec_len = 12;
 	parententry->name_len = 2;
 	parententry->file_type = 2;
+	strncpy(parententry->name, dotdot, 2);
     
 	bbmap = (char *)(disk + 1024 * bg->bg_block_bitmap);
     for (i = 0; i < 16; i+=1, bbmap +=1) {
