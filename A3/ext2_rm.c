@@ -15,7 +15,7 @@ unsigned char *disk;
 
 
 int main(int argc, char **argv) {
-
+	printf("%s,%s,%s", argv[1], argv[2], argv[3]);
     if(argc != 3) {
         fprintf(stderr, "Usage: ext2_rm <image file name> <FILE>\n");
         exit(1);
