@@ -64,7 +64,7 @@ int main(int argc, char **argv) {
         lengthcomp = strlen(token2);
         for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
 			if (pathnode->i_block[blockpointer] == 0){
-                printf("cannot one of the files on the file path\n");
+                printf("cannot find one of the files on the file path\n");
                 return ENOENT;
             }
             directory = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
