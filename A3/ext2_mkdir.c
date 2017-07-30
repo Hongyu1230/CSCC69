@@ -62,6 +62,7 @@ int main(int argc, char **argv) {
     struct ext2_inode *itable = (struct ext2_inode *)(disk + 1024 * bg->bg_inode_table);
     struct ext2_inode *pathnode = itable + 1;
     token2 = strtok(destpath2, delimiter);
+	int parentnode;
     int sizecheck, check = 0, blockpointer, found = 0, lengthcomp, startingpoint = 0;
     struct ext2_dir_entry_2 *directory;
     while (token2 != NULL && startingpoint < pathlocation - 1) {
@@ -76,6 +77,7 @@ int main(int argc, char **argv) {
             while (sizecheck < pathnode->i_size) {
                 if(strncmp(token2, directory->name, directory->name_len) == 0 && lengthcomp == directory->name_len) {
                     pathnode = itable + directory->inode - 1;
+					parentnode = directory->inode;
                     if (!(S_ISDIR(pathnode->i_mode))) {
                         printf("one of the files on the path is not a directory");
                         return ENOENT;
@@ -237,7 +239,23 @@ int main(int argc, char **argv) {
         newentry->file_type = 2;
         strncpy(newentry->name, filename, lengthcomp);
     }
-    bbmap = (char *)(disk + 1024 * bg->bg_block_bitmap);
+	struct ext2_dir_entry_2 *selfentry;
+	struct ext2_dir_entry_2 *parententry;
+	selfentry = (disk + 1024 * newnode->i_block[0]);
+	selfentry->inode = free_inode;
+	selfentry->rec_len = 12;
+	selfentry->name_len = 1;
+	selfentry->file_type = 2;
+	strncpy(selfentry->name, '.', 1);
+	
+	parententry = (disk + 1024 * newnode->i_block[0] + 12);
+	parententry->inode = parentnode;
+	parententry->rec_len = 12;
+	parententry->name_len = 2;
+	parententry->file_type = 2;
+	strncpy(parententry->name, '..', 2);
+    
+	bbmap = (char *)(disk + 1024 * bg->bg_block_bitmap);
     for (i = 0; i < 16; i+=1, bbmap +=1) {
         for (pos = 0; pos < 8; pos+=1) {
             if (block_bitmap[(8 * i) + pos] == 1) {
