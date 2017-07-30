@@ -121,9 +121,6 @@ int main(int argc, char **argv) {
                     break;
                 }
             } else {
-                if (directorycheck->rec_len == 0) {
-                    break;
-                }
                 sizecheck += directorycheck->rec_len;
                 directorycheck = (void *) directorycheck + directorycheck->rec_len;
             }
