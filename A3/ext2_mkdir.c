@@ -212,12 +212,15 @@ int main(int argc, char **argv) {
                 newentry->name_len = lengthcomp;
                 newentry->file_type = 2;
                 strncpy(newentry->name, filename, lengthcomp);
-                
+                break;
             } else {
+				printf("%d,%s\n", oldentry->file_type, oldentry->name);
                 oldentry = (void *) oldentry + oldentry->rec_len;
             }
         }
-        
+        if (check == 1){
+            break;
+        }
     }
     
     if(check != 1) {
