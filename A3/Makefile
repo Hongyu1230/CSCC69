@@ -1,4 +1,4 @@
-all: cp ln ls mkdir rm
+all: cp ln ls mkdir rm rmb
 	
 cp : ext2_cp.c
 	gcc -Wall -g -o ext2_cp $^ -lm
@@ -14,9 +14,12 @@ mkdir : ext2_mkdir.c
 	
 rm : ext2_rm.c
 	gcc -Wall -g -o ext2_rm $^ -lm
+	
+rmb : ext2_rm_bonus.c
+	gcc -Wall -g -o ext2_rm_bonus $^ -lm
 
 %.o : %.c ext2.h
 	gcc -Wall -g -c $<
 
 clean : 
-	rm -f *.o readimage ext2_cp ext2_ln ext2_ls ext2_mkdir ext2_rm *~
+	rm -f *.o readimage ext2_cp ext2_ln ext2_ls ext2_mkdir ext2_rm ext2_rm_bonus *~
