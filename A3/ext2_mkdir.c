@@ -103,7 +103,7 @@ int main(int argc, char **argv) {
     }
 	
 	if (token2 != filename) {
-		perror("cannot find destination directory on disk");
+		perror("cannot one of the paths for the destination on disk");
         return ENOENT;
 	}
 	
