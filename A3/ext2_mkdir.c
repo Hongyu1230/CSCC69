@@ -252,7 +252,7 @@ int main(int argc, char **argv) {
     selfentry = (struct ext2_dir_entry_2 *) (disk + 1024 * newnode->i_block[0]);
     selfentry->inode = free_inode;
     selfentry->rec_len = 12;
-    selfentry->name_len = 0;
+    selfentry->name_len = 1;
     selfentry->file_type = 2;
     strncpy(selfentry->name, dot, 1);
     

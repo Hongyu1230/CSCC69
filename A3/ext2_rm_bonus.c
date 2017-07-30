@@ -213,6 +213,7 @@ int main(int argc, char **argv) {
 			char oldname[255];
 			strncpy(oldname, oldentry->name, oldentry->name_len);
 			int oldtype = oldentry->file_type;
+			int oldlength = oldentry->name_len;
 			oldentry = (void *) oldentry + oldentry->rec_len;
 			char command[strlen(argv[1 + r]) + strlen(argv[2 + r]) + 300];
 			if (oldtype == 2){
@@ -220,7 +221,7 @@ int main(int argc, char **argv) {
 			} else {
 		        sprintf(command, "./ext2_rm %s %s/%s", argv[1 + r], argv[2 + r], oldname);
 			}
-		    printf("%d,%s\n", oldtype, oldname);
+		    printf("%d,%s,%d\n", oldtype, oldname, oldlength);
         }
         if (check == 1){
             break;
