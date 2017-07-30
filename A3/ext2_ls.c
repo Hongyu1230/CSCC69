@@ -107,7 +107,7 @@ int main(int argc, char **argv) {
 							printf("%.*s\n", dir_entry->name_len, dir_entry->name);						
 						}	
 					}
-					else if (dir_entry->file_typew != EXT2_FT_DIR) {
+					else if (dir_entry->file_type != EXT2_FT_DIR) {
 						printf("One of the files on the path to the file is not a directory\n");
 						return ENOENT;
 					}
