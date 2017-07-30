@@ -29,7 +29,7 @@ int main(int argc, char **argv) {
     }
 
     if(argc != 4 + s) {
-        fprintf(stderr, "Usage: ext2_ln <image file name> <LINK> <SOURCE>\n");
+        fprintf(stderr, "Usage: ext2_ln <image file name> <SOURCE> <LINK>\n");
         exit(1);
     }
     int fd = open(argv[1 + s], O_RDWR);
@@ -219,7 +219,7 @@ int main(int argc, char **argv) {
         }
     }
 	
-	if (strcmp(token2, sourcename) != 0) {
+	if (strcmp(token4, sourcename) != 0) {
 		perror("cannot find one of the paths for the link source");
         return ENOENT;
 	}
