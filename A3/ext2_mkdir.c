@@ -25,7 +25,10 @@ int main(int argc, char **argv) {
     char destpath2[strlen(argv[2])];
     strcpy(destpath, argv[2]);
     strcpy(destpath2, argv[2]);
-    printf("%s", destpath);
+    if (destpath[0] != '/') {
+        printf("the path needs to start from root, beginning with /\n");
+        return ENOENT;
+    }
     if (strlen(destpath) == 1) {
         printf("you need to specify a path with at least a directory to create\n");
         return ENOENT;
