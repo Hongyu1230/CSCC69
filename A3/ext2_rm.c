@@ -193,6 +193,9 @@ int main(int argc, char **argv) {
                     break;
                 }
             } else {
+				if (oldentry->rec_len == 0) {
+                    break;
+                }
                 oldlen = oldentry->rec_len;
                 oldentry = (void *) oldentry + oldentry->rec_len;
             }
