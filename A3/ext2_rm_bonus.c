@@ -221,7 +221,7 @@ int main(int argc, char **argv) {
 			} else {
 		        sprintf(command, "./ext2_rm %s %s/%s", argv[1 + r], argv[2 + r], oldname);
 			}
-		    printf("%s", command);
+		    printf("%s\n", command);
         }
         if (check == 1){
             break;
