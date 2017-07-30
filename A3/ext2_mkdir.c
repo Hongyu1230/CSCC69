@@ -23,7 +23,7 @@ int main(int argc, char **argv) {
     char destpath[strlen(argv[2])];
     //for the 2nd strtok call
     char destpath2[strlen(argv[2])];
-    strcpy(destpath, argv[2]);
+    strncpy(destpath, argv[2], strlen(argv[2]));
     strcpy(destpath2, argv[2]);
     if (destpath[0] != '/') {
         printf("the path needs to start from root, beginning with /\n");
