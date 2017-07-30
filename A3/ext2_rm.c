@@ -177,7 +177,7 @@ int main(int argc, char **argv) {
     struct ext2_dir_entry_2 *oldentry;
     int oldsize, oldlen;
     check = 0;
-    //removing the directory from the parent b
+    //removing the file from the parent
     for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
         if (pathnode->i_block[blockpointer] == 0){
             break;
