@@ -39,6 +39,7 @@ int main(int argc, char **argv) {
     char filename[strlen(destpath) + 1];
     token = strtok(destpath, delimiter);
     int stoppoint = 0;
+	//get the filename we are supposed to remove
     while (token != NULL) {
         strcpy(filename, token);
         stoppoint +=1;
@@ -57,6 +58,7 @@ int main(int argc, char **argv) {
     token2 = strtok(destpath2, delimiter);
     int sizecheck, check = 0, blockpointer, found = 0, lengthcomp, startpoint = 0;
     struct ext2_dir_entry_2 *directory;
+	//traversal to the parent directory of our path
     while (token2 != NULL && startpoint < stoppoint - 1) {
         startpoint +=1;
         lengthcomp = strlen(token2);
@@ -103,10 +105,8 @@ int main(int argc, char **argv) {
     struct ext2_dir_entry_2 *directorycheck;
     struct ext2_inode *deletionnode;
     struct ext2_dir_entry_2 *deletiondirectory;
+	//make sure the file at the location is not a directory
     for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
-        if (pathnode->i_block[blockpointer] == 0){
-            break;
-        }
         lengthcomp = strlen(filename);
         directorycheck = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
         sizecheck = 0;
@@ -134,7 +134,7 @@ int main(int argc, char **argv) {
             break;
         }
     }
-    
+    //we never found our target
     if (check == 0) {
         printf("cannot find the file at the location given\n");
         return ENOENT;
@@ -164,7 +164,7 @@ int main(int argc, char **argv) {
     unsigned int newdtime = (unsigned int) time(NULL);
     deletionnode->i_dtime = newdtime;
     int blockfreed = 0;
-    //zero out the bitmap for inode and blocks for our operation later
+    //zero out the bitmap for inode and blocks for our operation later if we need it
     for (i = 0; i < 12; i +=1){
         if (deletionnode->i_block[i] == 0) {
             break;
@@ -177,6 +177,7 @@ int main(int argc, char **argv) {
     struct ext2_dir_entry_2 *oldentry;
     int oldsize, oldlen;
     check = 0;
+	//removing the directory from the parent b
     for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
         if (pathnode->i_block[blockpointer] == 0){
             break;
@@ -186,7 +187,7 @@ int main(int argc, char **argv) {
         while (sizecheck < 1024) {
             if (oldentry == deletiondirectory) {
                 check = 1;
-                //we clearly have a entry before this
+                //we either add the rec_len to the previous block or zero it out and leave the rec_len
                 if (sizecheck > 0) {
                     oldentry = (void *) oldentry - oldlen;
                     oldentry->rec_len += deletiondirectory->rec_len;
@@ -208,6 +209,7 @@ int main(int argc, char **argv) {
         }
     }
     
+	//if the inode has no links left, we can safely release the inode and blocks on the bitmap
     if (deletionnode->i_links_count == 0) {
         bbmap = (char *)(disk + 1024 * bg->bg_block_bitmap);
         for (i = 0; i < 16; i+=1, bbmap +=1) {

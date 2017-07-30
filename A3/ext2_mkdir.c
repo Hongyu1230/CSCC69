@@ -53,6 +53,7 @@ int main(int argc, char **argv) {
     char filename[strlen(destpath) + 1];
     int pathlocation = 0;
     token = strtok(destpath, delimiter);
+	//finding the name of our new directory
     while (token != NULL) {
         strcpy(filename, token);
         pathlocation += 1;
@@ -65,6 +66,7 @@ int main(int argc, char **argv) {
 	int parentnode;
     int sizecheck, check = 0, blockpointer, found = 0, lengthcomp, startingpoint = 0, passedonce = 0;
     struct ext2_dir_entry_2 *directory;
+	//traverse to the 2nd last path to know the parent
     while (token2 != NULL && startingpoint < pathlocation - 1) {
 		passedonce = 1;
         startingpoint += 1;
@@ -109,11 +111,12 @@ int main(int argc, char **argv) {
         }
     }
     
-	//our parent node is the root
+	//our parent node is the root since we never gone through the traverse
 	if (passedonce == 0) {
 		parentnode = 2;
 	}
 	
+	//make sure we don't have another file with the same name in the parent directory
     struct ext2_dir_entry_2 *directorycheck;
     for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
         if (pathnode->i_block[blockpointer] == 0){
@@ -173,7 +176,7 @@ int main(int argc, char **argv) {
         }
     }
 
-    
+    //need a new block for our directory(blockneeded is just 1)
     int j;
     int m = 0;
     for (i = 0; i < 12 && i < blockneeded; i += 1){
@@ -197,6 +200,7 @@ int main(int argc, char **argv) {
     int spaceneeded = 8 + lengthcomp + (4 - lengthcomp % 4);
     int spaceold, oldsize, unusedblock;
     check = 0;
+	//add our new directory entry to the parent directory
     for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
         if (pathnode->i_block[blockpointer] == 0){
             unusedblock = blockpointer;
@@ -226,7 +230,7 @@ int main(int argc, char **argv) {
             break;
         }
     }
-    
+    //we hit a unused block so we use that instead of a used one
     if(check != 1) {
         for (m = 0; m < 128; m +=1){
              if (block_bitmap[m] == 0) {
@@ -245,6 +249,7 @@ int main(int argc, char **argv) {
         newentry->file_type = 2;
         strncpy(newentry->name, filename, lengthcomp);
     }
+	//need  . and .. entries for our new directory
 	struct ext2_dir_entry_2 *selfentry;
 	struct ext2_dir_entry_2 *parententry;
 	char dot[1] = ".";
@@ -262,7 +267,8 @@ int main(int argc, char **argv) {
 	parententry->name_len = 2;
 	parententry->file_type = 2;
 	strncpy(parententry->name, dotdot, 2);
-    
+
+    //update our bitmap
 	bbmap = (char *)(disk + 1024 * bg->bg_block_bitmap);
     for (i = 0; i < 16; i+=1, bbmap +=1) {
         for (pos = 0; pos < 8; pos+=1) {
