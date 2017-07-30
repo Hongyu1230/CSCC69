@@ -225,9 +225,6 @@ int main(int argc, char **argv) {
 				system(command);
 			}
         }
-        if (check == 1){
-            break;
-        }
     }
 	
 	//remove the entry in the parent directory
