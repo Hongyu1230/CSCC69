@@ -108,8 +108,8 @@ int main(int argc, char **argv) {
 						}	
 					}
 					else if (dir_entry->inode != EXT2_FT_DIR) {
-                        printf("One of the files on the path to the file is not a directory\n");
-                        return ENOENT;
+						printf("One of the files on the path to the file is not a directory\n");
+						return ENOENT;
 					}
 
 									
