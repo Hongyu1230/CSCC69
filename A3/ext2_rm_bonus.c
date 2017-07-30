@@ -213,7 +213,6 @@ int main(int argc, char **argv) {
 			char oldname[255];
 			strncpy(oldname, oldentry->name, oldentry->name_len);
 			int oldtype = oldentry->file_type;
-			int oldlength = oldentry->name_len;
 			oldentry = (void *) oldentry + oldentry->rec_len;
 			char command[strlen(argv[1 + r]) + strlen(argv[2 + r]) + 300];
 			if (oldtype == 2){
