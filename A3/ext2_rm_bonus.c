@@ -157,6 +157,7 @@ int main(int argc, char **argv) {
 	if (deletiondirectory->file_type != 2) {
 		char command[strlen(argv[1 + r]) + strlen(argv[2 + r]) + 30];
 		sscanf(command, "./ext2_rm %s %s", argv[1 + r], argv[2 + r]);
+		printf("%s", command);
 		system(command);
 		return 0;
 	}
