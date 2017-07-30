@@ -45,7 +45,7 @@ int main(int argc, char **argv) {
     int blockneeded = 1;
     int blockused = 0;
     struct ext2_super_block *sb = (struct ext2_super_block *)(disk + 1024);
-    //want to make sure we have 1 extra block in case we need one for inserting a file/directory
+    //want to make sure we have 1 extra block in case we need one for inserting a directory
     if (blockneeded + 1 > sb->s_free_blocks_count) {
         printf("not enough space for the new file\n");
         return ENOSPC;
@@ -72,9 +72,6 @@ int main(int argc, char **argv) {
         startingpoint += 1;
         lengthcomp = strlen(token2);
         for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
-            if (pathnode->i_block[blockpointer] == 0){
-                break;
-            }
             directory = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
             sizecheck = 0;
             while (sizecheck < pathnode->i_size) {
@@ -119,9 +116,6 @@ int main(int argc, char **argv) {
     //make sure we don't have another file with the same name in the parent directory
     struct ext2_dir_entry_2 *directorycheck;
     for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
-        if (pathnode->i_block[blockpointer] == 0){
-            break;
-        }
         lengthcomp = strlen(filename);
         directorycheck = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
         sizecheck = 0;

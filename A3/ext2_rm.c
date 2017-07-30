@@ -63,9 +63,6 @@ int main(int argc, char **argv) {
         startpoint +=1;
         lengthcomp = strlen(token2);
         for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
-            if (pathnode->i_block[blockpointer] == 0){
-                break;
-            }
             directory = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
             sizecheck = 0;
             while (sizecheck < pathnode->i_size) {
@@ -179,9 +176,6 @@ int main(int argc, char **argv) {
     check = 0;
     //removing the file from the parent
     for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
-        if (pathnode->i_block[blockpointer] == 0){
-            break;
-        }
         oldentry = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
         sizecheck = 0;
         while (sizecheck < 1024) {

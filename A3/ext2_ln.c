@@ -108,9 +108,6 @@ int main(int argc, char **argv) {
         lengthcomp = strlen(token2);
         startingpoint += 1;
         for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
-            if (pathnode->i_block[blockpointer] == 0){
-                break;
-            }
             directory = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
             sizecheck = 0;
             while (sizecheck < pathnode->i_size) {
@@ -150,9 +147,6 @@ int main(int argc, char **argv) {
     struct ext2_dir_entry_2 *directorycheck;
     unsigned int linknode;
     for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
-        if (pathnode->i_block[blockpointer] == 0){
-            break;
-        }
         lengthcomp = strlen(destname);
         directorycheck = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
         sizecheck = 0;
@@ -187,9 +181,6 @@ int main(int argc, char **argv) {
         lengthcomps = strlen(token4);
         startingpoint += 1;
         for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
-            if (pathnode->i_block[blockpointer] == 0){
-                break;
-            }
             directory = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
             sizecheck = 0;
             while (sizecheck < pathnode->i_size) {
@@ -227,9 +218,6 @@ int main(int argc, char **argv) {
     
     check = 0;
     for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
-        if (pathnode->i_block[blockpointer] == 0){
-            break;
-        }
         lengthcomps = strlen(sourcename);
         directorycheck = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
         sizecheck = 0;
