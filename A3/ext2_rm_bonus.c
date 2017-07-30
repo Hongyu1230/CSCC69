@@ -210,7 +210,6 @@ int main(int argc, char **argv) {
         sizecheck = 0;
         while (sizecheck < 1024) {
 			sizecheck += oldentry->rec_len;
-			printf("%d", sizecheck);
 			char oldname[255];
 			strncpy(oldname, oldentry->name, oldentry->name_len);
 			int oldtype = oldentry->file_type;
@@ -221,7 +220,7 @@ int main(int argc, char **argv) {
 			} else {
 		        sprintf(command, "./ext2_rm %s %s/%s", argv[1 + r], argv[2 + r], oldname);
 			}
-		    printf("%s\n", command);
+		    system(command);
         }
         if (check == 1){
             break;
