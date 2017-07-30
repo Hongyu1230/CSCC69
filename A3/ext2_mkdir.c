@@ -203,6 +203,7 @@ int main(int argc, char **argv) {
             spaceold = 8 + oldentry->name_len + (4 - oldentry->name_len % 4);
             if (sizecheck == 1024 && oldentry->rec_len >= spaceneeded + spaceold){
                 check = 1;
+				printf("%s,%s\n", oldentry->file_type, oldentry->name);
                 oldsize = oldentry->rec_len;
                 oldentry->rec_len = spaceold;
                 newentry = (void *) oldentry + spaceold;
