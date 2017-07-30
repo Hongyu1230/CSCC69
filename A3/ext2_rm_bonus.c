@@ -18,7 +18,7 @@ int main(int argc, char **argv) {
 	
 	int r = 0;
     int option;
-    while ((option = getopt (argc, argv, ":s")) != EOF) {
+    while ((option = getopt (argc, argv, ":r")) != EOF) {
         switch (option) {
         case 'r':
             r++;
