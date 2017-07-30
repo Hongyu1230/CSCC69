@@ -220,7 +220,7 @@ int main(int argc, char **argv) {
 				sprintf(command, "./ext2_rm_bonus %s -r %s/%s", argv[1 + r], argv[2 + r], oldname);
 			} else {
 		        sprintf(command, "./ext2_rm %s %s/%s", argv[1 + r], argv[2 + r], oldname);
-				system(command)
+				system(command);
 			}
         }
         if (check == 1){
