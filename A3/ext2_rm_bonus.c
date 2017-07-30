@@ -279,11 +279,7 @@ int main(int argc, char **argv) {
             }
         }
     }
-        sb->s_free_blocks_count += blockfreed;
-        sb->s_free_inodes_count += 1;
-    }
-	
-    
-    
-    return 0;
+    sb->s_free_blocks_count += blockfreed;
+    sb->s_free_inodes_count += 1;
+	return 0;
 }
