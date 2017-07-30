@@ -158,7 +158,6 @@ int main(int argc, char **argv) {
 		sscanf(command, "./ext2_rm %s %s", argv[1 + r], argv[2 + r]);
 		printf("%s", command);
 		system(command);
-		return 0;
 	}
 	printf("hello");
     
