@@ -53,7 +53,7 @@ int main(int argc, char **argv) {
     char filename[strlen(destpath) + 1];
     int pathlocation = 0;
     token = strtok(destpath, delimiter);
-	//finding the name of our new directory
+    //finding the name of our new directory
     while (token != NULL) {
         strcpy(filename, token);
         pathlocation += 1;
@@ -63,12 +63,12 @@ int main(int argc, char **argv) {
     struct ext2_inode *itable = (struct ext2_inode *)(disk + 1024 * bg->bg_inode_table);
     struct ext2_inode *pathnode = itable + 1;
     token2 = strtok(destpath2, delimiter);
-	int parentnode;
+    int parentnode;
     int sizecheck, check = 0, blockpointer, found = 0, lengthcomp, startingpoint = 0, passedonce = 0;
     struct ext2_dir_entry_2 *directory;
-	//traverse to the 2nd last path to know the parent
+    //traverse to the 2nd last path to know the parent
     while (token2 != NULL && startingpoint < pathlocation - 1) {
-		passedonce = 1;
+        passedonce = 1;
         startingpoint += 1;
         lengthcomp = strlen(token2);
         for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
@@ -80,7 +80,7 @@ int main(int argc, char **argv) {
             while (sizecheck < pathnode->i_size) {
                 if(strncmp(token2, directory->name, directory->name_len) == 0 && lengthcomp == directory->name_len) {
                     pathnode = itable + directory->inode - 1;
-					parentnode = directory->inode;
+                    parentnode = directory->inode;
                     if (!(S_ISDIR(pathnode->i_mode))) {
                         printf("one of the files on the path is not a directory\n");
                         return ENOENT;
@@ -111,12 +111,12 @@ int main(int argc, char **argv) {
         }
     }
     
-	//our parent node is the root since we never gone through the traverse
-	if (passedonce == 0) {
-		parentnode = 2;
-	}
-	
-	//make sure we don't have another file with the same name in the parent directory
+    //our parent node is the root since we never gone through the traverse
+    if (passedonce == 0) {
+        parentnode = 2;
+    }
+    
+    //make sure we don't have another file with the same name in the parent directory
     struct ext2_dir_entry_2 *directorycheck;
     for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
         if (pathnode->i_block[blockpointer] == 0){
@@ -200,7 +200,7 @@ int main(int argc, char **argv) {
     int spaceneeded = 8 + lengthcomp + (4 - lengthcomp % 4);
     int spaceold, oldsize, unusedblock;
     check = 0;
-	//add our new directory entry to the parent directory
+    //add our new directory entry to the parent directory
     for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
         if (pathnode->i_block[blockpointer] == 0){
             unusedblock = blockpointer;
@@ -249,27 +249,27 @@ int main(int argc, char **argv) {
         newentry->file_type = 2;
         strncpy(newentry->name, filename, lengthcomp);
     }
-	//need  . and .. entries for our new directory
-	struct ext2_dir_entry_2 *selfentry;
-	struct ext2_dir_entry_2 *parententry;
-	char dot[1] = ".";
-	char dotdot[2] = "..";
-	selfentry = (struct ext2_dir_entry_2 *) (disk + 1024 * newnode->i_block[0]);
-	selfentry->inode = free_inode;
-	selfentry->rec_len = 12;
-	selfentry->name_len = 1;
-	selfentry->file_type = 2;
-	strncpy(selfentry->name, dot, 1);
-	
-	parententry = (void *) selfentry + 12;
-	parententry->inode = parentnode;
-	parententry->rec_len = 1012;
-	parententry->name_len = 2;
-	parententry->file_type = 2;
-	strncpy(parententry->name, dotdot, 2);
+    //need  . and .. entries for our new directory
+    struct ext2_dir_entry_2 *selfentry;
+    struct ext2_dir_entry_2 *parententry;
+    char dot[1] = ".";
+    char dotdot[2] = "..";
+    selfentry = (struct ext2_dir_entry_2 *) (disk + 1024 * newnode->i_block[0]);
+    selfentry->inode = free_inode;
+    selfentry->rec_len = 12;
+    selfentry->name_len = 1;
+    selfentry->file_type = 2;
+    strncpy(selfentry->name, dot, 1);
+    
+    parententry = (void *) selfentry + 12;
+    parententry->inode = parentnode;
+    parententry->rec_len = 1012;
+    parententry->name_len = 2;
+    parententry->file_type = 2;
+    strncpy(parententry->name, dotdot, 2);
 
     //update our bitmap
-	bbmap = (char *)(disk + 1024 * bg->bg_block_bitmap);
+    bbmap = (char *)(disk + 1024 * bg->bg_block_bitmap);
     for (i = 0; i < 16; i+=1, bbmap +=1) {
         for (pos = 0; pos < 8; pos+=1) {
             if (block_bitmap[(8 * i) + pos] == 1) {

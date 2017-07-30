@@ -42,7 +42,7 @@ int main(int argc, char **argv) {
     const char delimiter[2] = "/";
     char sourcename[strlen(sourcepath) + 1];
     token = strtok(sourcepath, delimiter);
-	//grab the name of our file and filesize
+    //grab the name of our file and filesize
     while (token != NULL) {
         strcpy(sourcename, token);
         token = strtok(NULL, delimiter);
@@ -75,7 +75,7 @@ int main(int argc, char **argv) {
     token2 = strtok(destpath, delimiter);
     int sizecheck, check = 0, blockpointer, found = 0, lengthcomp = 0;
     struct ext2_dir_entry_2 *directory;
-	//traverse to the last directory of our destination
+    //traverse to the last directory of our destination
     while (token2 != NULL) {
         lengthcomp = strlen(token2);
         for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
@@ -117,7 +117,7 @@ int main(int argc, char **argv) {
         }
     }
     
-	//make sure there are no other files with the same name in our destination
+    //make sure there are no other files with the same name in our destination
     struct ext2_dir_entry_2 *directorycheck;
     for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
         if (pathnode->i_block[blockpointer] == 0){
@@ -176,7 +176,7 @@ int main(int argc, char **argv) {
         }
     }
     
-	//copy our data into the blocks
+    //copy our data into the blocks
     int j;
     int m = 0;
     for (i = 0; i < 12 && i < blockneeded; i += 1){
@@ -192,7 +192,7 @@ int main(int argc, char **argv) {
     }
     int n;
     int *indirectionblock;
-	//find a indirection block and allocate blocks to that and copy the rest of the data into it
+    //find a indirection block and allocate blocks to that and copy the rest of the data into it
     if (blockneeded > 12) {
         for (j = 0; j < 128; j +=1){
             if (block_bitmap[j] == 0) {
@@ -227,7 +227,7 @@ int main(int argc, char **argv) {
     int spaceneeded = 8 + lengthcomp + (4 - lengthcomp % 4);
     int spaceold, oldsize, unusedblock;
     check = 0;
-	//add our directory to a used block if we can find one
+    //add our directory to a used block if we can find one
     for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
         if (pathnode->i_block[blockpointer] == 0){
             unusedblock = blockpointer;
@@ -258,7 +258,7 @@ int main(int argc, char **argv) {
         }
     }
     
-	//we hit an unused block, we will use that and make our new entry
+    //we hit an unused block, we will use that and make our new entry
     if(check != 1) {
         for (m = 0; m < 128; m +=1){
              if (block_bitmap[m] == 0) {
@@ -278,7 +278,7 @@ int main(int argc, char **argv) {
         strncpy(newentry->name, sourcename, lengthcomp);
     }
     
-	//updating the bitmap 
+    //updating the bitmap 
     bbmap = (char *)(disk + 1024 * bg->bg_block_bitmap);
     for (i = 0; i < 16; i+=1, bbmap +=1) {
         for (pos = 0; pos < 8; pos+=1) {

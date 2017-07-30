@@ -33,7 +33,7 @@ int main(int argc, char **argv) {
         exit(1);
     }
     int fd = open(argv[1 + s], O_RDWR);
-	//need multiple because strtok breaks our string
+    //need multiple because strtok breaks our string
     char sourcepath[strlen(argv[2 + s]) + 1];
     char destpath[strlen(argv[3 + s]) + 1];
     char sourcepath2[strlen(argv[2 + s]) + 1];
@@ -103,7 +103,7 @@ int main(int argc, char **argv) {
     token2 = strtok(destpath2, delimiter);
     int sizecheck, check = 0, blockpointer, found = 0, lengthcomp = 0, startingpoint = 0;
     struct ext2_dir_entry_2 *directory;
-	//traverse for our parent of the destination
+    //traverse for our parent of the destination
     while (token2 != NULL && startingpoint < destlength - 1) {
         lengthcomp = strlen(token2);
         startingpoint += 1;
@@ -146,7 +146,7 @@ int main(int argc, char **argv) {
         }
     }
     
-	//find that we don't have a existing file for our link
+    //find that we don't have a existing file for our link
     struct ext2_dir_entry_2 *directorycheck;
     unsigned int linknode;
     for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
@@ -283,7 +283,7 @@ int main(int argc, char **argv) {
     
     int free_inode = -1;
     struct ext2_inode *newnode;
-	//we need a free inode if we are to do a symbolic link
+    //we need a free inode if we are to do a symbolic link
     if (s != 0) {
         for (i = 0; i < 32; i+=1){
             if (inode_bitmap[i] == 0){
@@ -326,7 +326,7 @@ int main(int argc, char **argv) {
     int spaceneeded = 8 + lengthcomp + (4 - lengthcomp % 4);
     int spaceold, oldsize, unusedblock;
     check = 0;
-	//adding the link to our parent directory for the link
+    //adding the link to our parent directory for the link
     for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
         if (destinationnode->i_block[blockpointer] == 0){
             unusedblock = blockpointer;
@@ -363,7 +363,7 @@ int main(int argc, char **argv) {
     }
     
     int m;
-	//we found a unusedblock, add our link to that instead
+    //we found a unusedblock, add our link to that instead
     if(check != 1) {
         for (m = 0; m < 128; m +=1){
              if (block_bitmap[m] == 0) {
@@ -388,7 +388,7 @@ int main(int argc, char **argv) {
         strncpy(newentry->name, destname, lengthcomp);
     }
     
-	//update our bitmaps
+    //update our bitmaps
     bbmap = (char *)(disk + 1024 * bg->bg_block_bitmap);
     for (i = 0; i < 16; i+=1, bbmap +=1) {
         for (pos = 0; pos < 8; pos+=1) {

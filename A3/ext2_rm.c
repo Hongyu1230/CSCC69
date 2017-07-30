@@ -39,7 +39,7 @@ int main(int argc, char **argv) {
     char filename[strlen(destpath) + 1];
     token = strtok(destpath, delimiter);
     int stoppoint = 0;
-	//get the filename we are supposed to remove
+    //get the filename we are supposed to remove
     while (token != NULL) {
         strcpy(filename, token);
         stoppoint +=1;
@@ -58,7 +58,7 @@ int main(int argc, char **argv) {
     token2 = strtok(destpath2, delimiter);
     int sizecheck, check = 0, blockpointer, found = 0, lengthcomp, startpoint = 0;
     struct ext2_dir_entry_2 *directory;
-	//traversal to the parent directory of our path
+    //traversal to the parent directory of our path
     while (token2 != NULL && startpoint < stoppoint - 1) {
         startpoint +=1;
         lengthcomp = strlen(token2);
@@ -105,7 +105,7 @@ int main(int argc, char **argv) {
     struct ext2_dir_entry_2 *directorycheck;
     struct ext2_inode *deletionnode;
     struct ext2_dir_entry_2 *deletiondirectory;
-	//make sure the file at the location is not a directory
+    //make sure the file at the location is not a directory
     for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
         lengthcomp = strlen(filename);
         directorycheck = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
@@ -177,7 +177,7 @@ int main(int argc, char **argv) {
     struct ext2_dir_entry_2 *oldentry;
     int oldsize, oldlen;
     check = 0;
-	//removing the directory from the parent b
+    //removing the directory from the parent b
     for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
         if (pathnode->i_block[blockpointer] == 0){
             break;
@@ -209,7 +209,7 @@ int main(int argc, char **argv) {
         }
     }
     
-	//if the inode has no links left, we can safely release the inode and blocks on the bitmap
+    //if the inode has no links left, we can safely release the inode and blocks on the bitmap
     if (deletionnode->i_links_count == 0) {
         bbmap = (char *)(disk + 1024 * bg->bg_block_bitmap);
         for (i = 0; i < 16; i+=1, bbmap +=1) {
