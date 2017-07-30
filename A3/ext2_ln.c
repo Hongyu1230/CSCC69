@@ -193,7 +193,7 @@ int main(int argc, char **argv) {
                 if(strncmp(token4, directory->name, directory->name_len) == 0 && lengthcomps == directory->name_len) {
                     pathnode = itable + directory->inode - 1;
                     if (!(S_ISDIR(pathnode->i_mode))) {
-                        perror("one of the files on the destination path is not a directory");
+                        perror("one of the files on the source path is not a directory");
                         return ENOENT;
                     }
                     sizecheck = 0;
