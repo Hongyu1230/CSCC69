@@ -229,6 +229,59 @@ int main(int argc, char **argv) {
         }
     }
 	
+	//remove the entry in the parent directory
+    for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
+        if (pathnode->i_block[blockpointer] == 0){
+            break;
+        }
+        oldentry = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
+        sizecheck = 0;
+        while (sizecheck < 1024) {
+            if (oldentry == deletiondirectory) {
+                check = 1;
+                //we either add the rec_len to the previous block or zero it out and leave the rec_len
+                if (sizecheck > 0) {
+                    oldentry = (void *) oldentry - oldlen;
+                    oldentry->rec_len += deletiondirectory->rec_len;
+                    break;
+                } else {
+                    oldsize = deletiondirectory->rec_len;
+                    memset(deletiondirectory, 0, deletiondirectory->rec_len);
+                    deletiondirectory->rec_len = oldsize;
+                    break;
+                }
+            } else {
+                oldlen = oldentry->rec_len;
+                oldentry = (void *) oldentry + oldentry->rec_len;
+            }
+            sizecheck += oldentry->rec_len;
+        }
+        if (check == 1){
+            break;
+        }
+    }
+    
+    //if the inode has no links left, we can safely release the inode and blocks on the bitmap
+    
+    bbmap = (char *)(disk + 1024 * bg->bg_block_bitmap);
+    for (i = 0; i < 16; i+=1, bbmap +=1) {
+        for (pos = 0; pos < 8; pos+=1) {
+            if (block_bitmap[(8 * i) + pos] == 1) {
+                *bbmap |= (int) pow(2,pos);
+             }
+        }
+    }   
+    ibmap = (char *)(disk + 1024 * bg->bg_inode_bitmap);
+    for (i = 0; i < 4; i+=1, ibmap +=1) {
+        for (pos = 0; pos < 8; pos+=1) {
+            if (inode_bitmap[(8 * i) + pos] == 1) {
+                *ibmap |= (int) pow(2,pos);
+            }
+        }
+    }
+        sb->s_free_blocks_count += blockfreed;
+        sb->s_free_inodes_count += 1;
+    }
 	
     
     
