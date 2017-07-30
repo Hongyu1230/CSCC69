@@ -15,8 +15,8 @@ unsigned char *disk;
 
 
 int main(int argc, char **argv) {
-	
-	int r = 0;
+    
+    int r = 0;
     int option;
     while ((option = getopt (argc, argv, ":r")) != EOF) {
         switch (option) {
@@ -121,7 +121,7 @@ int main(int argc, char **argv) {
     struct ext2_dir_entry_2 *deletiondirectory;
     //make sure the file at the location is not a directory if the r tag is not on
     for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
-		if (pathnode->i_block[blockpointer] == 0){
+        if (pathnode->i_block[blockpointer] == 0){
             break;
         }
         lengthcomp = strlen(filename);
@@ -156,13 +156,13 @@ int main(int argc, char **argv) {
         printf("cannot find the file at the location given\n");
         return ENOENT;
     }
-	//if this is a file, we do nothing different, call our old command
-	if (deletiondirectory->file_type != 2) {
-		char command[strlen(argv[1 + r]) + strlen(argv[2 + r]) + 30];
-		sprintf(command, "./ext2_rm %s %s", argv[1 + r], argv[2 + r]);
-		system(command);
-		return 0;
-	}
+    //if this is a file, we do nothing different, call our old command
+    if (deletiondirectory->file_type != 2) {
+        char command[strlen(argv[1 + r]) + strlen(argv[2 + r]) + 30];
+        sprintf(command, "./ext2_rm %s %s", argv[1 + r], argv[2 + r]);
+        system(command);
+        return 0;
+    }
     
     
     int inode_bitmap[32];
@@ -201,33 +201,33 @@ int main(int argc, char **argv) {
     struct ext2_dir_entry_2 *oldentry;
     int oldsize, oldlen;
     check = 0;
-	//recursively remove all in the deletion directory
-	for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
+    //recursively remove all in the deletion directory
+    for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
         if (deletionnode->i_block[blockpointer] == 0){
             break;
         }
         oldentry = (struct ext2_dir_entry_2 *)(disk + 1024 * deletionnode->i_block[blockpointer]);
         sizecheck = 0;
         while (sizecheck < 1024) {
-			sizecheck += oldentry->rec_len;
-			char oldname[255];
-			strncpy(oldname, oldentry->name, oldentry->name_len);
-			int oldtype = oldentry->file_type;
-			oldentry = (void *) oldentry + oldentry->rec_len;
-			char command[strlen(argv[1 + r]) + strlen(argv[2 + r]) + 300];
-			if (oldtype == 2){
-			    if (strcmp(oldname,".") != 0 && strcmp(oldname,"..") != 0){
-				    sprintf(command, "./ext2_rm_bonus %s -r %s/%s", argv[1 + r], argv[2 + r], oldname);
-					system(command);
-				}
-			} else {
-		        sprintf(command, "./ext2_rm %s %s/%s", argv[1 + r], argv[2 + r], oldname);
-				system(command);
-			}
+            sizecheck += oldentry->rec_len;
+            char oldname[255];
+            strncpy(oldname, oldentry->name, oldentry->name_len);
+            int oldtype = oldentry->file_type;
+            oldentry = (void *) oldentry + oldentry->rec_len;
+            char command[strlen(argv[1 + r]) + strlen(argv[2 + r]) + 300];
+            if (oldtype == 2){
+                if (strcmp(oldname,".") != 0 && strcmp(oldname,"..") != 0){
+                    sprintf(command, "./ext2_rm_bonus %s -r %s/%s", argv[1 + r], argv[2 + r], oldname);
+                    system(command);
+                }
+            } else {
+                sprintf(command, "./ext2_rm %s %s/%s", argv[1 + r], argv[2 + r], oldname);
+                system(command);
+            }
         }
     }
-	
-	//remove the entry in the parent directory
+    
+    //remove the entry in the parent directory
     for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
         if (pathnode->i_block[blockpointer] == 0){
             break;
@@ -277,5 +277,5 @@ int main(int argc, char **argv) {
     }
     sb->s_free_blocks_count += blockfreed;
     sb->s_free_inodes_count += 1;
-	return 0;
+    return 0;
 }
