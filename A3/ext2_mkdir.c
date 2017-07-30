@@ -246,14 +246,12 @@ int main(int argc, char **argv) {
 	selfentry->rec_len = 12;
 	selfentry->name_len = 1;
 	selfentry->file_type = 2;
-	strncpy(selfentry->name, '.', 1);
 	
 	parententry = (disk + 1024 * newnode->i_block[0] + 12);
 	parententry->inode = parentnode;
 	parententry->rec_len = 12;
 	parententry->name_len = 2;
 	parententry->file_type = 2;
-	strncpy(parententry->name, '..', 2);
     
 	bbmap = (char *)(disk + 1024 * bg->bg_block_bitmap);
     for (i = 0; i < 16; i+=1, bbmap +=1) {
