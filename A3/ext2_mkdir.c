@@ -68,14 +68,14 @@ int main(int argc, char **argv) {
     struct ext2_dir_entry_2 *directory;
     //traverse to the 2nd last path to know the parent
     while (token2 != NULL && startingpoint < pathlocation - 1) {
-		if (pathnode->i_block[blockpointer] == 0){
-            printf("cannot find destination directory on disk\n");
-            return ENOENT;
-        }
         passedonce = 1;
         startingpoint += 1;
         lengthcomp = strlen(token2);
         for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
+			if (pathnode->i_block[blockpointer] == 0){
+                printf("cannot find destination directory on disk\n");
+                return ENOENT;
+            }
             directory = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
             sizecheck = 0;
             while (sizecheck < pathnode->i_size) {
