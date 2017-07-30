@@ -44,9 +44,9 @@ int main(int argc, char **argv) {
 	//parses path argument
 	int i, store;
 	int depth = 0;
-	char path[strlen(argv[2+a])];
+	char path[strlen(argv[2+a])+1];
 	strcpy(path, argv[2+a]);
-	char *list[strlen(argv[2+a])]; 
+	char *list[strlen(argv[2+a])+1]; 
 	char *segment = strtok(path, "/");
 
 	for (i = 0; segment != NULL  ; i++) {
