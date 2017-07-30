@@ -37,21 +37,21 @@ int main(int argc, char **argv) {
     char destpath[strlen(argv[3 + s])];
     char sourcepath2[strlen(argv[2 + s])];
     char destpath2[strlen(argv[3 + s])];
-	char sourcepath3[strlen(argv[2 + s])];
+    char sourcepath3[strlen(argv[2 + s])];
     strcpy(sourcepath, argv[2 + s]);
     strcpy(destpath, argv[3 + s]);
     strcpy(sourcepath2, argv[2 + s]);
     strcpy(destpath2, argv[3 + s]);
-	strcpy(sourcepath3, argv[2 + s]);
+    strcpy(sourcepath3, argv[2 + s]);
     if (destpath[0] != '/' || sourcepath[0] != '/') {
         perror("the paths needs to start from root, beginning with /");
         return ENOENT;
     }
-	if (destpath[strlen(argv[3 + s]) - 1] == '/') {
+    if (destpath[strlen(argv[3 + s]) - 1] == '/') {
         perror("the destination path cannot end with a /");
         return EISDIR;
     }
-	if (sourcepath[strlen(argv[2 + s]) - 1] == '/' && s == 0) {
+    if (sourcepath[strlen(argv[2 + s]) - 1] == '/' && s == 0) {
         perror("the source cannot end with a /, needs to be a directory unless you are creating a symbolic link");
         return EISDIR;
     }
@@ -88,7 +88,7 @@ int main(int argc, char **argv) {
     if (s == 0){
         blockneeded = 0;
     } else {
-		float sizeforlink = strlen(destpath);
+        float sizeforlink = strlen(destpath);
         blockneeded = ceil(sizeforlink/1024);
     }
     if (blockneeded + 1 > sb->s_free_blocks_count) {
@@ -102,7 +102,7 @@ int main(int argc, char **argv) {
     token2 = strtok(destpath2, delimiter);
     int sizecheck, check = 0, blockpointer, found = 0, lengthcomp = 0, startingpoint = 0;
     struct ext2_dir_entry_2 *directory;
-    while (token2 != NULL && S_ISDIR(pathnode->i_mode) && startingpoint < destlength - 1) {
+    while (token2 != NULL && startingpoint < destlength - 1) {
         lengthcomp = strlen(token2);
         startingpoint += 1;
         for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
@@ -114,6 +114,10 @@ int main(int argc, char **argv) {
             while (sizecheck < pathnode->i_size) {
                 if(strncmp(token2, directory->name, directory->name_len) == 0 && lengthcomp == directory->name_len) {
                     pathnode = itable + directory->inode - 1;
+                    if (!(S_ISDIR(pathnode->i_mode))) {
+                        perror("one of the files on the destination path is not a directory");
+                        return ENOENT;
+                    }
                     sizecheck = 0;
                     check = 1;
                     found = 1;
@@ -139,12 +143,7 @@ int main(int argc, char **argv) {
             return ENOENT;
         }
     }
-	
-	if (strcmp(token2, destname) != 0) {
-		perror("cannot find one of the paths for the destination disk");
-        return ENOENT;
-	}
-	
+    
     struct ext2_dir_entry_2 *directorycheck;
     unsigned int linknode;
     for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
@@ -181,7 +180,7 @@ int main(int argc, char **argv) {
     found = 0;
     int lengthcomps = 0;
     startingpoint = 0;
-    while (token4 != NULL && S_ISDIR(pathnode->i_mode) && startingpoint < sourcelength - 1) {
+    while (token4 != NULL && startingpoint < sourcelength - 1) {
         lengthcomps = strlen(token4);
         startingpoint += 1;
         for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
@@ -193,6 +192,10 @@ int main(int argc, char **argv) {
             while (sizecheck < pathnode->i_size) {
                 if(strncmp(token4, directory->name, directory->name_len) == 0 && lengthcomps == directory->name_len) {
                     pathnode = itable + directory->inode - 1;
+                    if (!(S_ISDIR(pathnode->i_mode))) {
+                        perror("one of the files on the destination path is not a directory");
+                        return ENOENT;
+                    }
                     sizecheck = 0;
                     check = 1;
                     found = 1;
@@ -218,12 +221,7 @@ int main(int argc, char **argv) {
             return ENOENT;
         }
     }
-	
-	if (strcmp(token4, sourcename) != 0) {
-		perror("cannot find one of the paths for the link source");
-        return ENOENT;
-	}
-	
+    
     check = 0;
     for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
         if (pathnode->i_block[blockpointer] == 0){
@@ -295,7 +293,7 @@ int main(int argc, char **argv) {
             return ENOSPC;
         }
         newnode = itable + free_inode - 1;
-		newnode->i_mode = EXT2_S_IFLNK | S_IRWXO;
+        newnode->i_mode = EXT2_S_IFLNK | S_IRWXO;
         newnode->i_size = strlen(sourcepath3);
         newnode->i_blocks = blockneeded * 2;
         newnode->i_links_count = 1;

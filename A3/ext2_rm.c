@@ -29,14 +29,14 @@ int main(int argc, char **argv) {
         perror("the path needs to start from root, beginning with /");
         return ENOENT;
     }
-	if (destpath[strlen(argv[2]) - 1] == '/') {
+    if (destpath[strlen(argv[2]) - 1] == '/') {
         perror("the removed file cannot end with /, needs to be a regular file not a directory");
         return EISDIR;
     }
     char *token;
     char *token2;
     const char delimiter[2] = "/";
-	char filename[strlen(destpath)];
+    char filename[strlen(destpath)];
     token = strtok(destpath, delimiter);
     int stoppoint = 0;
     while (token != NULL) {
@@ -57,7 +57,7 @@ int main(int argc, char **argv) {
     token2 = strtok(destpath2, delimiter);
     int sizecheck, check = 0, blockpointer, found = 0, lengthcomp, startpoint = 0;
     struct ext2_dir_entry_2 *directory;
-    while (token2 != NULL && S_ISDIR(pathnode->i_mode) && startpoint < stoppoint - 1) {
+    while (token2 != NULL && startpoint < stoppoint - 1) {
         startpoint +=1;
         lengthcomp = strlen(token2);
         for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
@@ -69,6 +69,10 @@ int main(int argc, char **argv) {
             while (sizecheck < pathnode->i_size) {
                 if(strncmp(token2, directory->name, directory->name_len) == 0 && lengthcomp == directory->name_len) {
                     pathnode = itable + directory->inode - 1;
+                    if (!(S_ISDIR(pathnode->i_mode))) {
+                        perror("one of the files on the path is not a directory");
+                        return ENOENT;
+                    }
                     sizecheck = 0;
                     check = 1;
                     found = 1;
@@ -94,12 +98,7 @@ int main(int argc, char **argv) {
             return ENOENT;
         }
     }
-	
-	if (strcmp(token2, filename) != 0) {
-		perror("cannot find destination directory on disk");
-        return ENOENT;
-	}
-	
+    
     check = 0;
     struct ext2_dir_entry_2 *directorycheck;
     struct ext2_inode *deletionnode;
@@ -162,8 +161,8 @@ int main(int argc, char **argv) {
         }
     }
     deletionnode->i_links_count -= 1;
-	unsigned int newdtime = (unsigned int) time(NULL);
-	deletionnode->i_dtime = newdtime;
+    unsigned int newdtime = (unsigned int) time(NULL);
+    deletionnode->i_dtime = newdtime;
     int blockfreed = 0;
     //zero out the bitmap for inode and blocks for our operation later
     for (i = 0; i < 12; i +=1){
@@ -189,17 +188,17 @@ int main(int argc, char **argv) {
                 check = 1;
                 //we clearly have a entry before this
                 if (sizecheck > 0) {
-					oldentry = (void *) oldentry - oldlen;
+                    oldentry = (void *) oldentry - oldlen;
                     oldentry->rec_len += deletiondirectory->rec_len;
                     break;
                 } else {
                     oldsize = deletiondirectory->rec_len;
                     memset(deletiondirectory, 0, deletiondirectory->rec_len);
                     deletiondirectory->rec_len = oldsize;
-					break;
+                    break;
                 }
             } else {
-				oldlen = oldentry->rec_len;
+                oldlen = oldentry->rec_len;
                 oldentry = (void *) oldentry + oldentry->rec_len;
             }
             sizecheck += oldentry->rec_len;

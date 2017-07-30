@@ -45,7 +45,7 @@ int main(int argc, char **argv) {
     int blockneeded = 1;
     int blockused = 0;
     struct ext2_super_block *sb = (struct ext2_super_block *)(disk + 1024);
-	//want to make sure we have 1 extra block in case we need one for inserting a file/directory
+    //want to make sure we have 1 extra block in case we need one for inserting a file/directory
     if (blockneeded + 1 > sb->s_free_blocks_count) {
         perror("not enough space for the new file");
         return ENOSPC;
@@ -64,7 +64,7 @@ int main(int argc, char **argv) {
     token2 = strtok(destpath2, delimiter);
     int sizecheck, check = 0, blockpointer, found = 0, lengthcomp, startingpoint = 0;
     struct ext2_dir_entry_2 *directory;
-    while (token2 != NULL && S_ISDIR(pathnode->i_mode) && startingpoint < pathlocation - 1) {
+    while (token2 != NULL && startingpoint < pathlocation - 1) {
         startingpoint += 1;
         lengthcomp = strlen(token2);
         for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
@@ -76,6 +76,10 @@ int main(int argc, char **argv) {
             while (sizecheck < pathnode->i_size) {
                 if(strncmp(token2, directory->name, directory->name_len) == 0 && lengthcomp == directory->name_len) {
                     pathnode = itable + directory->inode - 1;
+                    if (!(S_ISDIR(pathnode->i_mode))) {
+                        perror("one of the files on the path is not a directory");
+                        return ENOENT;
+                    }
                     sizecheck = 0;
                     check = 1;
                     found = 1;
@@ -101,11 +105,7 @@ int main(int argc, char **argv) {
             return ENOENT;
         }
     }
-	if (strcmp(token2, filename) != 0) {
-		perror("cannot one of the paths for the destination on disk");
-        return ENOENT;
-	}
-	
+    
     struct ext2_dir_entry_2 *directorycheck;
     for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
         if (pathnode->i_block[blockpointer] == 0){
