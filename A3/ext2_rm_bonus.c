@@ -152,6 +152,11 @@ int main(int argc, char **argv) {
         printf("cannot find the file at the location given\n");
         return ENOENT;
     }
+	
+	if (deletiondirectory->file_type != 2) {
+		system("./ext2_rm %s %s %s", argv[1 + r], argv[2 + r], argv[3 + r]);
+		return 0;
+	}
     
     
     int inode_bitmap[32];
