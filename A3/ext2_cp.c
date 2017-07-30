@@ -25,10 +25,10 @@ int main(int argc, char **argv) {
         printf("could not find source file\n");
         return ENOENT;
     }
-    char sourcepath[strlen(argv[2])];
-    char destpath[strlen(argv[3])];
-    strcpy(sourcepath, argv[2]);
-    strcpy(destpath, argv[3]);
+    char sourcepath[strlen(argv[2]) + 1];
+    char destpath[strlen(argv[3]) + 1];
+    strncpy(sourcepath, argv[2], strlen(argv[2]);
+    strncpy(destpath, argv[3], strlen(argv[3]));
     if (destpath[0] != '/') {
         printf("the path needs to start from root, beginning with /\n");
         return ENOENT;
@@ -40,10 +40,10 @@ int main(int argc, char **argv) {
     char *token;
     char *token2;
     const char delimiter[2] = "/";
-    char sourcename[strlen(sourcepath)];
+    char sourcename[strlen(sourcepath) + 1];
     token = strtok(sourcepath, delimiter);
     while (token != NULL) {
-        strcpy(sourcename, token);
+        strncpy(sourcename, token, strlen(token));
         token = strtok(NULL, delimiter);
     }
     disk = mmap(NULL, 128 * 1024, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);

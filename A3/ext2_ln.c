@@ -33,16 +33,16 @@ int main(int argc, char **argv) {
         exit(1);
     }
     int fd = open(argv[1 + s], O_RDWR);
-    char sourcepath[strlen(argv[2 + s])];
-    char destpath[strlen(argv[3 + s])];
-    char sourcepath2[strlen(argv[2 + s])];
-    char destpath2[strlen(argv[3 + s])];
-    char sourcepath3[strlen(argv[2 + s])];
-    strcpy(sourcepath, argv[2 + s]);
-    strcpy(destpath, argv[3 + s]);
-    strcpy(sourcepath2, argv[2 + s]);
-    strcpy(destpath2, argv[3 + s]);
-    strcpy(sourcepath3, argv[2 + s]);
+    char sourcepath[strlen(argv[2 + s]) + 1];
+    char destpath[strlen(argv[3 + s]) + 1];
+    char sourcepath2[strlen(argv[2 + s]) + 1];
+    char destpath2[strlen(argv[3 + s]) + 1];
+    char sourcepath3[strlen(argv[2 + s]) + 1];
+    strncpy(sourcepath, argv[2 + s], strlen(argv[2 + s]));
+    strncpy(destpath, argv[3 + s], strlen(argv[2 + s]));
+    strncpy(sourcepath2, argv[2 + s], strlen(argv[2 + s]));
+    strncpy(destpath2, argv[3 + s], strlen(argv[2 + s]));
+    strncpy(sourcepath3, argv[2 + s], strlen(argv[2 + s]));
     if (destpath[0] != '/' || sourcepath[0] != '/') {
         printf("the paths needs to start from root, beginning with /\n");
         return ENOENT;
@@ -60,20 +60,20 @@ int main(int argc, char **argv) {
     char *token3;
     char *token4;
     const char delimiter[2] = "/";
-    char sourcename[strlen(sourcepath)];
-    char destname[strlen(destpath)];
+    char sourcename[strlen(sourcepath) + 1];
+    char destname[strlen(destpath) + 1];
     token = strtok(sourcepath, delimiter);
     int sourcelength = 0, destlength = 0;
     //to get the source of the link
     while (token != NULL) {
-        strcpy(sourcename, token);
+        strncpy(sourcename, token, strlen(token));
         sourcelength += 1;
         token = strtok(NULL, delimiter);
     }
     token3 = strtok(destpath, delimiter);
     //to get the destination of the link
     while (token3 != NULL) {
-        strcpy(destname, token3);
+        strncpy(destname, token3, strlen(token));
         destlength += 1;
         token3 = strtok(NULL, delimiter);
     }

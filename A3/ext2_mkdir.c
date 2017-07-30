@@ -20,11 +20,11 @@ int main(int argc, char **argv) {
         exit(1);
     }
     int fd = open(argv[1], O_RDWR);
-    char destpath[strlen(argv[2])];
+    char destpath[strlen(argv[2]) + 1];
     //for the 2nd strtok call
-    char destpath2[strlen(argv[2])];
+    char destpath2[strlen(argv[2]) + 1];
     strncpy(destpath, argv[2], strlen(argv[2]));
-    strcpy(destpath2, argv[2]);
+    strncpy(destpath2, argv[2], strlen(argv[2]));
     if (destpath[0] != '/') {
         printf("the path needs to start from root, beginning with /\n");
         return ENOENT;
@@ -50,11 +50,11 @@ int main(int argc, char **argv) {
         printf("not enough space for the new file\n");
         return ENOSPC;
     }
-    char filename[strlen(destpath)];
+    char filename[strlen(destpath) + 1];
     int pathlocation = 0;
     token = strtok(destpath, delimiter);
     while (token != NULL) {
-        strcpy(filename, token);
+        strncpy(filename, token, strlen(token));
         pathlocation += 1;
         token = strtok(NULL, delimiter);
     }
