@@ -139,6 +139,12 @@ int main(int argc, char **argv) {
             return ENOENT;
         }
     }
+	
+	if (token2 != NULL) {
+		perror("cannot find one of the paths for the destination disk");
+        return ENOENT;
+	}
+	
     struct ext2_dir_entry_2 *directorycheck;
     unsigned int linknode;
     for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
@@ -212,6 +218,12 @@ int main(int argc, char **argv) {
             return ENOENT;
         }
     }
+	
+	if (token4 != NULL) {
+		perror("cannot find one of the paths for the link source");
+        return ENOENT;
+	}
+	
     check = 0;
     for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
         if (pathnode->i_block[blockpointer] == 0){

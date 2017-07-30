@@ -94,6 +94,12 @@ int main(int argc, char **argv) {
             return ENOENT;
         }
     }
+	
+	if (token2 != filename) {
+		perror("cannot find destination directory on disk");
+        return ENOENT;
+	}
+	
     check = 0;
     struct ext2_dir_entry_2 *directorycheck;
     struct ext2_inode *deletionnode;
