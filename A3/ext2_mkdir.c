@@ -239,15 +239,13 @@ int main(int argc, char **argv) {
         newentry->file_type = 2;
         strncpy(newentry->name, filename, lengthcomp);
     }
-	struct ext2_dir_entry_2 *selfentry;
-	struct ext2_dir_entry_2 *parententry;
-	selfentry = (disk + 1024 * newnode->i_block[0]);
+	struct ext2_dir_entry_2 *selfentry = (disk + 1024 * newnode->i_block[0]);
+	struct ext2_dir_entry_2 *parententry = (disk + 1024 * newnode->i_block[0] + 12);
 	selfentry->inode = free_inode;
 	selfentry->rec_len = 12;
 	selfentry->name_len = 1;
 	selfentry->file_type = 2;
 	
-	parententry = (disk + 1024 * newnode->i_block[0] + 12);
 	parententry->inode = parentnode;
 	parententry->rec_len = 12;
 	parententry->name_len = 2;
