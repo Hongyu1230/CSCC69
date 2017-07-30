@@ -216,7 +216,7 @@ int main(int argc, char **argv) {
 			oldentry = (void *) oldentry + oldentry->rec_len;
 			char command[strlen(argv[1 + r]) + strlen(argv[2 + r]) + 300];
 			if (oldtype == 2){
-				sprintf(command, "./ext2_rm %s -r %s/%s", argv[1 + r], argv[2 + r], oldname);
+				sprintf(command, "./ext2_rm_bonus %s -r %s/%s", argv[1 + r], argv[2 + r], oldname);
 			} else {
 		        sprintf(command, "./ext2_rm %s %s/%s", argv[1 + r], argv[2 + r], oldname);
 			}
