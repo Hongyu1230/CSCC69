@@ -210,12 +210,12 @@ int main(int argc, char **argv) {
         sizecheck = 0;
         while (sizecheck < 1024) {
 			sizecheck += oldentry->rec_len;
-			char oldname[255] = oldentry->name;
+			char oldname[255];
+			strncpy(oldname, oldentry->name, oldentry->name_len);
 			int oldtype = oldentry->file_type;
-			unsigned short oldmode = oldentry->i_mode;
 			oldentry = (void *) oldentry + oldentry->rec_len;
 			char command[strlen(argv[1 + r]) + strlen(argv[2 + r]) + 300];
-			if (S_ISDIR(oldmode)){
+			if (oldtype == 2){
 				sprintf(command, "./ext2_rm %s -r %s/%s", argv[1 + r], argv[2 + r], oldname);
 			} else {
 		        sprintf(command, "./ext2_rm %s %s/%s", argv[1 + r], argv[2 + r], oldname);
