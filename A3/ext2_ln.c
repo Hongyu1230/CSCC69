@@ -105,6 +105,10 @@ int main(int argc, char **argv) {
     struct ext2_dir_entry_2 *directory;
     //traverse for our parent of the destination
     while (token2 != NULL && startingpoint < destlength - 1) {
+		if (pathnode->i_block[blockpointer] == 0){
+            printf("cannot one of the files on the file path\n");
+            return ENOENT;
+        }
         lengthcomp = strlen(token2);
         startingpoint += 1;
         for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
@@ -123,9 +127,6 @@ int main(int argc, char **argv) {
                     token2 = strtok(NULL, delimiter);
                     break;
                 } else {
-                    if (directory->rec_len == 0) {
-                        break;
-                    }
                     sizecheck += directory->rec_len;
                     directory = (void *) directory + directory->rec_len;
                 }
@@ -147,6 +148,9 @@ int main(int argc, char **argv) {
     struct ext2_dir_entry_2 *directorycheck;
     unsigned int linknode;
     for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
+		if (pathnode->i_block[blockpointer] == 0){
+            break;
+        }
         lengthcomp = strlen(destname);
         directorycheck = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
         sizecheck = 0;
@@ -178,6 +182,10 @@ int main(int argc, char **argv) {
     int lengthcomps = 0;
     startingpoint = 0;
     while (token4 != NULL && startingpoint < sourcelength - 1) {
+		if (pathnode->i_block[blockpointer] == 0){
+            printf("cannot one of the files on the file path\n");
+            return ENOENT;
+        }
         lengthcomps = strlen(token4);
         startingpoint += 1;
         for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
@@ -218,6 +226,9 @@ int main(int argc, char **argv) {
     
     check = 0;
     for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
+		if (pathnode->i_block[blockpointer] == 0){
+            break;
+        }
         lengthcomps = strlen(sourcename);
         directorycheck = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
         sizecheck = 0;

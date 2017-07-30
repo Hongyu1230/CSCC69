@@ -60,6 +60,10 @@ int main(int argc, char **argv) {
     struct ext2_dir_entry_2 *directory;
     //traversal to the parent directory of our path
     while (token2 != NULL && startpoint < stoppoint - 1) {
+		if (pathnode->i_block[blockpointer] == 0){
+            printf("cannot one of the files on the file path\n");
+            return ENOENT;
+        }
         startpoint +=1;
         lengthcomp = strlen(token2);
         for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
@@ -78,9 +82,6 @@ int main(int argc, char **argv) {
                     token2 = strtok(NULL, delimiter);
                     break;
                 } else {
-                    if (directory->rec_len == 0) {
-                        break;
-                    }
                     sizecheck += directory->rec_len;
                     directory = (void *) directory + directory->rec_len;
                 }
@@ -104,6 +105,9 @@ int main(int argc, char **argv) {
     struct ext2_dir_entry_2 *deletiondirectory;
     //make sure the file at the location is not a directory
     for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
+		if (pathnode->i_block[blockpointer] == 0){
+            break;
+        }
         lengthcomp = strlen(filename);
         directorycheck = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
         sizecheck = 0;
@@ -193,9 +197,6 @@ int main(int argc, char **argv) {
                     break;
                 }
             } else {
-				if (oldentry->rec_len == 0) {
-                    break;
-                }
                 oldlen = oldentry->rec_len;
                 oldentry = (void *) oldentry + oldentry->rec_len;
             }

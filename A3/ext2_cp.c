@@ -77,6 +77,10 @@ int main(int argc, char **argv) {
     struct ext2_dir_entry_2 *directory;
     //traverse to the last directory of our destination
     while (token2 != NULL) {
+		if (pathnode->i_block[blockpointer] == 0){
+            printf("cannot find destination directory on disk\n");
+            return ENOENT;
+        }
         lengthcomp = strlen(token2);
         for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
             directory = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
@@ -94,9 +98,6 @@ int main(int argc, char **argv) {
                     token2 = strtok(NULL, delimiter);
                     break;
                 } else {
-                    if (directory->rec_len == 0) {
-                        break;
-                    }
                     sizecheck += directory->rec_len;
                     directory = (void *) directory + directory->rec_len;
                 }
@@ -117,6 +118,9 @@ int main(int argc, char **argv) {
     //make sure there are no other files with the same name in our destination
     struct ext2_dir_entry_2 *directorycheck;
     for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
+		if (pathnode->i_block[blockpointer] == 0){
+            break;
+        }
         lengthcomp = strlen(sourcename);
         directorycheck = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
         sizecheck = 0;
@@ -125,9 +129,6 @@ int main(int argc, char **argv) {
                 printf("a file or directory with the name already exists\n");
                 return EEXIST;
             } else {
-                if (directorycheck->rec_len == 0) {
-                    break;
-                }
                 sizecheck += directorycheck->rec_len;
                 directorycheck = (void *) directorycheck + directorycheck->rec_len;
             }
