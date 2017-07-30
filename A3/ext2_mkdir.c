@@ -101,7 +101,7 @@ int main(int argc, char **argv) {
             return ENOENT;
         }
     }
-	printf("%s", token2);
+	printf("%s, %s", token2, filename);
 	if (token2 != filename) {
 		perror("cannot one of the paths for the destination on disk");
         return ENOENT;
