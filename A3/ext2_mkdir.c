@@ -247,8 +247,8 @@ int main(int argc, char **argv) {
     //need  . and .. entries for our new directory
     struct ext2_dir_entry_2 *selfentry;
     struct ext2_dir_entry_2 *parententry;
-    char dot[1] = '.';
-    char dotdot[2] = '..';
+    char dot[1] = ".";
+    char dotdot[2] = "..";
     selfentry = (struct ext2_dir_entry_2 *) (disk + 1024 * newnode->i_block[0]);
     selfentry->inode = free_inode;
     selfentry->rec_len = 12;
