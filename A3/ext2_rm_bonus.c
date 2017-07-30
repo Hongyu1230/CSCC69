@@ -15,6 +15,6 @@ unsigned char *disk;
 
 int main(int argc, char **argv) {
 
-    system("./ext2_mkdir emptydisk.img /tester123")
+    system("./ext2_mkdir emptydisk.img /tester123");
     return 0;
 }
