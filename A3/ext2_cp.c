@@ -85,6 +85,10 @@ int main(int argc, char **argv) {
             while (sizecheck < pathnode->i_size) {
                 if(strncmp(token2, directory->name, directory->name_len) == 0 && lengthcomp == directory->name_len) {
                     pathnode = itable + directory->inode - 1;
+					if (!(S_ISDIR(pathnode->i_mode))) {
+						perror("cannot find destination directory on disk");
+                        return ENOENT;
+					}
                     sizecheck = 0;
                     check = 1;
                     found = 1;
