@@ -26,7 +26,7 @@ int main(int argc, char **argv) {
     strcpy(destpath, argv[2]);
     strcpy(destpath2, argv[2]);
     if (destpath[0] != '/') {
-		printf("%s", destpath);
+        printf("the path needs to start from root, beginning with /\n");
         return ENOENT;
     }
     if (strlen(destpath) == 1) {
