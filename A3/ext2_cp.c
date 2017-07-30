@@ -98,6 +98,9 @@ int main(int argc, char **argv) {
                     token2 = strtok(NULL, delimiter);
                     break;
                 } else {
+					if (directorycheck->rec_len == 0) {
+                        break;
+                    }
                     sizecheck += directory->rec_len;
                     directory = (void *) directory + directory->rec_len;
                 }
@@ -129,6 +132,9 @@ int main(int argc, char **argv) {
                 printf("a file or directory with the name already exists\n");
                 return EEXIST;
             } else {
+                if (directorycheck->rec_len == 0) {
+                    break;
+                }
                 sizecheck += directorycheck->rec_len;
                 directorycheck = (void *) directorycheck + directorycheck->rec_len;
             }
