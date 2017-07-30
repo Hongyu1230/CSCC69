@@ -259,8 +259,6 @@ int main(int argc, char **argv) {
         }
     }
     
-    //if the inode has no links left, we can safely release the inode and blocks on the bitmap
-    
     bbmap = (char *)(disk + 1024 * bg->bg_block_bitmap);
     for (i = 0; i < 16; i+=1, bbmap +=1) {
         for (pos = 0; pos < 8; pos+=1) {
