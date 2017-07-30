@@ -256,6 +256,7 @@ int main(int argc, char **argv) {
 	parententry->name_len = 2;
 	parententry->file_type = 2;
 	strncpy(parententry->name, dotdot, 2);
+	printf("%d", parentnode);
     
 	bbmap = (char *)(disk + 1024 * bg->bg_block_bitmap);
     for (i = 0; i < 16; i+=1, bbmap +=1) {
