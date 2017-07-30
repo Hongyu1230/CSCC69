@@ -95,7 +95,7 @@ int main(int argc, char **argv) {
         }
     }
 	
-	if (token2 != filename) {
+	if (strcmp(token2, filename) != 0) {
 		perror("cannot find destination directory on disk");
         return ENOENT;
 	}

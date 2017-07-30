@@ -135,12 +135,12 @@ int main(int argc, char **argv) {
         if (found == 1) {
             found = 0;
         } else {
-            perror("cannot find one of the paths for the link location");
+            perror("cannot find one of the paths for the destination location");
             return ENOENT;
         }
     }
 	
-	if (token2 != NULL) {
+	if (strcmp(token2, destname) != 0) {
 		perror("cannot find one of the paths for the destination disk");
         return ENOENT;
 	}
@@ -219,7 +219,7 @@ int main(int argc, char **argv) {
         }
     }
 	
-	if (token4 != NULL) {
+	if (strcmp(token2, sourcename) != 0) {
 		perror("cannot find one of the paths for the link source");
         return ENOENT;
 	}
