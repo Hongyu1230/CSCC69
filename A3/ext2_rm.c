@@ -177,6 +177,7 @@ int main(int argc, char **argv) {
 		int *indirectionblock = (void *) (disk + 1024 * deletionnode->i_block[12]);
 		int indirectionfreed = 0;
 		while (indirectionblock[indirectionfreed] != 0) {
+			printf("%d", indirectionblock[indirectionfreed]);
 			if (indirectionblock[indirectionfreed] > 128){
 				break;
 			}
