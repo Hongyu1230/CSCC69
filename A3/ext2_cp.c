@@ -179,7 +179,6 @@ int main(int argc, char **argv) {
                 blockused +=1;
                 newnode->i_block[i] = j + 1;
                 memcpy(disk + 1024 * (j + 1), src + 1024*i, 1024);
-				printf("%d,%d\n", i, j+1);
                 break;
             }
         }
@@ -208,7 +207,6 @@ int main(int argc, char **argv) {
             }
         }
         for (n = 0; n < blockneeded - 12; n+=1) {
-			printf("%d,%d\n", n, indirectionblock[n]);
             memcpy(disk + 1024 * indirectionblock[n], src + 1024*(n+12), 1024);
         }
     }
