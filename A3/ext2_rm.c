@@ -178,8 +178,7 @@ int main(int argc, char **argv) {
 		int indirectionfreed = 0;
 		while (indirectionblock[indirectionfreed] != 0) {
 			blockfreed += 1;
-			printf("indirection freed:%d\n", deletionnode->i_block[indirectionfreed] - 1);
-		    block_bitmap[deletionnode->i_block[indirectionfreed] - 1] = 0;
+		    block_bitmap[indirectionblock[indirectionfreed] - 1] = 0;
 			indirectionfreed += 1;
 		}
 	}
@@ -222,7 +221,6 @@ int main(int argc, char **argv) {
             for (pos = 0; pos < 8; pos+=1) {
                 if (block_bitmap[(8 * i) + pos] == 0) {
                     *bbmap &= ~(int) pow(2,pos);
-					printf("%d\n", (8 * i) + pos);
                 }
             }
         }   
