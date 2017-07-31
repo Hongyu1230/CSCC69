@@ -1,0 +1,20 @@
+make
+./ext2_rm hardlink.img /bfile-ln
+./ext2_rm hardlink.img /tester
+./ext2_rm hardlink.img /level1/bfile
+./ext2_rm hardlink.img /level1/tester
+./ext2_rm largefile.img /largefile.txt
+./ext2_rm largefile.img /tester
+./ext2_rm onedirectory.img /tester
+./ext2_rm onedirectory.img /level1/bfile
+./ext2_rm onedirectory.img /level1/tester
+./ext2_rm onefile.img /afile
+./ext2_rm onefile.img /tester
+./ext2_rm twolevel.img /afile
+./ext2_rm twolevel.img /tester
+./ext2_rm twolevel.img /level1/level2/bfile
+./ext2_rm twolevel.img /level1/tester
+./ext2_rm twolevel.img /level1/level2/tester
+./ext2_rm emptydisk.img /tester
+./ext2_rm deleteddirectory.img /tester
+./ext2_rm deletedfile.img /tester
