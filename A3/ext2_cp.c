@@ -132,7 +132,7 @@ int main(int argc, char **argv) {
             }
         }
     }
-    
+    printf("hello\n");
     int inode_bitmap[32];
     char *ibmap = (char *)(disk + 1024 * bg->bg_inode_bitmap);
     int i, pos;
@@ -221,7 +221,6 @@ int main(int argc, char **argv) {
     int spaceold, oldsize, unusedblock;
     check = 0;
     //add our directory to a used block if we can find one
-	printf("hello\n");
     for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
         if (pathnode->i_block[blockpointer] == 0){
             unusedblock = blockpointer;
