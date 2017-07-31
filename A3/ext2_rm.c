@@ -202,7 +202,7 @@ int main(int argc, char **argv) {
             break;
         }
     }
-    
+    printf("%d\n", deletionnode->i_links_count);
     //if the inode has no links left, we can safely release the inode and blocks on the bitmap
     if (deletionnode->i_links_count == 0) {
         bbmap = (char *)(disk + 1024 * bg->bg_block_bitmap);
