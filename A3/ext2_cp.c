@@ -113,7 +113,6 @@ int main(int argc, char **argv) {
             return ENOENT;
         }
     }
-    printf("hello\n");
     //make sure there are no other files with the same name in our destination
     struct ext2_dir_entry_2 *directorycheck;
     for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
@@ -222,6 +221,7 @@ int main(int argc, char **argv) {
     int spaceold, oldsize, unusedblock;
     check = 0;
     //add our directory to a used block if we can find one
+	printf("hello\n");
     for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
         if (pathnode->i_block[blockpointer] == 0){
             unusedblock = blockpointer;
