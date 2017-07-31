@@ -42,7 +42,8 @@ int main(int argc, char **argv) {
     }
 
     //parses path argument
-    int i, store;
+    int i = 0;
+	int store = 0;
     int depth = 0;
     char path[strlen(argv[2+a])+1];
     strcpy(path, argv[2+a]);
@@ -67,9 +68,9 @@ int main(int argc, char **argv) {
     struct ext2_inode *pathnode = itable + 1;
     
     int level = 1; //the depth level of branching inodes we're at
-    int length; //keeps track cumulative directory length from start
+    int length = 0; //keeps track cumulative directory length from start
     int invalid = 0; // 1 if any segment of path wrong
-    int lvl_clear; //1 if matching segment found
+    int lvl_clear = 0; //1 if matching segment found
     int discovered = 0;
 
     while (level <= depth && S_ISDIR(pathnode->i_mode)) {
