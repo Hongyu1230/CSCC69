@@ -221,7 +221,7 @@ int main(int argc, char **argv) {
             for (pos = 0; pos < 8; pos+=1) {
                 if (block_bitmap[(8 * i) + pos] == 0) {
                     *bbmap &= ~(int) pow(2,pos);
-					printf("%d\n", (8 * i) + pos)
+					printf("%d\n", (8 * i) + pos);
                 }
             }
         }   
