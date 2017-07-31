@@ -251,6 +251,9 @@ int main(int argc, char **argv) {
                 strncpy(newentry->name, sourcename, lengthcomp);
                 break;
             } else {
+				if (oldentry->rec_len == 0) {
+					break;
+				}
                 oldentry = (void *) oldentry + oldentry->rec_len;
             }
         }
