@@ -389,7 +389,7 @@ int main(int argc, char **argv) {
 			}
         }
     }
-    printf("%d,%d,%d\n" sb->s_free_blocks_count, blockused, freeamount);	
+    printf("%d,%d,%d\n", sb->s_free_blocks_count, blockused, freeamount);	
     ibmap = (char *)(disk + 1024 * bg->bg_inode_bitmap);
     for (i = 0; i < 4; i+=1, ibmap +=1) {
         for (pos = 0; pos < 8; pos+=1) {
