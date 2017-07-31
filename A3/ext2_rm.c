@@ -212,7 +212,7 @@ int main(int argc, char **argv) {
                 if (block_bitmap[(8 * i) + pos] == 1) {
                     *bbmap |= (int) pow(2,pos);
                 } else {
-					blockfree += 1
+					blockfree += 1;
 				}
             }
         }
