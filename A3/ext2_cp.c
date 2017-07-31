@@ -206,7 +206,7 @@ int main(int argc, char **argv) {
             }
         }
         for (n = 0; n < blockneeded - 12; n+=1) {
-			printf("%d\n", indirectionblock[n]);
+			printf("%d,%d\n", n, indirectionblock[n]);
             memcpy(disk + 1024 * indirectionblock[n], src + 1024*(n+12), 1024);
         }
     }
