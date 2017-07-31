@@ -132,7 +132,6 @@ int main(int argc, char **argv) {
             }
         }
     }
-    printf("hello\n");
     int inode_bitmap[32];
     char *ibmap = (char *)(disk + 1024 * bg->bg_inode_bitmap);
     int i, pos;
@@ -186,6 +185,7 @@ int main(int argc, char **argv) {
     int n;
     int *indirectionblock;
     //find a indirection block and allocate blocks to that and copy the rest of the data into it
+	printf("hello\n");
     if (blockneeded > 12) {
         for (j = 0; j < 128; j +=1){
             if (block_bitmap[j] == 0) {
