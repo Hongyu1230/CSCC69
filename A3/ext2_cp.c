@@ -185,6 +185,7 @@ int main(int argc, char **argv) {
     int n;
     int *indirectionblock;
     //find a indirection block and allocate blocks to that and copy the rest of the data into it
+	printf("%d\n", free_inode);
     if (blockneeded > 12) {
         for (j = 0; j < 128; j +=1){
             if (block_bitmap[j] == 0) {
@@ -209,7 +210,6 @@ int main(int argc, char **argv) {
             memcpy(disk + 1024 * indirectionblock[n], src + 1024*(n+12), 1024);
         }
     }
-	printf("%d\n", free_inode);
     newnode->i_mode = EXT2_S_IFREG | S_IRWXO;
     newnode->i_size = filesize;
     newnode->i_blocks = blockneeded * 2;
