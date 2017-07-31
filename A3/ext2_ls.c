@@ -139,12 +139,13 @@ int main(int argc, char **argv) {
 			while (length < pathnode->i_size){	
 				dir_entry = (struct ext2_dir_entry_2 *) (disk + ((1024 * (pathnode->i_block[store]))+length));
 
-				if (a == 1) {
+				if (a == 1 && dir_entry->inode != 0) {
 					printf("%.*s\n", dir_entry->name_len, dir_entry->name);
 				}
 				
 				//print . and .. entries if a flag specified
-				else if (strcmp(dir_entry->name, ".") != 0 && strcmp(dir_entry->name, "..") != 0) {
+				else if (strcmp(dir_entry->name, ".") != 0 && strcmp(dir_entry->name, "..") != 0
+				&& dir_entry->inode != 0) {
 					printf("%.*s\n", dir_entry->name_len, dir_entry->name);		
 				} 
 
