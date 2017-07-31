@@ -14,7 +14,7 @@ unsigned char *disk;
 
 
 int main(int argc, char **argv) {
-
+	printf("hello\n")
     if(argc != 4) {
         fprintf(stderr, "Usage: ext2_cp <image file name> <SOURCE> <DEST>\n");
         exit(1);
