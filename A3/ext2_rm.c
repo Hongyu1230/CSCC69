@@ -170,6 +170,18 @@ int main(int argc, char **argv) {
             block_bitmap[deletionnode->i_block[i] - 1] = 0;
         }   
     }
+	//handling indirection
+	if (deletionnode->i_block[12] != 0) {
+		blockfreed += 1;
+		block_bitmap[deletionnode->i_block[12] - 1] = 0;
+		int *indirectionblock = (void *) (disk + 1024 * deletionnode->i_block[12]);
+		int indirectionfreed = 0;
+		while (indirectionblock[indirectionfreed] != 0) {
+			blockfreed += 1;
+		    block_bitmap[deletionnode->i_block[indirectionfreed] - 1] = 0;
+			indirectionfreed += 1;
+		}
+	}
     inode_bitmap[deletiondirectory->inode - 1] = 0;
     struct ext2_dir_entry_2 *oldentry;
     int oldsize, oldlen;
@@ -208,7 +220,6 @@ int main(int argc, char **argv) {
         for (i = 0; i < 16; i+=1, bbmap +=1) {
             for (pos = 0; pos < 8; pos+=1) {
                 if (block_bitmap[(8 * i) + pos] == 0) {
-					printf("%d\n", (8 * i) + pos);
                     *bbmap &= ~(int) pow(2,pos);
                 }
             }
