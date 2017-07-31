@@ -185,7 +185,6 @@ int main(int argc, char **argv) {
     int n;
     int *indirectionblock;
     //find a indirection block and allocate blocks to that and copy the rest of the data into it
-	printf("%d\n", free_inode);
     if (blockneeded > 12) {
         for (j = 0; j < 128; j +=1){
             if (block_bitmap[j] == 0) {
@@ -206,6 +205,7 @@ int main(int argc, char **argv) {
                 }
             }
         }
+		printf("%d\n", free_inode);
         for (n = 0; n < blockneeded - 12; n+=1) {
             memcpy(disk + 1024 * indirectionblock[n], src + 1024*(n+12), 1024);
         }
