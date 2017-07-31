@@ -93,7 +93,7 @@ int main(int argc, char **argv) {
         if (found == 1) {
             found = 0;
         } else {
-            printf("cannot one of the files on the file path\n");
+            printf("cannot find one of the files on the file path\n");
             return ENOENT;
         }
     }
@@ -187,7 +187,7 @@ int main(int argc, char **argv) {
 	}
     inode_bitmap[deletiondirectory->inode - 1] = 0;
     struct ext2_dir_entry_2 *oldentry;
-    int oldsize, oldlen;
+    int oldlen;
     check = 0;
     //removing the file from the parent
     for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
