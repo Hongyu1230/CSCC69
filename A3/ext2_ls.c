@@ -43,7 +43,7 @@ int main(int argc, char **argv) {
 
     //parses path argument
     int i = 0;
-	int store = 0;
+    int store = 0;
     int depth = 0;
     char path[strlen(argv[2+a])+1];
     strcpy(path, argv[2+a]);
