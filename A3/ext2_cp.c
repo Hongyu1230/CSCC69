@@ -14,7 +14,6 @@ unsigned char *disk;
 
 
 int main(int argc, char **argv) {
-	printf("hello\n");
     if(argc != 4) {
         fprintf(stderr, "Usage: ext2_cp <image file name> <SOURCE> <DEST>\n");
         exit(1);
@@ -114,7 +113,7 @@ int main(int argc, char **argv) {
             return ENOENT;
         }
     }
-    
+    printf("hello\n");
     //make sure there are no other files with the same name in our destination
     struct ext2_dir_entry_2 *directorycheck;
     for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
