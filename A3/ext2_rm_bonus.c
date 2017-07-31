@@ -264,6 +264,8 @@ int main(int argc, char **argv) {
         for (pos = 0; pos < 8; pos+=1) {
             if (block_bitmap[(8 * i) + pos] == 1) {
                 *bbmap |= (int) pow(2,pos);
+             } else {
+                *bbmap &= (int) ~pow(2,pos);
              }
         }
     }   
@@ -272,6 +274,8 @@ int main(int argc, char **argv) {
         for (pos = 0; pos < 8; pos+=1) {
             if (inode_bitmap[(8 * i) + pos] == 1) {
                 *ibmap |= (int) pow(2,pos);
+            } else {
+                *ibmap &= (int) ~pow(2,pos);
             }
         }
     }

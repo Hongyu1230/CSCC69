@@ -62,7 +62,7 @@ int main(int argc, char **argv) {
         startpoint +=1;
         lengthcomp = strlen(token2);
         for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
-			if (pathnode->i_block[blockpointer] == 0){
+            if (pathnode->i_block[blockpointer] == 0){
                 printf("cannot find one of the files on the file path\n");
                 return ENOENT;
             }
@@ -104,7 +104,7 @@ int main(int argc, char **argv) {
     struct ext2_dir_entry_2 *deletiondirectory;
     //make sure the file at the location is not a directory
     for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
-		if (pathnode->i_block[blockpointer] == 0){
+        if (pathnode->i_block[blockpointer] == 0){
             break;
         }
         lengthcomp = strlen(filename);
@@ -205,23 +205,23 @@ int main(int argc, char **argv) {
     
     //if the inode has no links left, we can safely release the inode and blocks on the bitmap
     if (deletionnode->i_links_count == 0) {
-		int blockfree = 0;
         bbmap = (char *)(disk + 1024 * bg->bg_block_bitmap);
         for (i = 0; i < 16; i+=1, bbmap +=1) {
             for (pos = 0; pos < 8; pos+=1) {
                 if (block_bitmap[(8 * i) + pos] == 1) {
                     *bbmap |= (int) pow(2,pos);
                 } else {
-					blockfree += 1;
-				}
+                    *bbmap &= (int) ~pow(2,pos);
+                }
             }
-        }
-		printf("%d,%d,%d\n", sb->s_free_blocks_count, blockfreed, blockfree);
+        }   
         ibmap = (char *)(disk + 1024 * bg->bg_inode_bitmap);
         for (i = 0; i < 4; i+=1, ibmap +=1) {
             for (pos = 0; pos < 8; pos+=1) {
                 if (inode_bitmap[(8 * i) + pos] == 1) {
                     *ibmap |= (int) pow(2,pos);
+                } else {
+                    *ibmap &= (int) ~pow(2,pos);
                 }
             }
         }
