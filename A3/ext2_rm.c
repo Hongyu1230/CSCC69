@@ -177,6 +177,7 @@ int main(int argc, char **argv) {
 		int *indirectionblock = (void *) (disk + 1024 * deletionnode->i_block[12]);
 		int indirectionfreed = 0;
 		while (indirectionblock[indirectionfreed] != 0) {
+			print("indirectionblock: %d\n", indirectionblock[indirectionfreed])
 			blockfreed += 1;
 		    block_bitmap[deletionnode->i_block[indirectionfreed] - 1] = 0;
 			indirectionfreed += 1;
