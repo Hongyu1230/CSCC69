@@ -177,7 +177,6 @@ int main(int argc, char **argv) {
 		int *indirectionblock = (void *) (disk + 1024 * deletionnode->i_block[12]);
 		int indirectionfreed = 0;
 		while (indirectionblock[indirectionfreed] != 0) {
-			printf("indirectionblock: %d\n", indirectionblock[indirectionfreed]);
 			blockfreed += 1;
 		    block_bitmap[deletionnode->i_block[indirectionfreed] - 1] = 0;
 			indirectionfreed += 1;
@@ -222,6 +221,7 @@ int main(int argc, char **argv) {
             for (pos = 0; pos < 8; pos+=1) {
                 if (block_bitmap[(8 * i) + pos] == 0) {
                     *bbmap &= ~(int) pow(2,pos);
+					printf("%d\n", (8 * i) + pos)
                 }
             }
         }   
