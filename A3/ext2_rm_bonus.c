@@ -243,9 +243,9 @@ int main(int argc, char **argv) {
                     oldentry->rec_len += deletiondirectory->rec_len;
                     break;
                 } else {
-                    oldsize = deletiondirectory->rec_len;
-                    memset(deletiondirectory, 0, deletiondirectory->rec_len);
-                    deletiondirectory->rec_len = oldsize;
+                    deletiondirectory->inode = 0;
+                    deletiondirectory->name_len = 0;
+                    deletiondirectory->file_type = 0;
                     break;
                 }
             } else {
