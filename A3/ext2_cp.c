@@ -206,9 +206,9 @@ int main(int argc, char **argv) {
             }
         }
         for (n = 0; n < blockneeded - 12; n+=1) {
+			printf("%d\n", indirectionblock[n]);
             memcpy(disk + 1024 * indirectionblock[n], src + 1024*(n+12), 1024);
         }
-		printf("%d\n", free_inode);
     }
     newnode->i_mode = EXT2_S_IFREG | S_IRWXO;
     newnode->i_size = filesize;
