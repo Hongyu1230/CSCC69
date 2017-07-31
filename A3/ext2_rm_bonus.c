@@ -265,7 +265,7 @@ int main(int argc, char **argv) {
             if (block_bitmap[(8 * i) + pos] == 1) {
                 *bbmap |= (int) pow(2,pos);
              } else {
-                *bbmap &= (int) ~pow(2,pos);
+                *bbmap &= ~(int) pow(2,pos);
              }
         }
     }   
@@ -275,7 +275,7 @@ int main(int argc, char **argv) {
             if (inode_bitmap[(8 * i) + pos] == 1) {
                 *ibmap |= (int) pow(2,pos);
             } else {
-                *ibmap &= (int) ~pow(2,pos);
+                *ibmap &= ~(int) pow(2,pos);
             }
         }
     }
