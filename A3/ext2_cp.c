@@ -68,7 +68,7 @@ int main(int argc, char **argv) {
         printf("not enough space for the new file\n");
         return ENOSPC;
     }
-	printf("the free blocks is: %d\n", sb->s_free_blocks_count)
+	printf("the free blocks is: %d\n", sb->s_free_blocks_count);
     struct ext2_group_desc *bg = (struct ext2_group_desc *)(disk + 2048);
     struct ext2_inode *itable = (struct ext2_inode *)(disk + 1024 * bg->bg_inode_table);
     struct ext2_inode *pathnode = itable + 1;
