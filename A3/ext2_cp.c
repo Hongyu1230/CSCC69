@@ -201,6 +201,7 @@ int main(int argc, char **argv) {
                     block_bitmap[m] = 1;
                     blockused +=1;
                     indirectionblock[i] = m + 1;
+					printf("%d\n", m + 1);
                     break;
                 }
             }
