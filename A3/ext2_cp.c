@@ -78,7 +78,7 @@ int main(int argc, char **argv) {
     while (token2 != NULL) {
         lengthcomp = strlen(token2);
         for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
-			if (pathnode->i_block[blockpointer] == 0){
+            if (pathnode->i_block[blockpointer] == 0){
                 printf("cannot find destination directory on disk\n");
                 return ENOENT;
             }
@@ -116,7 +116,7 @@ int main(int argc, char **argv) {
     //make sure there are no other files with the same name in our destination
     struct ext2_dir_entry_2 *directorycheck;
     for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
-		if (pathnode->i_block[blockpointer] == 0){
+        if (pathnode->i_block[blockpointer] == 0){
             break;
         }
         lengthcomp = strlen(sourcename);

@@ -72,7 +72,7 @@ int main(int argc, char **argv) {
         startingpoint += 1;
         lengthcomp = strlen(token2);
         for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
-			if (pathnode->i_block[blockpointer] == 0){
+            if (pathnode->i_block[blockpointer] == 0){
                 printf("cannot find destination directory on disk\n");
                 return ENOENT;
             }
@@ -117,7 +117,7 @@ int main(int argc, char **argv) {
     //make sure we don't have another file with the same name in the parent directory
     struct ext2_dir_entry_2 *directorycheck;
     for (blockpointer = 0; blockpointer < 12; blockpointer+=1) {
-		if (pathnode->i_block[blockpointer] == 0){
+        if (pathnode->i_block[blockpointer] == 0){
             break;
         }
         lengthcomp = strlen(filename);
