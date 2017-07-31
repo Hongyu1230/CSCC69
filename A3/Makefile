@@ -1,3 +1,5 @@
+all: ls cp mkdir ln rm rmb
+
 ls : ext2_ls.c
 	gcc -Wall -g -o ext2_ls $^ -lm
 	
@@ -5,7 +7,7 @@ cp : ext2_cp.c
 	gcc -Wall -g -o ext2_cp $^ -lm
 	
 mkdir : ext2_mkdir.c
-	gcc -Wall -g -o ext2_mkdir $^
+	gcc -Wall -g -o ext2_mkdir $^ -lm
 	
 ln : ext2_ln.c
 	gcc -Wall -g -o ext2_ln $^ -lm
