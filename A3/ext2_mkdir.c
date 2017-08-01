@@ -78,7 +78,7 @@ int main(int argc, char **argv) {
             }
             directory = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
             sizecheck = 0;
-            while (sizecheck < pathnode->i_size) {
+            while (sizecheck < 1024) {
                 if(strncmp(token2, directory->name, directory->name_len) == 0 && lengthcomp == directory->name_len) {
                     pathnode = itable + directory->inode - 1;
                     parentnode = directory->inode;
@@ -123,7 +123,7 @@ int main(int argc, char **argv) {
         lengthcomp = strlen(filename);
         directorycheck = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
         sizecheck = 0;
-        while (sizecheck < pathnode->i_size) {
+        while (sizecheck < 1024) {
             if(strncmp(filename, directorycheck->name, directorycheck->name_len) == 0 && lengthcomp == directorycheck->name_len) {
                 printf("a file or directory with the name already exists\n");
                 return EEXIST;

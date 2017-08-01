@@ -83,7 +83,7 @@ int main(int argc, char **argv) {
             invalid = 1; //won't switch off unless we find a matching level entry in enode
 
             //while we are still within the node's boundaries and haven't found a segment
-            while (length < pathnode->i_size && lvl_clear == 0){
+            while (length < 1024 && lvl_clear == 0){
                 dir_entry = (struct ext2_dir_entry_2 *) (disk + ((1024 * (pathnode->i_block[i]))+length));
                 length += dir_entry->rec_len;
                 
@@ -136,7 +136,7 @@ int main(int argc, char **argv) {
             length = 0;
 
             //print all contents for directory inode
-            while (length < pathnode->i_size){  
+            while (length < 1024){  
                 dir_entry = (struct ext2_dir_entry_2 *) (disk + ((1024 * (pathnode->i_block[store]))+length));
 
                 if (a == 1 && dir_entry->inode != 0) {

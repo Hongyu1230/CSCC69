@@ -114,7 +114,7 @@ int main(int argc, char **argv) {
             }
             directory = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
             sizecheck = 0;
-            while (sizecheck < pathnode->i_size) {
+            while (sizecheck < 1024) {
                 if(strncmp(token2, directory->name, directory->name_len) == 0 && lengthcomp == directory->name_len) {
                     pathnode = itable + directory->inode - 1;
                     if (!(S_ISDIR(pathnode->i_mode))) {
@@ -154,7 +154,7 @@ int main(int argc, char **argv) {
         lengthcomp = strlen(destname);
         directorycheck = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
         sizecheck = 0;
-        while (sizecheck < pathnode->i_size) {
+        while (sizecheck < 1024) {
             if(strncmp(destname, directorycheck->name, directorycheck->name_len) == 0 && lengthcomp == directorycheck->name_len) {
                 if (directorycheck->file_type == 2) {
                     printf("the destination path is already a directory\n");
@@ -188,7 +188,7 @@ int main(int argc, char **argv) {
             }
             directory = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
             sizecheck = 0;
-            while (sizecheck < pathnode->i_size) {
+            while (sizecheck < 1024) {
                 if(strncmp(token4, directory->name, directory->name_len) == 0 && lengthcomps == directory->name_len) {
                     pathnode = itable + directory->inode - 1;
                     if (!(S_ISDIR(pathnode->i_mode))) {
@@ -226,7 +226,7 @@ int main(int argc, char **argv) {
         lengthcomps = strlen(sourcename);
         directorycheck = (struct ext2_dir_entry_2 *)(disk + 1024 * pathnode->i_block[blockpointer]);
         sizecheck = 0;
-        while (sizecheck < pathnode->i_size) {
+        while (sizecheck < 1024) {
             if(strncmp(sourcename, directorycheck->name, directorycheck->name_len) == 0 && lengthcomps == directorycheck->name_len) {
                 if (directorycheck->file_type == 2 && s == 0) {
                     printf("the source file is a directory\n");
